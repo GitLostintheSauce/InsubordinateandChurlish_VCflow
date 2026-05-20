@@ -24,20 +24,20 @@ AI · Fintech · Climate · Defense & Space · Web3 · Biotech
 
 ---
 
-## 2. Source strategy — ONE provider: CB Insights
+## 2. Source strategy — one consistent source per sector
 
-The whole point is consistency. Target **a single provider for all 6 sectors: CB Insights**, using its annual **"State of [Sector]" recap PDFs** (each holds the four quarterly figures under one methodology). Every sector then compares cleanly to every other.
+The whole point is consistency: **each sector's 16-quarter line uses ONE source the whole way.** Use CB Insights where it publishes freely; switch to the best consistent alternative where it doesn't (as Web3 did → Galaxy).
 
-| Sector | CB Insights report |
-|---|---|
-| AI | State of AI |
-| Fintech | State of Fintech |
-| Climate | State of Climate Tech |
-| Defense & Space | (least consistently covered — possible labeled fallback) |
-| Web3 | State of Blockchain |
-| Biotech | State of Digital Health / Healthcare |
+| Sector | Source | Note |
+|---|---|---|
+| Web3 | **Galaxy Digital** *Crypto & Blockchain VC* (quarterly) | ✅ done — CB Insights only free through 2022 |
+| AI | CB Insights *State of AI* | verify 2023–25 are free |
+| Fintech | CB Insights *State of Fintech* | |
+| Climate | CB Insights *State of Climate Tech* | |
+| Biotech | CB Insights *State of Digital Health* | |
+| Defense & Space | TBD — least covered | likely fallback / `estimated` |
 
-*(These PDFs often surface on third-party sites even when the CB Insights platform is paywalled.)*
+*(CB Insights PDFs often surface on third-party sites even when the platform is paywalled — but appear to stop after 2022.)*
 
 **Hard rules:**
 1. **One source per sector, across all 16 quarters.** Mixing sources *within* a sector's time series fakes the trend (different firms count deals differently — Crunchbase "crypto" came in ~half of CB Insights "blockchain"). Non-negotiable.
@@ -81,13 +81,12 @@ For each: total deal value (USD billions) and deal count.
 Cite the specific CB Insights report/section and link for each sector.
 ```
 
-### Template C — CB Insights State of Blockchain, Web3 for a full year
+### Template C — Galaxy Digital, Web3 for a full year (Web3 DONE; kept as the crypto pattern)
 ```
 [paste RULES block]
 
-From the CB Insights "State of Blockchain — Global [YEAR] Recap" report, give me the quarterly blockchain/crypto venture funding for [YEAR]: Q1, Q2, Q3, Q4.
-For each quarter: total deal value (USD billions) and deal count, plus the full-year total.
-Cite the specific CB Insights report and a link to the PDF.
+From Galaxy Digital's "Crypto & Blockchain Venture Capital" quarterly reports for [YEAR], give me Q1-Q4 deal value (USD billions) and deal count, plus the full-year total.
+Read figures directly from each quarter's report — do NOT derive from other quarters. Cite each with a galaxy.com link.
 ```
 
 ### Template D — get a missing citation link (upgrade a provisional cell)
@@ -124,17 +123,19 @@ Paste the model's **raw reply** (links and all) into the Claude Code session —
 
 ## 8. Progress tracker (update as cells fill)
 
-**Web3 (CB Insights State of Blockchain):** 4/16
+**Web3 (Galaxy Digital):** ✅ 16/16
 ```
-2022:  Q1 10.8  Q2 7.6   Q3 5.1   Q4 3.2      ✅ from State of Blockchain 2022 Recap
-2023:  Q1 —     Q2 —     Q3 —     Q4 —         (need State of Blockchain 2023)
-2024:  Q1 —     Q2 —     Q3 —     Q4 —         (need State of Blockchain 2024)
-2025:  Q1 —     Q2 —     Q3 —     Q4 —         (need State of Blockchain 2025)
+2022:  Q1 14.2  Q2 10.0  Q3 5.5   Q4 3.5*
+2023:  Q1 2.4   Q2 1.9*  Q3 3.8   Q4 1.93
+2024:  Q1 2.49  Q2 3.19  Q3 2.4   Q4 3.5
+2025:  Q1 4.9   Q2 1.97  Q3 4.65  Q4 8.5
+   * = estimated/derived (2022 Q4, 2023 Q2); full provenance in data/web3_galaxy_provenance.csv
 ```
 
-**AI, Fintech, Climate, Defense & Space, Biotech (CB Insights):** 0/80 — not started.
+**AI, Fintech, Climate, Defense & Space, Biotech:** 0/80 — not started. **AI is next.**
 
 **Known gaps / risks:**
-- Web3 switched from Crunchbase to CB Insights (single-provider consistency). The old Crunchbase Q1 2025 ($3.8B) was removed — re-pull from State of Blockchain 2025.
-- Defense & Space is least likely to be broken out by CB Insights — expect a labeled fallback source or `estimated` cells here.
+- 2 Web3 cells derived (2022 Q4, 2023 Q2) — marked `estimated`; close by pulling the primary Galaxy Q4 2022 / Q2 2023 PDFs.
+- CB Insights free sector PDFs appear to stop after 2022 — the other 5 sectors may each need a Galaxy-style source switch for 2023–25. Decide per sector.
+- Defense & Space least covered — expect a labeled fallback or `estimated` cells.
 - Deal counts come back patchy (sources lead with $). Value is primary; leave counts blank rather than guess.

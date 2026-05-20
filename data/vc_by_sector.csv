@@ -3,95 +3,95 @@ year,quarter,sector,deal_value_usd_b,deal_count,source,note
 2022,1,Fintech,,,TODO,
 2022,1,Climate,,,TODO,
 2022,1,Defense & Space,,,TODO,
-2022,1,Web3,10.8,546,CBI-Blockchain-2022,From CB Insights State of Blockchain Global 2022 Recap — annual PDF with quarterly breakdown
+2022,1,Web3,14.2,1119,Galaxy-CryptoVC,Revised via Galaxy Q4 2023 lookback (contemporaneous ~13B); all-time peak quarter
 2022,1,Biotech,,,TODO,
 2022,2,AI,,,TODO,
 2022,2,Fintech,,,TODO,
 2022,2,Climate,,,TODO,
 2022,2,Defense & Space,,,TODO,
-2022,2,Web3,7.6,509,CBI-Blockchain-2022,From CB Insights State of Blockchain Global 2022 Recap
+2022,2,Web3,10.0,775,Galaxy-CryptoVC,Revised via Galaxy Q2 2024 lookback (contemporaneous ~8B); 775 deals = record
 2022,2,Biotech,,,TODO,
 2022,3,AI,,,TODO,
 2022,3,Fintech,,,TODO,
 2022,3,Climate,,,TODO,
 2022,3,Defense & Space,,,TODO,
-2022,3,Web3,5.1,448,CBI-Blockchain-2022,From CB Insights State of Blockchain Global 2022 Recap
+2022,3,Web3,5.5,518,Galaxy-CryptoVC,Contemporaneous Galaxy Q3 2022; >5.5B is a floor
 2022,3,Biotech,,,TODO,
 2022,4,AI,,,TODO,
 2022,4,Fintech,,,TODO,
 2022,4,Climate,,,TODO,
 2022,4,Defense & Space,,,TODO,
-2022,4,Web3,3.2,325,CBI-Blockchain-2022,From CB Insights State of Blockchain Global 2022 Recap
+2022,4,Web3,3.5,366,estimated,Funding DERIVED (Galaxy annual ~30B minus Q1-Q3); count 366 confirmed. Note: Q1/Q2 revised but Q3/Q4 contemporaneous
 2022,4,Biotech,,,TODO,
 2023,1,AI,,,TODO,
 2023,1,Fintech,,,TODO,
 2023,1,Climate,,,TODO,
 2023,1,Defense & Space,,,TODO,
-2023,1,Web3,,,TODO,
+2023,1,Web3,2.4,439,Galaxy-CryptoVC,Contemporaneous; lowest since Q4 2020
 2023,1,Biotech,,,TODO,
 2023,2,AI,,,TODO,
 2023,2,Fintech,,,TODO,
 2023,2,Climate,,,TODO,
 2023,2,Defense & Space,,,TODO,
-2023,2,Web3,,,TODO,
+2023,2,Web3,1.9,,estimated,Funding DERIVED (2023 annual ~10B minus other quarters); deal count only known as >430 so left blank; pull Galaxy Q2 2023 PDF to confirm
 2023,2,Biotech,,,TODO,
 2023,3,AI,,,TODO,
 2023,3,Fintech,,,TODO,
 2023,3,Climate,,,TODO,
 2023,3,Defense & Space,,,TODO,
-2023,3,Web3,,,TODO,
+2023,3,Web3,3.8,430,Galaxy-CryptoVC,Revised UP from 1.9B contemporaneous via Galaxy Q4 2023 report (late-reported deals)
 2023,3,Biotech,,,TODO,
 2023,4,AI,,,TODO,
 2023,4,Fintech,,,TODO,
 2023,4,Climate,,,TODO,
 2023,4,Defense & Space,,,TODO,
-2023,4,Web3,,,TODO,
+2023,4,Web3,1.93,359,Galaxy-CryptoVC,Cited directly; market bottom
 2023,4,Biotech,,,TODO,
 2024,1,AI,,,TODO,
 2024,1,Fintech,,,TODO,
 2024,1,Climate,,,TODO,
 2024,1,Defense & Space,,,TODO,
-2024,1,Web3,,,TODO,
+2024,1,Web3,2.49,603,Galaxy-CryptoVC,+29% QoQ; first rise in 3 quarters
 2024,1,Biotech,,,TODO,
 2024,2,AI,,,TODO,
 2024,2,Fintech,,,TODO,
 2024,2,Climate,,,TODO,
 2024,2,Defense & Space,,,TODO,
-2024,2,Web3,,,TODO,
+2024,2,Web3,3.19,577,Galaxy-CryptoVC,+28% QoQ
 2024,2,Biotech,,,TODO,
 2024,3,AI,,,TODO,
 2024,3,Fintech,,,TODO,
 2024,3,Climate,,,TODO,
 2024,3,Defense & Space,,,TODO,
-2024,3,Web3,,,TODO,
+2024,3,Web3,2.4,478,Galaxy-CryptoVC,-20% QoQ
 2024,3,Biotech,,,TODO,
 2024,4,AI,,,TODO,
 2024,4,Fintech,,,TODO,
 2024,4,Climate,,,TODO,
 2024,4,Defense & Space,,,TODO,
-2024,4,Web3,,,TODO,
+2024,4,Web3,3.5,416,Galaxy-CryptoVC,+46% QoQ; FY2024 11.5B / 2153 deals
 2024,4,Biotech,,,TODO,
 2025,1,AI,,,TODO,
 2025,1,Fintech,,,TODO,
 2025,1,Climate,,,TODO,
 2025,1,Defense & Space,,,TODO,
-2025,1,Web3,,,TODO-CBI-Blockchain,Was Crunchbase 3.8B/220 — re-pull from CB Insights State of Blockchain 2025 for single-source consistency
+2025,1,Web3,4.9,446,Galaxy-CryptoVC,MEGA-ROUND: 2B Binance/MGX ~41% of total; underlying ~2.9B
 2025,1,Biotech,,,TODO,
 2025,2,AI,,,TODO,
 2025,2,Fintech,,,TODO,
 2025,2,Climate,,,TODO,
 2025,2,Defense & Space,,,TODO,
-2025,2,Web3,,,TODO,
+2025,2,Web3,1.97,378,Galaxy-CryptoVC,-59% QoQ but inflated by Q1 Binance outlier (underlying ~-29%)
 2025,2,Biotech,,,TODO,
 2025,3,AI,,,TODO,
 2025,3,Fintech,,,TODO,
 2025,3,Climate,,,TODO,
 2025,3,Defense & Space,,,TODO,
-2025,3,Web3,,,TODO,
+2025,3,Web3,4.65,415,Galaxy-CryptoVC,"CONCENTRATION: 7 deals ~49% of capital (Revolut 1B, Kraken 500M)"
 2025,3,Biotech,,,TODO,
 2025,4,AI,,,TODO,
 2025,4,Fintech,,,TODO,
 2025,4,Climate,,,TODO,
 2025,4,Defense & Space,,,TODO,
-2025,4,Web3,,,TODO,
+2025,4,Web3,8.5,425,Galaxy-CryptoVC,+84% QoQ; strongest since Q2 2022; US 55% of capital
 2025,4,Biotech,,,TODO,

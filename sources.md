@@ -2,41 +2,39 @@
 
 Every number in the dashboard must trace to a citation here. The `source` column of `data/vc_by_sector.csv` holds the short key; the full reference lives below.
 
-## ⭐ Source strategy (decided 2026-05-20)
+## ⭐ Source strategy (per sector — one source per sector's full 16-quarter line)
 
-**Single provider for all 6 sectors: CB Insights.** Use the annual "State of [Sector]" recap PDFs — each contains the four quarterly figures with one consistent methodology. This makes every sector directly comparable to every other.
+| Sector | Source | Status |
+|---|---|---|
+| **Web3** | **Galaxy Digital** — *Crypto & Blockchain Venture Capital* quarterly reports | ✅ complete (16/16) |
+| AI | CB Insights *State of AI* (or best consistent source) | not started |
+| Fintech | CB Insights *State of Fintech* | not started |
+| Climate | CB Insights *State of Climate Tech* | not started |
+| Biotech | CB Insights *State of Digital Health / Healthcare* | not started |
+| Defense & Space | TBD (least consistently covered) | not started |
 
-| Sector | CB Insights report series |
-|---|---|
-| AI | State of AI |
-| Fintech | State of Fintech |
-| Climate | State of Climate Tech |
-| Defense & Space | (least consistent — may need a labeled fallback) |
-| Web3 | State of Blockchain |
-| Biotech | State of Digital Health / Healthcare |
+**Rules:** one source per sector across all 16 quarters (mixing fakes the trend). Cross-sector $ levels are only loosely comparable because providers differ — trends are the honest comparison.
 
-**Consistency rule:** each sector's 16-quarter line uses ONE report series the whole way. Because every sector is CB Insights, cross-sector $ levels are comparable too.
-
-**Note on cadence:** these are *annual* recaps with quarterly breakdowns inside — not standalone quarterly reports. The 2025 recaps publish in early 2026 (now available as of this date).
+⚠️ **Watch:** CB Insights appears to have stopped publishing free annual sector PDFs after 2022. The other 5 sectors may need a different consistent source for 2023–2025 (as Web3 did → Galaxy). Decide per sector.
 
 ## Active citations
 
-- **CBI-Blockchain-2022** — CB Insights, *State of Blockchain — Global 2022 Recap* (annual PDF, quarterly breakdown). Q1 $10.8B/546, Q2 $7.6B/509, Q3 $5.1B/448, Q4 $3.2B/325; FY $26.8B/1,828. Accessed 2026-05-20. *(Add the public PDF URL here.)*
-- *(Add CBI-Blockchain-2023/2024/2025, CBI-AI-YYYY, CBI-Fintech-YYYY, etc. as pulled.)*
+- **Galaxy-CryptoVC** — Galaxy Digital, *Crypto & Blockchain Venture Capital* quarterly reports (2022–2025), https://www.galaxy.com/insights/research/ . Per-quarter URLs, secondary citations, and confirmed-vs-derived status for all 16 quarters are recorded in **`data/web3_galaxy_provenance.csv`**. 14/16 directly cited; 2 derived (see below).
+- **estimated** — used in `data/vc_by_sector.csv` for figures derived rather than directly read from a report:
+  - **Web3 2022 Q4** ($3.5B): derived from Galaxy ~$30B annual total minus Q1–Q3. Deal count (366) is confirmed.
+  - **Web3 2023 Q2** ($1.9B): derived from Galaxy ~$10B 2023 annual minus other quarters. Deal count only known as ">430" → left blank.
+  - To close these: pull the primary Galaxy Q4 2022 and Q2 2023 PDFs.
 
-## ⚠ SUPERSEDED — Crunchbase Web3 figures (kept for audit trail, NOT used)
+## ⚠ SUPERSEDED (kept for audit trail, NOT used)
 
-Web3 was briefly sourced from Crunchbase, then switched to CB Insights *State of Blockchain* for single-provider consistency. These are retained only to document the decision; they differ ~2x from CB Insights due to a narrower "crypto" vs broader "blockchain" methodology.
+Web3 was sourced first from Crunchbase, then CB Insights *State of Blockchain*, before settling on Galaxy Digital for full single-source coverage 2022–2025. Earlier figures differed due to methodology scope (Crunchbase "crypto" < Galaxy < CB Insights "blockchain").
 
-- ~~CB-News-Crypto-2022Q1-NEEDLINK~~ — Crunchbase, Q1 2022 ~$4.9B (no link; never verified).
-- ~~CB-News-Crypto-2022H1~~ — Crunchbase, Q2 2022 "more than $4.2B". https://news.crunchbase.com/fintech-ecommerce/crypto-funding-falls-h1-2022/
-- ~~CB-News-Crypto-2022Q3~~ — Crunchbase, Q3 2022 ~$3.6B / >500 deals. https://news.crunchbase.com/business/web3-funding-crypto-blockchain-a16z/
-- ~~CB-News-Crypto-2022Q4~~ — Crunchbase, Q4 2022 $2.4B. https://news.crunchbase.com/web3/startup-funding-q4-drop/
-- ~~CB-News-Crypto-2025Q1~~ — Crunchbase, Q1 2025 $3.8B / 220 deals (Binance $2B outlier). https://news.crunchbase.com/web3/crypto-blockchain-funding-q1-2025-boost-binance/
+- ~~CBI-Blockchain-2022~~ — CB Insights *State of Blockchain Global 2022 Recap*: Q1 $10.8B/546, Q2 $7.6B/509, Q3 $5.1B/448, Q4 $3.2B/325. Broader scope than Galaxy. Replaced because CB Insights doesn't cover 2023–2025 freely.
+- ~~CB-News-Crypto-*~~ — Crunchbase News crypto recaps (2022 quarters, Q1 2025). Narrower scope.
 
 ## Definitions / methodology
 
-- Sector taxonomy: matches CB Insights' breakdown (AI, fintech, healthcare, climate, etc.). Note any reclassifications here.
-- All deal values in USD billions, current-year dollars unless noted.
-- "Deal value" = total disclosed equity funding for the period, excluding debt and secondary sales (per CB Insights convention).
-- Watch the lesson learned: the same number can mean different things across firms (e.g. Crunchbase "crypto" ≈ half of CB Insights "blockchain"). Never mix providers within one sector's line.
+- All deal values in USD billions; quarterly unless a note says otherwise.
+- "Deal value" = disclosed equity VC funding for the period.
+- **Revised vs contemporaneous:** Galaxy revises quarters upward over time as late-reported deals are captured (e.g. 2023 Q3 $1.9B → $3.8B). Older quarters here use revised figures; recent quarters are contemporaneous and may rise later. Noted per-row in `note`.
+- **Lesson:** the same metric means different things across firms. Never mix providers within one sector's line.
