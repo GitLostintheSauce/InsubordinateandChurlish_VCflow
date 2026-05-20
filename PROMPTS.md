@@ -17,6 +17,20 @@ Format per entry:
 
 ---
 
+## 2026-05-20 — Phase 0: deploy + realign stack (Perplexity + Claude Code)
+
+- **Tool**: Perplexity (chart code) + Claude Code (deploy/review)
+- **Prompt**: Asked Perplexity to build a single-file HTML + D3 bar chart of VC funding 2022–2025. Used Claude Code to deploy it to GitHub Pages and flag the data.
+- **Output usable?**: Yes — Perplexity's D3 page became `index.html` and is live on Pages. Realigned project from Streamlit to vanilla HTML+D3 (Streamlit can't run on Pages). Perplexity's example funding numbers were **unverified**, so flagged on-page + per-row `source: TODO`; credited Perplexity in the footer.
+
+## 2026-05-20 — Phase 1: data model + start sourcing (Claude Code + Perplexity)
+
+- **Tool**: Claude Code (data model) + Perplexity (sourcing — in progress)
+- **Prompt**: Built `data/vc_by_sector.csv` (96 blank rows: 6 sectors × 16 quarters, source=TODO) and `data/landmark_deals.csv`. Routing the actual number-gathering to Perplexity, one quarter at a time, primary source CB Insights State of Venture. (Paste reusable prompt + results here as you go.)
+- **Output usable?**: TBD — filling cells as Perplexity returns cited figures.
+
+---
+
 ## Template for future entries
 
 ### YYYY-MM-DD — short title
