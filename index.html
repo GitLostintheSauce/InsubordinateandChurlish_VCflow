@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VC Funding 2022–2025</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --grid: rgba(255, 255, 255, 0.08);
+      --bar: #4f46e5;
+      --bar-hover: #6366f1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      color: var(--text);
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    .hero {
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .chart-card {
+      background: rgba(17, 24, 39, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .axis text {
+      fill: var(--muted);
+      font-size: 12px;
+    }
+
+    .axis path,
+    .axis line {
+      stroke: var(--grid);
+    }
+
+    .bar {
+      fill: var(--bar);
+    }
+
+    .bar:hover {
+      fill: var(--bar-hover);
+    }
+
+    .label {
+      fill: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <h1>VC Funding, 2022–2025</h1>
+      <p>A D3 bar chart showing annual global venture capital funding in billions of dollars.</p>
+      <div class="subtitle">Example dataset embedded directly in the HTML file.</div>
+    </header>
+
+    <section class="chart-card">
+      <svg id="chart" aria-label="VC funding bar chart"></svg>
+    </section>
+  </main>
+
+  <script>
+    const data = [
+      { year: "2022", funding: 620 },
+      { year: "2023", funding: 315 },
+      { year: "2024", funding: 328 },
+      { year: "2025", funding: 427.1 }
+    ];
+
+    const margin = { top: 40, right: 24, bottom: 56, left: 76 };
+    const width = 900;
+    const height = 500;
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+
+    const svg = d3.select("#chart")
+      .attr("viewBox", `0 0 ${width} ${height}`);
+
+    const chart = svg.append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleBand()
+      .domain(data.map(d => d.year))
+      .range([0, innerWidth])
+      .padding(0.22);
+
+    const y = d3.scaleLinear()
+      .domain([0, d3.max(data, d => d.funding)]).nice()
+      .range([innerHeight, 0]);
+
+    chart.append("g")
+      .attr("class", "axis")
+      .attr("transform", `translate(0,${innerHeight})`)
+      .call(d3.axisBottom(x));
+
+    chart.append("g")
+      .attr("class", "axis")
+      .call(d3.axisLeft(y).ticks(6).tickFormat(d => `$${d}B`));
+
+    chart.selectAll(".bar")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", d => x(d.year))
+      .attr("y", d => y(d.funding))
+      .attr("width", x.bandwidth())
+      .attr("height", d => innerHeight - y(d.funding))
+      .attr("rx", 6);
+
+    chart.selectAll(".label")
+      .data(data)
+      .enter()
+      .append("text")
+      .attr("class", "label")
+      .attr("x", d => x(d.year) + x.bandwidth() / 2)
+      .attr("y", d => y(d.funding) - 10)
+      .attr("text-anchor", "middle")
+      .text(d => `$${d.funding}B`);
+  </script>
+</body>
+</html>
