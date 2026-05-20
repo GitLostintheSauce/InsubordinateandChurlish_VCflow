@@ -3,25 +3,25 @@ year,quarter,sector,deal_value_usd_b,deal_count,source,note
 2022,1,Fintech,,,TODO,
 2022,1,Climate,,,TODO,
 2022,1,Defense & Space,,,TODO,
-2022,1,Web3,,,TODO-Crunchbase,Q2 article implies ~5.2B (Q2 was ~1B below Q1) but never states it directly — re-pull; do NOT use implied figure
+2022,1,Web3,10.8,546,CBI-Blockchain-2022,From CB Insights State of Blockchain Global 2022 Recap — annual PDF with quarterly breakdown
 2022,1,Biotech,,,TODO,
 2022,2,AI,,,TODO,
 2022,2,Fintech,,,TODO,
 2022,2,Climate,,,TODO,
 2022,2,Defense & Space,,,TODO,
-2022,2,Web3,4.2,,CB-News-Crypto-2022H1,Crunchbase: more than 4.2B; deal count not in accessible snippet
+2022,2,Web3,7.6,509,CBI-Blockchain-2022,From CB Insights State of Blockchain Global 2022 Recap
 2022,2,Biotech,,,TODO,
 2022,3,AI,,,TODO,
 2022,3,Fintech,,,TODO,
 2022,3,Climate,,,TODO,
 2022,3,Defense & Space,,,TODO,
-2022,3,Web3,3.6,500,CB-News-Crypto-2022Q3,Crunchbase: ~3.6B in MORE THAN 500 deals — count is a floor (>=500)
+2022,3,Web3,5.1,448,CBI-Blockchain-2022,From CB Insights State of Blockchain Global 2022 Recap
 2022,3,Biotech,,,TODO,
 2022,4,AI,,,TODO,
 2022,4,Fintech,,,TODO,
 2022,4,Climate,,,TODO,
 2022,4,Defense & Space,,,TODO,
-2022,4,Web3,2.4,,CB-News-Crypto-2022Q4,Crunchbase: 2.4B; deal count not in accessible snippet
+2022,4,Web3,3.2,325,CBI-Blockchain-2022,From CB Insights State of Blockchain Global 2022 Recap
 2022,4,Biotech,,,TODO,
 2023,1,AI,,,TODO,
 2023,1,Fintech,,,TODO,
@@ -75,7 +75,7 @@ year,quarter,sector,deal_value_usd_b,deal_count,source,note
 2025,1,Fintech,,,TODO,
 2025,1,Climate,,,TODO,
 2025,1,Defense & Space,,,TODO,
-2025,1,Web3,3.8,220,CB-News-Crypto-2025Q1,Boosted by Binance 2B round (outlier)
+2025,1,Web3,,,TODO-CBI-Blockchain,Was Crunchbase 3.8B/220 — re-pull from CB Insights State of Blockchain 2025 for single-source consistency
 2025,1,Biotech,,,TODO,
 2025,2,AI,,,TODO,
 2025,2,Fintech,,,TODO,

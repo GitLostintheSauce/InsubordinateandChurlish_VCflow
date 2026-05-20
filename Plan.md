@@ -24,19 +24,25 @@ AI · Fintech · Climate · Defense & Space · Web3 · Biotech
 
 ---
 
-## 2. Source strategy — keep it to TWO sources
+## 2. Source strategy — ONE provider: CB Insights
 
-The whole point is consistency. Target **just two providers**:
+The whole point is consistency. Target **a single provider for all 6 sectors: CB Insights**, using its annual **"State of [Sector]" recap PDFs** (each holds the four quarterly figures under one methodology). Every sector then compares cleanly to every other.
 
-| Sectors | Source | Why |
-|---|---|---|
-| **Web3 / Crypto** | **Crunchbase News** quarterly crypto recaps | Crypto-native, published every quarter, openly accessible |
-| **AI, Fintech, Climate, Defense & Space, Biotech** | **CB Insights — State of Venture** (quarterly) | One report series covering all sectors → cross-sector comparability |
+| Sector | CB Insights report |
+|---|---|
+| AI | State of AI |
+| Fintech | State of Fintech |
+| Climate | State of Climate Tech |
+| Defense & Space | (least consistently covered — possible labeled fallback) |
+| Web3 | State of Blockchain |
+| Biotech | State of Digital Health / Healthcare |
+
+*(These PDFs often surface on third-party sites even when the CB Insights platform is paywalled.)*
 
 **Hard rules:**
-1. **One source per sector, across all 16 quarters.** Mixing sources *within* a sector's time series fakes the trend (different firms count deals differently). This is non-negotiable.
-2. Prefer a **single report series per provider**. For the 5 CB Insights sectors, use *State of Venture* throughout. Only if *State of Venture* doesn't break out a sector in a given quarter, fall back to that sector's dedicated CB Insights report (e.g. *State of Fintech*, *State of Climate Tech*) — still CB Insights, so methodology stays close.
-3. **A third source is a last resort**, only when neither CB Insights nor Crunchbase reports a sector-quarter at all (Defense & Space is the likely problem child). If used, label it explicitly in `source` and `note`, and accept that cell is not strictly comparable.
+1. **One source per sector, across all 16 quarters.** Mixing sources *within* a sector's time series fakes the trend (different firms count deals differently — Crunchbase "crypto" came in ~half of CB Insights "blockchain"). Non-negotiable.
+2. **Cadence:** these are *annual* recaps with quarterly breakdowns inside, not standalone quarterly reports. One PDF per sector per year gives you that year's Q1–Q4. The 2025 recaps publish early 2026 (now available).
+3. **A second provider is a last resort**, only when CB Insights doesn't cover a sector-quarter at all (Defense & Space is the likely problem child). If used, label it explicitly in `source` + `note` and accept that cell isn't strictly comparable.
 4. **If a number can't be sourced, leave it blank** and note why. Never estimate to fill a hole. If you must approximate, mark `source = estimated` and explain in `note`.
 
 ---
@@ -75,13 +81,13 @@ For each: total deal value (USD billions) and deal count.
 Cite the specific CB Insights report/section and link for each sector.
 ```
 
-### Template C — Crunchbase, Web3 across a full year
+### Template C — CB Insights State of Blockchain, Web3 for a full year
 ```
 [paste RULES block]
 
-From Crunchbase News' quarterly crypto/blockchain venture funding recaps, give me global crypto & blockchain startup funding for each quarter of [YEAR]: Q1, Q2, Q3, Q4.
-For each: total deal value (USD billions) and deal count, from Crunchbase only.
-Cite the specific Crunchbase News article and link for each quarter.
+From the CB Insights "State of Blockchain — Global [YEAR] Recap" report, give me the quarterly blockchain/crypto venture funding for [YEAR]: Q1, Q2, Q3, Q4.
+For each quarter: total deal value (USD billions) and deal count, plus the full-year total.
+Cite the specific CB Insights report and a link to the PDF.
 ```
 
 ### Template D — get a missing citation link (upgrade a provisional cell)
@@ -118,17 +124,17 @@ Paste the model's **raw reply** (links and all) into the Claude Code session —
 
 ## 8. Progress tracker (update as cells fill)
 
-**Web3 (Crunchbase):** 5/16
+**Web3 (CB Insights State of Blockchain):** 4/16
 ```
-2022:  Q1 4.9*  Q2 4.2   Q3 3.6   Q4 2.4      (*Q1 needs source link)
-2023:  Q1 —     Q2 —     Q3 —     Q4 —
-2024:  Q1 —     Q2 —     Q3 —     Q4 —
-2025:  Q1 3.8   Q2 —     Q3 —     Q4 —
+2022:  Q1 10.8  Q2 7.6   Q3 5.1   Q4 3.2      ✅ from State of Blockchain 2022 Recap
+2023:  Q1 —     Q2 —     Q3 —     Q4 —         (need State of Blockchain 2023)
+2024:  Q1 —     Q2 —     Q3 —     Q4 —         (need State of Blockchain 2024)
+2025:  Q1 —     Q2 —     Q3 —     Q4 —         (need State of Blockchain 2025)
 ```
 
 **AI, Fintech, Climate, Defense & Space, Biotech (CB Insights):** 0/80 — not started.
 
 **Known gaps / risks:**
-- Q1 2022 Web3 ($4.9B) is provisional — needs the specific Crunchbase article link.
-- Defense & Space is least likely to be broken out by either provider — expect a labeled fallback source or `estimated` cells here.
+- Web3 switched from Crunchbase to CB Insights (single-provider consistency). The old Crunchbase Q1 2025 ($3.8B) was removed — re-pull from State of Blockchain 2025.
+- Defense & Space is least likely to be broken out by CB Insights — expect a labeled fallback source or `estimated` cells here.
 - Deal counts come back patchy (sources lead with $). Value is primary; leave counts blank rather than guess.
