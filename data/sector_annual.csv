@@ -1,8 +1,8 @@
 sector,year,deal_value_usd_b,deal_count,source,note
-AI,2022,,,TODO-Crunchbase,
-AI,2023,,,TODO-Crunchbase,
-AI,2024,,,TODO-Crunchbase,
-AI,2025,,,TODO-Crunchbase,
+AI,2022,45.8,,Crunchbase,Pre-ChatGPT (launched Dec 2022); count not stated; no single mega-round
+AI,2023,50.0,,Crunchbase,'close to/nearly $50B'; OpenAI $10B = ~20%; >70 rounds of $100M+
+AI,2024,114.0,,Crunchbase,Revised from contemporaneous $100B; AI ~1/3 of global VC; Q4 alone $42B
+AI,2025,211.0,,Crunchbase,Also cited $212B; AI ~50% of global VC; OpenAI $40B = ~19%; 15 cos raised $2B+
 Fintech,2022,90.2,,Crunchbase,Crunchbase ~$90.2B (also reported $89.5B); CB Insights VC-only ~$75-78B
 Fintech,2023,43.0,,Crunchbase,Lowest in 6 years; Stripe $6.5B = ~15% of total
 Fintech,2024,40.8,4486,Crunchbase,CB Insights close: $38.9B/4474

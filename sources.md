@@ -20,7 +20,8 @@ Every number traces to a citation here. `source` columns in the data files hold 
 - **Web3** — Crunchbase News: "Web3 Funding Cratered In 2023" (https://news.crunchbase.com/web3/funding-cratered-sbf-ai-crypto-bitcoin-eoy-2023/) + Q4 2024 recap (https://news.crunchbase.com/web3/crypto-blockchain-vc-dollars-fall-q4-2024/). FY: $26.6B (2891) / $6.8B (1564) / $7.7B (1180). FY2025 still needed.
 - **Defense** — Crunchbase News: "Defense Tech Funding Growth YIR 2024" (https://news.crunchbase.com/venture/defense-tech-funding-growth-yir-2024/). FY: $2.6B (113) / $2.7B (100) / $3.0B (102). "Defense tech" = narrow definition.
 - **Space** (Crunchbase "space startups," narrow): $9.6B (2022), $5.9B (2023) — to be added to the Defense & Space line; 2024/2025 needed.
-- AI, Biotech, Climate — not yet gathered.
+- **AI** — Crunchbase News AI/global recaps (EOY 2023, "12 Charts" YE2024, Q1 2026 foundational-AI snapshot). FY: $45.8B / ~$50B / $114B (revised from $100B) / $211B. AI ≈ 50% of all global VC by 2025. Counts not stated.
+- Biotech, Climate — not yet gathered.
 
 ## Detail / reference sources
 
