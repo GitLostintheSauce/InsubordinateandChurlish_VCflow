@@ -1,40 +1,37 @@
 # Sources
 
-Every number in the dashboard must trace to a citation here. The `source` column of `data/vc_by_sector.csv` holds the short key; the full reference lives below.
+Every number traces to a citation here. `source` columns in the data files hold short keys; full references below.
 
-## ⭐ Source strategy (per sector — one source per sector's full 16-quarter line)
+## ⭐ Source strategy
 
-| Sector | Source | Status |
+**Comparison backbone (`data/sector_annual.csv`) = Crunchbase annual totals, all 6 sectors.** One consistent "VC-backed startup" definition → sectors are comparable. Galaxy and Space Capital are kept as *labeled detail*, NOT in the backbone.
+
+| Layer | Source | File |
 |---|---|---|
-| **Web3** | **Galaxy Digital** — *Crypto & Blockchain Venture Capital* quarterly reports | ✅ complete (16/16) |
-| AI | CB Insights *State of AI* (or best consistent source) | not started |
-| Fintech | CB Insights *State of Fintech* | not started |
-| Climate | CB Insights *State of Climate Tech* | not started |
-| Biotech | CB Insights *State of Digital Health / Healthcare* | not started |
-| Defense & Space | TBD (least consistently covered) | not started |
+| Cross-sector annual comparison | **Crunchbase News** funding recaps | `sector_annual.csv` |
+| Web3 quarterly hero detail | **Galaxy Digital** *Crypto & Blockchain VC* | `web3_quarterly.csv` (+ `web3_galaxy_provenance.csv`) |
+| Landmark deals | mixed (Crunchbase / TechCrunch / Fortune / etc.), cited per row | `landmark_deals.csv` |
 
-**Rules:** one source per sector across all 16 quarters (mixing fakes the trend). Cross-sector $ levels are only loosely comparable because providers differ — trends are the honest comparison.
+**Rule:** one source per line. The backbone is all-Crunchbase — do not splice in CB Insights/PitchBook (scopes differ).
 
-⚠️ **Watch:** CB Insights appears to have stopped publishing free annual sector PDFs after 2022. The other 5 sectors may need a different consistent source for 2023–2025 (as Web3 did → Galaxy). Decide per sector.
+## Backbone citations (Crunchbase)
 
-## Active citations
+- **Fintech** — Crunchbase News: "Fintech Funding Jumped 27% In 2025" (https://news.crunchbase.com/fintech/funding-jumped-big-checks-ai-ye-2025/) and the 2023 year-end recap. FY: $90.2B / $43B / $40.8B (4486) / $51.8B (3457).
+- **Web3** — Crunchbase News: "Web3 Funding Cratered In 2023" (https://news.crunchbase.com/web3/funding-cratered-sbf-ai-crypto-bitcoin-eoy-2023/) + Q4 2024 recap (https://news.crunchbase.com/web3/crypto-blockchain-vc-dollars-fall-q4-2024/). FY: $26.6B (2891) / $6.8B (1564) / $7.7B (1180). FY2025 still needed.
+- **Defense** — Crunchbase News: "Defense Tech Funding Growth YIR 2024" (https://news.crunchbase.com/venture/defense-tech-funding-growth-yir-2024/). FY: $2.6B (113) / $2.7B (100) / $3.0B (102). "Defense tech" = narrow definition.
+- **Space** (Crunchbase "space startups," narrow): $9.6B (2022), $5.9B (2023) — to be added to the Defense & Space line; 2024/2025 needed.
+- AI, Biotech, Climate — not yet gathered.
 
-- **Galaxy-CryptoVC** — Galaxy Digital, *Crypto & Blockchain Venture Capital* quarterly reports (2022–2025), https://www.galaxy.com/insights/research/ . Per-quarter URLs, secondary citations, and confirmed-vs-derived status for all 16 quarters are recorded in **`data/web3_galaxy_provenance.csv`**. 14/16 directly cited; 2 derived (see below).
-- **estimated** — used in `data/vc_by_sector.csv` for figures derived rather than directly read from a report:
-  - **Web3 2022 Q4** ($3.5B): derived from Galaxy ~$30B annual total minus Q1–Q3. Deal count (366) is confirmed.
-  - **Web3 2023 Q2** ($1.9B): derived from Galaxy ~$10B 2023 annual minus other quarters. Deal count only known as ">430" → left blank.
-  - To close these: pull the primary Galaxy Q4 2022 and Q2 2023 PDFs.
+## Detail / reference sources
 
-## ⚠ SUPERSEDED (kept for audit trail, NOT used)
+- **Galaxy-CryptoVC** — Galaxy Digital *Crypto & Blockchain VC* quarterly, 2022–2025. Full per-quarter provenance in `data/web3_galaxy_provenance.csv`. Powers `web3_quarterly.csv`. Broader scope than Crunchbase web3 (that's why it's detail, not backbone).
+- **Space Capital IQ** — broad "space economy" ($20.1B/$12.5B/$26B) — reference only, NOT comparison backbone (counts GPS apps, infrastructure, etc.).
 
-Web3 was sourced first from Crunchbase, then CB Insights *State of Blockchain*, before settling on Galaxy Digital for full single-source coverage 2022–2025. Earlier figures differed due to methodology scope (Crunchbase "crypto" < Galaxy < CB Insights "blockchain").
+## ⚠ Known scope conflicts (do not naively compare)
+- Space: Crunchbase "space startups" $9.6B vs Space Capital IQ "space economy" $20.1B (2022) — different universes.
+- Defense: Crunchbase "defense tech" $3B vs PitchBook "aerospace & defense" $19B (2024) — different universes. Backbone uses Crunchbase only.
+- Web3: Crunchbase "web3" $26.6B vs Galaxy "crypto VC" >$30B (2022). Backbone uses Crunchbase; Galaxy is the quarterly detail.
 
-- ~~CBI-Blockchain-2022~~ — CB Insights *State of Blockchain Global 2022 Recap*: Q1 $10.8B/546, Q2 $7.6B/509, Q3 $5.1B/448, Q4 $3.2B/325. Broader scope than Galaxy. Replaced because CB Insights doesn't cover 2023–2025 freely.
-- ~~CB-News-Crypto-*~~ — Crunchbase News crypto recaps (2022 quarters, Q1 2025). Narrower scope.
-
-## Definitions / methodology
-
-- All deal values in USD billions; quarterly unless a note says otherwise.
-- "Deal value" = disclosed equity VC funding for the period.
-- **Revised vs contemporaneous:** Galaxy revises quarters upward over time as late-reported deals are captured (e.g. 2023 Q3 $1.9B → $3.8B). Older quarters here use revised figures; recent quarters are contemporaneous and may rise later. Noted per-row in `note`.
-- **Lesson:** the same metric means different things across firms. Never mix providers within one sector's line.
+## Definitions
+- Backbone values in USD billions, annual. Landmark deal amounts in USD millions.
+- "Deal value" = disclosed equity VC funding. Lesson: the same metric differs across firms — never mix providers within one line.

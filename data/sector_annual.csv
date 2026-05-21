@@ -1,0 +1,25 @@
+sector,year,deal_value_usd_b,deal_count,source,note
+AI,2022,,,TODO-Crunchbase,
+AI,2023,,,TODO-Crunchbase,
+AI,2024,,,TODO-Crunchbase,
+AI,2025,,,TODO-Crunchbase,
+Fintech,2022,90.2,,Crunchbase,Crunchbase ~$90.2B (also reported $89.5B); CB Insights VC-only ~$75-78B
+Fintech,2023,43.0,,Crunchbase,Lowest in 6 years; Stripe $6.5B = ~15% of total
+Fintech,2024,40.8,4486,Crunchbase,CB Insights close: $38.9B/4474
+Fintech,2025,51.8,3457,Crunchbase,+27% YoY; fewer/larger rounds; CB Insights $52.7B/3631
+Climate,2022,,,TODO-Crunchbase,
+Climate,2023,,,TODO-Crunchbase,
+Climate,2024,,,TODO-Crunchbase,
+Climate,2025,,,TODO-Crunchbase,
+Defense & Space,2022,2.6,113,Crunchbase,Crunchbase 'defense tech' (narrow); Anduril $1.48B Series E catalyst
+Defense & Space,2023,2.7,100,Crunchbase,Shield AI $500M = 18.5% of total
+Defense & Space,2024,3.0,102,Crunchbase,Record; Anduril $1.5B = 50% of total
+Defense & Space,2025,,,TODO-Crunchbase,File had $10B but that is PitchBook (broader scope) - need Crunchbase 2025
+Web3,2022,26.6,2891,Crunchbase,Crunchbase 'web3'; Galaxy broader = >$30B (see web3_quarterly detail)
+Web3,2023,6.8,1564,Crunchbase,Lowest since 2020; only 8 rounds >$100M all year
+Web3,2024,7.7,1180,Crunchbase,Galaxy broader = $11.5B
+Web3,2025,,,TODO-Crunchbase,Only Q1 confirmed ($3.8B/220); need Crunchbase full-year 2025
+Biotech,2022,,,TODO-Crunchbase,
+Biotech,2023,,,TODO-Crunchbase,
+Biotech,2024,,,TODO-Crunchbase,
+Biotech,2025,,,TODO-Crunchbase,
