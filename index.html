@@ -1,188 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VC Funding 2022–2025</title>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <style>
-    :root {
-      --bg: #0f172a;
-      --card: #111827;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --grid: rgba(255, 255, 255, 0.08);
-      --bar: #4f46e5;
-      --bar-hover: #6366f1;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
-      color: var(--text);
-    }
-
-    .page {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 32px 20px 48px;
-    }
-
-    .hero {
-      margin-bottom: 20px;
-    }
-
-    .hero h1 {
-      margin: 0 0 8px;
-      font-size: 2rem;
-      line-height: 1.1;
-    }
-
-    .hero p {
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .chart-card {
-      background: rgba(17, 24, 39, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 18px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-    }
-
-    svg {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    .axis text {
-      fill: var(--muted);
-      font-size: 12px;
-    }
-
-    .axis path,
-    .axis line {
-      stroke: var(--grid);
-    }
-
-    .bar {
-      fill: var(--bar);
-    }
-
-    .bar:hover {
-      fill: var(--bar-hover);
-    }
-
-    .label {
-      fill: var(--text);
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .subtitle {
-      font-size: 0.95rem;
-      color: var(--muted);
-      margin-top: 6px;
-    }
-
-    .credit {
-      margin-top: 16px;
-      font-size: 0.8rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .credit a {
-      color: var(--bar-hover);
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VC Funding 2022–2025 — Where the Money Flowed</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+  :root{
+    --bg:#0a0a0f; --panel:#111118; --line:#1a1a2e; --text:#e0e0e0; --muted:#8a8a99;
+    --AI:#00f0ff; --Fintech:#bf5af2; --Biotech:#ff6b6b; --Climate:#5ac8fa; --Web3:#39ff14; --DefenseSpace:#ffd60a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;padding:2rem 1rem}
+  .wrap{max-width:980px;margin:0 auto}
+  h1{font-size:2rem;color:#fff;margin-bottom:.3rem}
+  .sub{color:var(--muted);margin-bottom:.4rem}
+  .takeaway{color:#cfcfe0;background:#111118;border-left:3px solid var(--AI);padding:.8rem 1rem;border-radius:0 8px 8px 0;margin:1rem 0 2rem;font-size:.95rem}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.2rem 1.3rem;margin-bottom:1.6rem}
+  h2{font-size:1.2rem;color:#fff;margin-bottom:.15rem}
+  .desc{color:var(--muted);font-size:.88rem;margin-bottom:.8rem}
+  svg{display:block;width:100%;height:auto;overflow:visible}
+  .axis text{fill:var(--muted);font-size:11px}
+  .axis path,.axis line{stroke:#2a2a3e}
+  .grid line{stroke:#191926}
+  .legend{display:flex;flex-wrap:wrap;gap:.4rem 1rem;margin-top:.6rem;font-size:.82rem;color:#bbb}
+  .legend span{display:inline-flex;align-items:center;gap:.4rem}
+  .swatch{width:11px;height:11px;border-radius:3px;flex-shrink:0}
+  .toggle{display:inline-flex;gap:.3rem;margin-bottom:.6rem}
+  .toggle button{background:#15151f;color:var(--muted);border:1px solid var(--line);border-radius:7px;padding:.25rem .7rem;font-size:.78rem;cursor:pointer}
+  .toggle button.on{background:var(--AI);color:#001014;border-color:var(--AI);font-weight:600}
+  .note{font-size:.78rem;color:#777;margin-top:.7rem;border-top:1px solid var(--line);padding-top:.6rem}
+  .note .warn{color:#ffd60a}
+  #tip{position:fixed;pointer-events:none;background:#15151f;border:1px solid #33334a;border-radius:8px;padding:.45rem .65rem;font-size:.8rem;color:#eee;opacity:0;transition:opacity .1s;z-index:10;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+  #tip b{color:#fff}
+  footer{color:#666;font-size:.78rem;margin-top:1rem;text-align:center}
+  footer a{color:var(--Fintech)}
+  .err{color:#ff6b6b;padding:1rem;border:1px solid #ff6b6b55;border-radius:8px}
+</style>
 </head>
 <body>
-  <main class="page">
-    <header class="hero">
-      <h1>VC Funding, 2022–2025</h1>
-      <p>A D3 bar chart showing annual global venture capital funding in billions of dollars.</p>
-      <div class="subtitle">⚠ Placeholder figures — <strong>unverified estimates, not yet sourced.</strong> To be replaced with cited Crunchbase / PitchBook / CB Insights data in Phase 1.</div>
-    </header>
+<div class="wrap">
+  <h1>Where the Money Flowed: VC Funding 2022–2025</h1>
+  <p class="sub">Annual venture funding across six sectors, plus the crypto cycle quarter-by-quarter.</p>
+  <div class="takeaway"><b>The short version:</b> AI went from one sector among many to roughly <b>half of all venture capital</b> by 2025 ($45.8B → $211B). Crypto crashed in 2022–23 and is rebuilding. Fintech halved, then recovered. The money concentrated — into AI, and into fewer, bigger rounds.</div>
 
-    <section class="chart-card">
-      <svg id="chart" aria-label="VC funding bar chart"></svg>
-    </section>
+  <div class="panel">
+    <h2>1 · Funding by sector, per year</h2>
+    <p class="desc">Each line is a sector. Switch to log scale to see the smaller sectors' paths — on a linear axis, AI's scale flattens everything else (which is itself the point).</p>
+    <div class="toggle" id="scaleToggle">
+      <button data-scale="linear" class="on">Linear</button>
+      <button data-scale="log">Log</button>
+    </div>
+    <svg id="lines" viewBox="0 0 920 420"></svg>
+    <div class="legend" id="legend"></div>
+    <div class="note">Values in USD billions, annual, from Crunchbase (one source = comparable). Gaps = not yet collected (Web3 &amp; Defense 2025, Biotech 2023). <span class="warn">⚠ Climate &amp; Biotech</span> change definition across years — treat their slopes as indicative, not precise.</div>
+  </div>
 
-    <footer class="credit">
-      Initial chart code scaffolded by <a href="https://www.perplexity.ai" target="_blank" rel="noopener">Perplexity.ai</a>.
-      Funding figures are unverified placeholders pending Phase 1 sourcing — no number here should be cited as fact yet.
-    </footer>
-  </main>
+  <div class="panel">
+    <h2>2 · Share of the pie, per year</h2>
+    <p class="desc">Same data, normalized to 100% each year — this is the clearest "where is the money flowing" view. Watch AI's slab swell.</p>
+    <svg id="stack" viewBox="0 0 920 360"></svg>
+    <div class="legend" id="legend2"></div>
+    <div class="note">Each bar = the sectors with data that year, normalized to 100%. 2023 omits Biotech; 2025 omits Web3 &amp; Defense (small relative to AI — they wouldn't change the picture much).</div>
+  </div>
 
-  <script>
-    // ⚠ UNVERIFIED PLACEHOLDER DATA — generated by Perplexity.ai as an example.
-    // Do NOT cite these figures. Replace each with a real, sourced number
-    // (Crunchbase / PitchBook / CB Insights) in Phase 1, or mark as "estimated".
-    const data = [
-      { year: "2022", funding: 620 },   // source: TODO
-      { year: "2023", funding: 315 },   // source: TODO
-      { year: "2024", funding: 328 },   // source: TODO
-      { year: "2025", funding: 427.1 }  // source: TODO
-    ];
+  <div class="panel">
+    <h2>3 · The crypto cycle, quarter by quarter</h2>
+    <p class="desc">Web3 deserves its own view — annual totals hide the cycle. Source: Galaxy Digital (quarterly), 2022–2025.</p>
+    <svg id="web3" viewBox="0 0 920 380"></svg>
+    <div class="note">Peak Q1 2022 ($14.2B) → FTX/rate-shock winter → trough 2023 → rebuild to $8.5B in Q4 2025, the strongest quarter since Q2 2022. <span class="warn">⚠</span> 2022 Q4 &amp; 2023 Q2 are derived estimates; some quarters revised upward over time (late-reported deals).</div>
+  </div>
 
-    const margin = { top: 40, right: 24, bottom: 56, left: 76 };
-    const width = 900;
-    const height = 500;
-    const innerWidth = width - margin.left - margin.right;
-    const innerHeight = height - margin.top - margin.bottom;
+  <footer>Data: Crunchbase (annual backbone), Galaxy Digital (crypto quarterly). Full citations in <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/sources.md">sources.md</a>. Built with D3.</footer>
+</div>
+<div id="tip"></div>
 
-    const svg = d3.select("#chart")
-      .attr("viewBox", `0 0 ${width} ${height}`);
+<script>
+const SECTORS = ["AI","Fintech","Biotech","Climate","Web3","Defense & Space"];
+const COLOR = {"AI":"#00f0ff","Fintech":"#bf5af2","Biotech":"#ff6b6b","Climate":"#5ac8fa","Web3":"#39ff14","Defense & Space":"#ffd60a"};
+const CAVEAT = {"Climate":true,"Biotech":true};
+const tip = d3.select("#tip");
+function showTip(html,e){tip.html(html).style("opacity",1).style("left",(e.clientX+14)+"px").style("top",(e.clientY+14)+"px");}
+function hideTip(){tip.style("opacity",0);}
 
-    const chart = svg.append("g")
-      .attr("transform", `translate(${margin.left},${margin.top})`);
+Promise.all([
+  d3.csv("data/sector_annual.csv"),
+  d3.csv("data/web3_quarterly.csv")
+]).then(([annualRaw, web3Raw]) => {
 
-    const x = d3.scaleBand()
-      .domain(data.map(d => d.year))
-      .range([0, innerWidth])
-      .padding(0.22);
+  // ---- parse ----
+  const annual = annualRaw.map(d => ({
+    sector:d.sector, year:+d.year,
+    value:d.deal_value_usd_b===""?null:+d.deal_value_usd_b,
+    est:d.source==="estimated", note:d.note
+  }));
+  const years = [...new Set(annual.map(d=>d.year))].sort((a,b)=>a-b);
 
-    const y = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.funding)]).nice()
-      .range([innerHeight, 0]);
+  drawLines(annual, years);
+  drawStack(annual, years);
 
-    chart.append("g")
-      .attr("class", "axis")
-      .attr("transform", `translate(0,${innerHeight})`)
-      .call(d3.axisBottom(x));
+  const web3 = web3Raw.map(d=>({
+    year:+d.year, q:+d.quarter,
+    label:d.year+" Q"+d.quarter,
+    value:d.deal_value_usd_b===""?null:+d.deal_value_usd_b,
+    est:d.source==="estimated", note:d.note
+  })).filter(d=>d.value!=null).sort((a,b)=> a.year-b.year || a.q-b.q);
+  drawWeb3(web3);
 
-    chart.append("g")
-      .attr("class", "axis")
-      .call(d3.axisLeft(y).ticks(6).tickFormat(d => `$${d}B`));
+  buildLegend("#legend", SECTORS);
+  buildLegend("#legend2", SECTORS);
+}).catch(err=>{
+  d3.select(".wrap").append("div").attr("class","err").text("Couldn't load data: "+err+" — open via the GitHub Pages URL (data loads over http).");
+});
 
-    chart.selectAll(".bar")
-      .data(data)
-      .enter()
-      .append("rect")
-      .attr("class", "bar")
-      .attr("x", d => x(d.year))
-      .attr("y", d => y(d.funding))
-      .attr("width", x.bandwidth())
-      .attr("height", d => innerHeight - y(d.funding))
-      .attr("rx", 6);
+function buildLegend(sel, sectors){
+  const L=d3.select(sel);
+  sectors.forEach(s=>{
+    const g=L.append("span");
+    g.append("span").attr("class","swatch").style("background",COLOR[s]);
+    g.append("text").text(s+(CAVEAT[s]?" ⚠":""));
+  });
+}
 
-    chart.selectAll(".label")
-      .data(data)
-      .enter()
-      .append("text")
-      .attr("class", "label")
-      .attr("x", d => x(d.year) + x.bandwidth() / 2)
-      .attr("y", d => y(d.funding) - 10)
-      .attr("text-anchor", "middle")
-      .text(d => `$${d.funding}B`);
-  </script>
+// ---- Chart 1: multi-line, linear/log toggle ----
+function drawLines(annual, years){
+  const svg=d3.select("#lines"), W=920,H=420,m={t:20,r:120,b:34,l:54};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
+  const x=d3.scalePoint().domain(years).range([0,iw]).padding(0.5);
+  const maxV=d3.max(annual,d=>d.value);
+  let scaleType="linear";
+  const yLin=d3.scaleLinear().domain([0,maxV]).nice().range([ih,0]);
+  const yLog=d3.scaleLog().domain([2,Math.max(maxV,10)]).range([ih,0]);
+
+  const gx=g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x).tickFormat(d3.format("d")));
+  const gy=g.append("g").attr("class","axis");
+  const gridG=g.append("g").attr("class","grid");
+  const lineG=g.append("g");
+  const labelG=g.append("g");
+
+  const bySector=d3.groups(annual,d=>d.sector);
+
+  function render(){
+    const y = scaleType==="linear"?yLin:yLog;
+    gy.transition().duration(400).call(d3.axisLeft(y).ticks(6).tickFormat(d=>"$"+d+"B"));
+    gridG.selectAll("line").data(y.ticks(6)).join("line")
+      .attr("x1",0).attr("x2",iw).attr("y1",d=>y(d)).attr("y2",d=>y(d));
+    const line=d3.line().defined(d=>d.value!=null && (scaleType==="linear"||d.value>0))
+      .x(d=>x(d.year)).y(d=>y(d.value));
+    lineG.selectAll("path.s").data(bySector).join("path").attr("class","s")
+      .attr("fill","none").attr("stroke",d=>COLOR[d[0]])
+      .attr("stroke-width",d=>d[0]==="AI"||d[0]==="Web3"?2.6:1.6)
+      .attr("stroke-dasharray",d=>CAVEAT[d[0]]?"5,4":null)
+      .transition().duration(400).attr("d",d=>line(d[1].sort((a,b)=>a.year-b.year)));
+    // points
+    lineG.selectAll("circle").data(annual.filter(d=>d.value!=null&&(scaleType==="linear"||d.value>0)))
+      .join("circle").attr("r",3.2).attr("fill",d=>COLOR[d.sector])
+      .attr("cx",d=>x(d.year)).attr("stroke","#0a0a0f").attr("stroke-width",1)
+      .on("mousemove",(e,d)=>showTip(`<b>${d.sector}</b> ${d.year}<br>$${d.value}B${d.est?" <span style='color:#ffd60a'>(est)</span>":""}`,e))
+      .on("mouseleave",hideTip)
+      .transition().duration(400).attr("cy",d=>y(d.value));
+    // end labels
+    labelG.selectAll("text").data(bySector).join("text")
+      .attr("x",iw+8).attr("fill",d=>COLOR[d[0]]).attr("font-size",11).attr("dy","0.32em")
+      .text(d=>d[0]+(CAVEAT[d[0]]?" ⚠":""))
+      .transition().duration(400)
+      .attr("y",d=>{const last=d[1].filter(p=>p.value!=null&&(scaleType==="linear"||p.value>0)).slice(-1)[0]; return last?y(last.value):-50;});
+  }
+  render();
+  d3.selectAll("#scaleToggle button").on("click",function(){
+    d3.selectAll("#scaleToggle button").classed("on",false);
+    d3.select(this).classed("on",true);
+    scaleType=this.dataset.scale; render();
+  });
+}
+
+// ---- Chart 2: 100% stacked bars per year ----
+function drawStack(annual, years){
+  const svg=d3.select("#stack"), W=920,H=360,m={t:14,r:120,b:34,l:44};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
+  const x=d3.scaleBand().domain(years).range([0,iw]).padding(0.35);
+  const y=d3.scaleLinear().domain([0,1]).range([ih,0]);
+  g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x).tickFormat(d3.format("d")));
+  g.append("g").attr("class","axis").call(d3.axisLeft(y).ticks(5).tickFormat(d3.format(".0%")));
+
+  years.forEach(yr=>{
+    const rows=annual.filter(d=>d.year===yr && d.value!=null);
+    const total=d3.sum(rows,d=>d.value);
+    const ordered=SECTORS.map(s=>rows.find(d=>d.sector===s)).filter(Boolean);
+    let acc=0;
+    g.selectAll(null).data(ordered).enter().append("rect")
+      .attr("x",x(yr)).attr("width",x.bandwidth())
+      .attr("fill",d=>COLOR[d.sector])
+      .attr("y",d=>{const share=d.value/total; const yTop=y(acc+share); acc+=share; return yTop;})
+      .attr("height",d=>ih-y(d.value/total))
+      .attr("stroke","#0a0a0f").attr("stroke-width",1)
+      .on("mousemove",(e,d)=>showTip(`<b>${d.sector}</b> ${yr}<br>${(d.value/total*100).toFixed(0)}% · $${d.value}B`,e))
+      .on("mouseleave",hideTip);
+    // AI % label on each bar
+    const ai=ordered.find(d=>d.sector==="AI");
+    if(ai){g.append("text").attr("x",x(yr)+x.bandwidth()/2).attr("y",ih-y(ai.value/total)/1 -4)
+      .attr("text-anchor","middle").attr("fill","#001014").attr("font-size",11).attr("font-weight",700)
+      .text("AI "+(ai.value/total*100).toFixed(0)+"%");}
+  });
+}
+
+// ---- Chart 3: Web3 quarterly area+line ----
+function drawWeb3(web3){
+  const svg=d3.select("#web3"), W=920,H=380,m={t:20,r:20,b:50,l:48};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
+  const x=d3.scalePoint().domain(web3.map(d=>d.label)).range([0,iw]).padding(0.4);
+  const y=d3.scaleLinear().domain([0,d3.max(web3,d=>d.value)]).nice().range([ih,0]);
+  g.append("g").attr("class","grid").selectAll("line").data(y.ticks(5)).join("line")
+    .attr("x1",0).attr("x2",iw).attr("y1",d=>y(d)).attr("y2",d=>y(d));
+  g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x))
+    .selectAll("text").attr("transform","rotate(-45)").style("text-anchor","end");
+  g.append("g").attr("class","axis").call(d3.axisLeft(y).ticks(5).tickFormat(d=>"$"+d+"B"));
+  const area=d3.area().x(d=>x(d.label)).y0(ih).y1(d=>y(d.value));
+  const line=d3.line().x(d=>x(d.label)).y(d=>y(d.value));
+  g.append("path").datum(web3).attr("fill","#39ff1422").attr("d",area);
+  g.append("path").datum(web3).attr("fill","none").attr("stroke","#39ff14").attr("stroke-width",2.2).attr("d",line);
+  g.selectAll("circle").data(web3).join("circle").attr("cx",d=>x(d.label)).attr("cy",d=>y(d.value))
+    .attr("r",d=>d.est?4:3.4).attr("fill",d=>d.est?"#0a0a0f":"#39ff14").attr("stroke","#39ff14").attr("stroke-width",1.6)
+    .on("mousemove",(e,d)=>showTip(`<b>Web3 ${d.label}</b><br>$${d.value}B${d.est?" <span style='color:#ffd60a'>(est)</span>":""}`,e))
+    .on("mouseleave",hideTip);
+}
+</script>
 </body>
 </html>
