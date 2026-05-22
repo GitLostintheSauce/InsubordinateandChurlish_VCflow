@@ -160,12 +160,18 @@ function drawLines(annual, years){
       .on("mousemove",(e,d)=>showTip(`<b>${d.sector}</b> ${d.year}<br>$${d.value}B${d.est?" <span style='color:#ffd60a'>(est)</span>":""}`,e))
       .on("mouseleave",hideTip)
       .transition().duration(400).attr("cy",d=>y(d.value));
-    // end labels
-    labelG.selectAll("text").data(bySector).join("text")
-      .attr("x",iw+8).attr("fill",d=>COLOR[d[0]]).attr("font-size",11).attr("dy","0.32em")
-      .text(d=>d[0]+(CAVEAT[d[0]]?" ⚠":""))
-      .transition().duration(400)
-      .attr("y",d=>{const last=d[1].filter(p=>p.value!=null&&(scaleType==="linear"||p.value>0)).slice(-1)[0]; return last?y(last.value):-50;});
+    // end labels with vertical collision avoidance (no more overlap)
+    const labs=bySector.map(d=>{
+      const pts=d[1].filter(p=>p.value!=null&&(scaleType==="linear"||p.value>0));
+      const last=pts[pts.length-1];
+      return last?{s:d[0], y:y(last.value), v:last.value}:null;
+    }).filter(Boolean).sort((a,b)=>a.y-b.y);
+    const gap=13;
+    for(let i=1;i<labs.length;i++){ if(labs[i].y-labs[i-1].y<gap) labs[i].y=labs[i-1].y+gap; }
+    labelG.selectAll("text").data(labs,d=>d.s).join("text")
+      .attr("x",iw+8).attr("fill",d=>COLOR[d.s]).attr("font-size",11).attr("dy","0.32em")
+      .text(d=>d.s+(CAVEAT[d.s]?" ⚠":""))
+      .transition().duration(400).attr("y",d=>d.y);
   }
   render();
   d3.selectAll("#scaleToggle button").on("click",function(){
@@ -198,11 +204,15 @@ function drawStack(annual, years){
       .attr("stroke","#0a0a0f").attr("stroke-width",1)
       .on("mousemove",(e,d)=>showTip(`<b>${d.sector}</b> ${yr}<br>${(d.value/total*100).toFixed(0)}% · $${d.value}B`,e))
       .on("mouseleave",hideTip);
-    // AI % label on each bar
+    // AI % label centered in the AI band (AI sits at bottom of stack)
     const ai=ordered.find(d=>d.sector==="AI");
-    if(ai){g.append("text").attr("x",x(yr)+x.bandwidth()/2).attr("y",ih-y(ai.value/total)/1 -4)
+    if(ai){const sh=ai.value/total; const yc=(y(0)+y(sh))/2;
+      g.append("text").attr("x",x(yr)+x.bandwidth()/2).attr("y",yc).attr("dy","0.32em")
       .attr("text-anchor","middle").attr("fill","#001014").attr("font-size",11).attr("font-weight",700)
-      .text("AI "+(ai.value/total*100).toFixed(0)+"%");}
+      .text("AI "+(sh*100).toFixed(0)+"%");}
+    // year total atop each bar
+    g.append("text").attr("x",x(yr)+x.bandwidth()/2).attr("y",-4).attr("text-anchor","middle")
+      .attr("fill","#8a8a99").attr("font-size",10).text("$"+Math.round(total)+"B");
   });
 }
 
