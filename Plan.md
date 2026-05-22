@@ -67,22 +67,22 @@ Give me the 5 largest [SECTOR] venture rounds of [YEAR]: company, amount (USD mi
 
 ## 5. Progress
 
-**Backbone `sector_annual.csv` — 14/24:**
+**Backbone `sector_annual.csv` — 21/24:**
 ```
                 2022    2023    2024    2025
 AI              45.8    50.0   114.0   211.0    ✅ the surge → ~50% of all VC by 2025
 Fintech         90.2    43.0    40.8    51.8    ✅
-Climate          —       —       —       —      ← NEXT
-Defense&Space    2.6*    2.7*    3.0*     —      *defense-only; add Crunchbase "space startups" ($9.6B'22, $5.9B'23) + 2025
+Climate         14.0e   13.9    24.0!   20.0    ⚠ scope shift: '22/'23 equity-only, '24/'25 all-stages
+Defense&Space    2.6*    2.7*    3.0*     —      *defense-only; add Crunchbase "space" ($9.6B'22,$5.9B'23)+2025
 Web3            26.6     6.8     7.7      —      need Crunchbase FY2025 (only Q1 $3.8B confirmed)
-Biotech          —       —       —       —      ← then this
+Biotech         40.0e    —      60.0e   71.7    ⚠ '22 US-only, '24 derived, '23 missing, '25 global
 ```
-**`web3_quarterly.csv`:** ✅ 16/16 (Galaxy). **`landmark_deals.csv`:** ✅ 128 deals.
+`e` = estimated/derived · `!` = scope-widened · `*` = defense-only
+**`web3_quarterly.csv`:** ✅ 16/16 (Galaxy). **`landmark_deals.csv`:** ✅ 158 deals.
 
-**Remaining to gather (all Crunchbase annual):**
-1. **Climate** 2022–2025 (Template A)
-2. **Biotech** 2022–2025
-3. Stragglers: Web3 FY2025, Defense&Space 2025 + the space component, 2024 space
+**Remaining (3 cells + 2 known-weak lines):**
+1. Stragglers: Web3 FY2025, Defense&Space 2025 (+ space component), Biotech 2023
+2. ⚠ Climate & Biotech lines have internal scope inconsistencies — see sources.md. Decide: footnote-and-accept, or targeted re-pull for a consistent basis.
 
 **Open question:** "Defense & Space" is one sector but Crunchbase tracks them separately (defense tech ~$3B vs space startups ~$9.6B). Decide: combine the two Crunchbase cuts, or split into two sectors (would break the 6-sector cap).
 

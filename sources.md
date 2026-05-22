@@ -21,7 +21,8 @@ Every number traces to a citation here. `source` columns in the data files hold 
 - **Defense** — Crunchbase News: "Defense Tech Funding Growth YIR 2024" (https://news.crunchbase.com/venture/defense-tech-funding-growth-yir-2024/). FY: $2.6B (113) / $2.7B (100) / $3.0B (102). "Defense tech" = narrow definition.
 - **Space** (Crunchbase "space startups," narrow): $9.6B (2022), $5.9B (2023) — to be added to the Defense & Space line; 2024/2025 needed.
 - **AI** — Crunchbase News AI/global recaps (EOY 2023, "12 Charts" YE2024, Q1 2026 foundational-AI snapshot). FY: $45.8B / ~$50B / $114B (revised from $100B) / $211B. AI ≈ 50% of all global VC by 2025. Counts not stated.
-- Biotech, Climate — not yet gathered.
+- **Climate** — Crunchbase News sustainability/cleantech recaps. FY: $14B (est) / $13.9B / $24B / $20B. ⚠ SCOPE SHIFT WITHIN LINE: 2022/2023 = equity-only; 2024/2025 = "all stages" incl project finance/debt. The $13.9B→$24B jump is partly scope, not growth (equity-only 2024 H1 was actually DOWN 10%). HolonIQ/BloombergNEF report $56-70B on far broader definitions — not used.
+- **Biotech** — Crunchbase News health/biotech recaps. FY: $40B (US-only avg, est) / 2023 missing / $60B (global, derived) / $71.7B (global, stated). ⚠ SCOPE SHIFT WITHIN LINE: 2022 is a US-only boom average; 2024/2025 are global "Health, Wellness & Biotech." Only 2025 is directly stated. US-only 2024/25 ≈ $25B. The weakest line — trend not reliable without a consistent re-pull.
 
 ## Detail / reference sources
 
