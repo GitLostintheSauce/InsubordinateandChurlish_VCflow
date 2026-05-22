@@ -31,6 +31,15 @@ Format per entry:
 
 ---
 
+## 2026-05-22 — Phase 1 close: stack + data model + narrative (t6, t7)
+
+- **Tool**: Claude Code (Opus 4.7)
+- **Stack decision (t6)**: *"I'm using vanilla HTML + D3.js with flat CSV data on GitHub Pages, because it deploys as a static site with no build step and keeps hand-curated data easy to edit/diff — a framework adds tooling with zero payoff for a 3–4 chart dashboard."* CSV instead of `data.json` (curated by hand; D3 loads CSV natively). Full data model in `DATA_MODEL.md`.
+- **Narrative brief (t7)**: `NARRATIVE.md` — 4 shifts (AI's takeover → ~50% of all VC; concentration into mega-rounds; the crypto boom-bust-rebuild cycle; rotation to hard tech/defense). Climate/Biotech flagged as scope-shaky, not drawn as confident trends.
+- **Output usable?**: Yes — both deliverables done. Phase 1 substantially complete (backbone 21/24, 158 deals).
+
+---
+
 ## Template for future entries
 
 ### YYYY-MM-DD — short title
