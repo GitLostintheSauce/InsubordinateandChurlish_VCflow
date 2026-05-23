@@ -9,7 +9,7 @@ Every number traces to a citation here. `source` columns in the data files hold 
 | Layer | Source | File |
 |---|---|---|
 | Cross-sector annual comparison | **Crunchbase News** funding recaps | `sector_annual.csv` |
-| Web3 quarterly hero detail | **Galaxy Digital** *Crypto & Blockchain VC* | `web3_quarterly.csv` (+ `web3_galaxy_provenance.csv`) |
+| Web3 quarterly hero detail | **Galaxy Digital** *Crypto & Blockchain VC* | `web3_quarterly.csv` (+ `raw/web3_galaxy_quarterly_provenance.csv`) |
 | Landmark deals | mixed (Crunchbase / TechCrunch / Fortune / etc.), cited per row | `landmark_deals.csv` |
 
 **Rule:** one source per line. The backbone is all-Crunchbase — do not splice in CB Insights/PitchBook (scopes differ).
@@ -26,7 +26,7 @@ Every number traces to a citation here. `source` columns in the data files hold 
 
 ## Detail / reference sources
 
-- **Galaxy-CryptoVC** — Galaxy Digital *Crypto & Blockchain VC* quarterly, 2022–2025. Full per-quarter provenance in `data/web3_galaxy_provenance.csv`. Powers `web3_quarterly.csv`. Broader scope than Crunchbase web3 (that's why it's detail, not backbone).
+- **Galaxy-CryptoVC** — Galaxy Digital *Crypto & Blockchain VC* quarterly, 2022–2025. Full per-quarter provenance in `data/raw/web3_galaxy_quarterly_provenance.csv`. Powers `web3_quarterly.csv`. Broader scope than Crunchbase web3 (that's why it's detail, not backbone).
 - **Space Capital IQ** — broad "space economy" ($20.1B/$12.5B/$26B) — reference only, NOT comparison backbone (counts GPS apps, infrastructure, etc.).
 
 ## ⚠ Known scope conflicts (do not naively compare)

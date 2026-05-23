@@ -15,9 +15,6 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Streamlit
-.streamlit/secrets.toml
-
-# Data scratch (commit cleaned files in data/, ignore raw)
-data/raw/
+# Data scratch
 *.tmp
+# Note: data/raw/ holds the source-of-record research files — intentionally tracked.

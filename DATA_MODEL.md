@@ -41,5 +41,5 @@ OpenAI, AI, Foundation Model, 2025, Q1, 40000, Private Round, SoftBank, USA, "Cr
 - **Concentration** = top-N deal amounts ÷ sector-year total (e.g. OpenAI = ~19% of 2025 AI)
 
 ## Provenance / reference (not loaded by the app)
-- `data/web3_galaxy_provenance.csv` — per-quarter Galaxy citations
+- `data/raw/web3_galaxy_quarterly_provenance.csv` — per-quarter Galaxy citations
 - `sources.md` — every `source` key resolved to a citation, with scope-conflict notes
