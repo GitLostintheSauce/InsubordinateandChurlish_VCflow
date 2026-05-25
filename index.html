@@ -46,6 +46,17 @@
   .panel p{margin-bottom:.7rem;font-size:.92rem}
   .process{font-style:italic;color:#888;border-top:1px dashed #2a2a3e;margin-top:1.1rem;padding-top:.8rem}
   .process b{color:#aaa;font-style:normal}
+  .qbox{background:#12121a;border:1px solid #2a2a3e;border-left:3px solid var(--AI);border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin:.4rem 0 1.2rem;color:#cfcfe0;font-size:.92rem}
+  .qa-cards{display:flex;flex-wrap:wrap;gap:.9rem;margin-bottom:1.2rem}
+  .qa{flex:1;min-width:215px;background:#15151f;border:1px solid var(--line);border-radius:10px;padding:.9rem 1rem}
+  .qa-q{color:var(--AI);font-weight:700;font-size:.92rem;margin-bottom:.45rem}
+  .qa-a{color:#cfcfe0;font-size:.85rem;line-height:1.5}
+  h3.mini{font-size:.95rem;color:#fff;margin:1.5rem 0 .5rem;font-weight:600}
+  h3.mini span{color:var(--muted);font-weight:400;font-size:.8rem}
+  details.more{margin-top:.8rem;border-top:1px solid var(--line);padding-top:.6rem}
+  details.more summary{cursor:pointer;color:var(--AI);font-size:.85rem;font-weight:600}
+  details.more summary:hover{color:#fff}
+  details.more p{color:#999;font-size:.84rem;margin-top:.6rem;font-style:normal}
 </style>
 </head>
 <body>
@@ -97,12 +108,28 @@
 
   <div class="panel">
     <h2>The AI–energy nexus</h2>
-    <p><b>The question I asked:</b> one of those six top-funded AI companies is <b>Aligned</b>, which builds AI data centers — and data centers are enormously power-hungry. So: <i>is venture money following AI's power demand into energy companies? Is it correlated, and is there a gap between startups raising VC and larger players capturing the biggest share? How did it shift from 2024 to 2025?</i></p>
-    <p class="desc"><b>Selected notable rounds — illustrative, not a market total.</b> A few large named deals per year, split into venture capital vs. government grant. The true sector total is larger and isn't cleanly trackable (see caveat below), so read this as examples, not a census.</p>
+    <div class="qbox"><b>The question:</b> Aligned — one of the six top-funded AI companies — builds AI data centers, which are enormously power-hungry. So: is venture money following AI's power demand into energy? Is it correlated? Do startups or incumbents capture it? And how did it shift from 2024 → 2025?</div>
+
+    <div class="qa-cards">
+      <div class="qa"><div class="qa-q">Did energy VC rise?</div><div class="qa-a"><b>Yes — sharply.</b> Next-gen <b>nuclear</b> VC hit <b>~$2.4B in 2024 (~12× the prior year)</b>; <b>fusion</b> ~<b>$2.64B</b>/yr. Rounds scaled into the billions in 2025 — X-energy $1.4B, Base Power $1B, Commonwealth Fusion $863M.</div></div>
+      <div class="qa"><div class="qa-q">Why?</div><div class="qa-a"><b>AI data centers are power-hungry.</b> US data-center electricity went from <b>4.4% of the grid (2023)</b> toward <b>7–12% by 2028</b>. Capital follows the demand — see the driver chart below.</div></div>
+      <div class="qa"><div class="qa-q">Startups or incumbents?</div><div class="qa-a"><b>Both — in different forms.</b> Startups raise the <b>VC</b> (measurable, billions). Incumbents lock up the actual <b>gigawatts</b> via hyperscaler PPAs (Amazon–Talen 1.92 GW, Meta–Constellation 1.12 GW) at <b>undisclosed</b> prices — a bigger, unmeasurable channel.</div></div>
+    </div>
+
+    <h3 class="mini">Selected venture rounds <span>· illustrative, not a market total · hover for detail</span></h3>
     <svg id="energyChart" viewBox="0 0 920 440"></svg>
     <div class="legend" id="energyLegend"></div>
-    <p class="note"><b>The answer — energy VC is clearly rising with AI, but no clean multiple exists.</b> The trustworthy figures are <b>sector aggregates</b>, not deal-counting: next-generation <b>nuclear</b> VC hit <b>~$2.4B in 2024 — roughly 12× the year before</b> (Oliver Wyman), and <b>fusion</b> drew <b>~$2.64B</b> in the year to mid-2025 (Fusion Industry Association); "frontier energy" has gone from under 5% to about a third of all energy VC since 2019. Individual rounds then scaled into the billions through 2025 — X-energy <b>$1.4B</b>, Base Power <b>$1B</b>, Commonwealth Fusion <b>$863M</b>. <b>The driver</b> is AI data-center electricity demand (US data centers: ~176 TWh / 4.4% of power in 2023 → a projected 325–580 TWh / up to 12% by 2028). <b>The discrepancy you asked about:</b> startups <i>do</i> raise the venture money (now billions, in fission/fusion/grid), but the <i>actual power</i> is locked up by incumbents through hyperscaler PPAs — Amazon–Talen <b>1.92 GW</b>, Meta–Constellation <b>1.12 GW</b> — at <b>undisclosed</b> prices, a far larger and unmeasurable channel. <b>Honest caveat:</b> "energy for AI" isn't a tracked category, so any precise 2024→2025 total or multiple is unreliable (earlier drafts of this card overstated the jump by under-counting 2024). What's solid: the <b>direction</b> (sharply up) and the <b>driver</b> (AI power demand). Correlation, not proven causation.</p>
-    <p class="process"><b>Process &amp; tools.</b> The question was sparked by CB Insights' <i>Venture Trends 2025</i> (48% of VC to AI; 49% of AI funding to six companies). The energy data was gathered with <b>ChatGPT Pro in Deep Research mode</b> — chosen over a plain chat model because it returns cited, multi-source results (critical for a no-hallucinated-numbers rule). It was structured and classified in <b>Claude Code</b>, then <b>cross-checked against sector aggregates</b> (Oliver Wyman clean-energy VC; Fusion Industry Association) — a check that revealed the deal list under-counts the true total, which is why this card leads with aggregates and labels the chart "selected rounds." The main dashboard's sector data came from <b>Crunchbase</b>; the crypto detail from <b>Galaxy Digital</b>. Full citations: <code>data/energy_ai_funding.csv</code>, <code>data/energy_ai_ppa.csv</code>, <code>sources.md</code>.</p>
+
+    <h3 class="mini">The driver: AI data-center electricity demand <span>· hover for detail</span></h3>
+    <svg id="demandChart" viewBox="0 0 920 240"></svg>
+    <div class="legend" id="demandLegend"></div>
+
+    <details class="more"><summary>⚠ The honest caveat — read before quoting a number</summary>
+      <p>"Energy for AI" isn't a tracked funding category, so any precise 2024→2025 <b>total or multiple is unreliable</b>. The bars above are <b>selected named rounds</b> and under-count 2024 (next-gen nuclear alone was ~$2.4B that year — more than every bar shown). What <i>is</i> solid: the <b>direction</b> (sharply up) and the <b>driver</b> (AI power demand) — not a clean multiple. VC and government grants are shown separately; non-VC money (Oklo's SPAC listing, Intersect's infrastructure PE) is excluded. This is correlation, not proven causation — electrification and grid trends matter too.</p>
+    </details>
+    <details class="more"><summary>How this was built — process &amp; AI tools</summary>
+      <p>Sparked by CB Insights' <i>Venture Trends 2025</i> (48% of VC to AI; 49% of AI funding to six companies). Energy data gathered with <b>ChatGPT Pro (Deep Research mode)</b> — chosen over plain chat for cited, multi-source results. Structured and classified in <b>Claude Code</b>, then <b>cross-checked against aggregates</b> (Oliver Wyman clean-energy VC; Fusion Industry Association) — the check that caught the deal-list under-count. Backbone sector data: <b>Crunchbase</b>; crypto detail: <b>Galaxy Digital</b>. Full citations in <code>sources.md</code> and <code>data/energy_ai_funding.csv</code>.</p>
+    </details>
   </div>
 
   <footer>Data: Crunchbase (annual backbone), Galaxy Digital (crypto quarterly), ChatGPT Deep Research + named primary sources (AI–energy). Full citations in <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/sources.md">sources.md</a>. Built with D3.</footer>
@@ -143,6 +170,7 @@ Promise.all([
   drawWeb3(web3);
 
   drawEnergyAI(energyRaw);
+  drawDemand();
 
   buildLegend("#legend", SECTORS);
   buildLegend("#legend2", SECTORS);
@@ -210,6 +238,35 @@ function drawEnergyAI(raw){
   GROUPS.forEach(grp=>{ const s=L.append("span"); s.append("span").attr("class","swatch").style("background",ECOL[grp]); s.append("text").text(grp); });
   L.append("span").style("color","#aaa").html("&nbsp;|&nbsp; <b>solid</b> = venture capital");
   L.append("span").style("color","#aaa").html("<b>dashed/faded</b> = government grant");
+}
+
+// ---- The driver: US data-center electricity demand (TWh + % of grid) ----
+function drawDemand(){
+  const svg=d3.select("#demandChart"), W=920,H=240,m={t:28,r:30,b:34,l:60};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
+  const data=[
+    {k:"2023 (actual)", lo:176, hi:176, pct:"4.4% of US grid"},
+    {k:"2028 (projected)", lo:325, hi:580, pct:"7–12% of US grid"}
+  ];
+  const x=d3.scaleBand().domain(data.map(d=>d.k)).range([0,iw]).padding(0.55);
+  const y=d3.scaleLinear().domain([0,600]).nice().range([ih,0]);
+  g.append("g").attr("class","grid").selectAll("line").data(y.ticks(5)).join("line")
+    .attr("x1",0).attr("x2",iw).attr("y1",d=>y(d)).attr("y2",d=>y(d));
+  g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x));
+  g.append("g").attr("class","axis").call(d3.axisLeft(y).ticks(5).tickFormat(d=>d+" TWh"));
+  data.forEach(d=>{
+    g.append("rect").attr("x",x(d.k)).attr("width",x.bandwidth()).attr("y",y(d.lo)).attr("height",ih-y(d.lo))
+      .attr("fill","#00f0ff").attr("fill-opacity",0.85)
+      .on("mousemove",(e)=>showTip(`<b>US data centers · ${d.k}</b><br>${d.lo===d.hi?d.lo:d.lo+"–"+d.hi} TWh · ${d.pct}`,e)).on("mouseleave",hideTip);
+    if(d.hi>d.lo) g.append("rect").attr("x",x(d.k)).attr("width",x.bandwidth()).attr("y",y(d.hi)).attr("height",y(d.lo)-y(d.hi))
+      .attr("fill","#00f0ff").attr("fill-opacity",0.25).attr("stroke","#00f0ff").attr("stroke-dasharray","4,3")
+      .on("mousemove",(e)=>showTip(`<b>US data centers · ${d.k}</b><br>${d.lo}–${d.hi} TWh (projection range) · ${d.pct}`,e)).on("mouseleave",hideTip);
+    g.append("text").attr("x",x(d.k)+x.bandwidth()/2).attr("y",y(d.hi)-20).attr("text-anchor","middle").attr("fill","#fff").attr("font-size",13).attr("font-weight",700).text((d.lo===d.hi?d.lo:d.lo+"–"+d.hi)+" TWh");
+    g.append("text").attr("x",x(d.k)+x.bandwidth()/2).attr("y",y(d.hi)-6).attr("text-anchor","middle").attr("fill","#00f0ff").attr("font-size",11).text(d.pct);
+  });
+  const L=d3.select("#demandLegend");
+  L.append("span").style("color","#aaa").text("Roughly 2–3× by 2028, driven mainly by AI. Sources: LBNL (US). Global: IEA puts it at 415 TWh in 2024 → ~945 TWh by 2030.");
 }
 
 // ---- Chart 1: multi-line, linear/log toggle ----
