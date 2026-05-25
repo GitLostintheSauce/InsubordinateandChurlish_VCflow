@@ -2,6 +2,8 @@
 
 Live log of significant LLM prompts used to build this project. Reconstructing on Friday produces fiction; capturing live produces truth.
 
+> **This is a historical record.** Earlier entries reference tooling that was later retired (e.g. the initial Streamlit + Plotly scaffold). For the *current* architecture, see `README.md` — this project is now a vanilla HTML + D3 static site.
+
 Format per entry:
 - **Date / Tool**: when and which LLM
 - **Prompt**: what was asked (paste verbatim if significant)

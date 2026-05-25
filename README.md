@@ -6,6 +6,12 @@ An interactive dashboard visualizing how venture capital reallocated across six 
 
 Built with LLMs as the primary tool for research, data, and code — the meta-skill of the project.
 
+## Architecture
+
+**Static site — vanilla HTML + [D3.js](https://d3js.org), served on GitHub Pages. No backend, no framework, no build step.** `index.html` loads the CSVs in `data/` directly via `d3.csv()` and renders the charts in the browser.
+
+> Note: this project began as a Streamlit + Plotly + Python app. That stack was retired early on (Streamlit can't run on GitHub Pages) and fully removed — there is no `app.py`, `requirements.txt`, or `venv`. If you see Streamlit mentioned in `PROMPTS.md`, that's the historical build log, not the current architecture.
+
 ## What it shows
 
 Three D3 views (vanilla HTML, no build step):
