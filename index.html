@@ -67,10 +67,10 @@
 
   <div class="panel">
     <h2>1 · Funding by sector, per year</h2>
-    <p class="desc">Each line is a sector. Switch to log scale to see the smaller sectors' paths — on a linear axis, AI's scale flattens everything else (which is itself the point).</p>
+    <p class="desc">Each line is a sector. Log scale is the default so smaller sectors like Defense stay readable; switch to linear to see how much AI's scale flattens everything else.</p>
     <div class="toggle" id="scaleToggle">
-      <button data-scale="linear" class="on">Linear</button>
-      <button data-scale="log">Log</button>
+      <button data-scale="log" class="on">Log</button>
+      <button data-scale="linear">Linear</button>
     </div>
     <svg id="lines" viewBox="0 0 920 420"></svg>
     <div class="legend" id="legend"></div>
@@ -138,21 +138,22 @@
 
 <script>
 const SECTORS = ["AI","Fintech","Biotech","Climate","Web3","Defense"];
-const COLOR = {"AI":"#00f0ff","Fintech":"#bf5af2","Biotech":"#ff6b6b","Climate":"#5ac8fa","Web3":"#39ff14","Defense":"#ffd60a"};
+const COLOR = {"AI":"#00f0ff","Fintech":"#bf5af2","Biotech":"#ff6b6b","Climate":"#5ac8fa","Web3":"#39ff14","Defense":"#ffd60a","Defense & Space":"#ffd60a"};
 const CAVEAT = {"Climate":true,"Biotech":true};
 const tip = d3.select("#tip");
+function normalizeSector(sector){return sector==="Defense & Space"?"Defense":sector;}
 function showTip(html,e){tip.html(html).style("opacity",1).style("left",(e.clientX+14)+"px").style("top",(e.clientY+14)+"px");}
 function hideTip(){tip.style("opacity",0);}
 
 Promise.all([
-  d3.csv("data/sector_annual.csv"),
-  d3.csv("data/web3_quarterly.csv"),
-  d3.csv("data/energy_ai_funding.csv")
+  d3.csv("data/sector_annual.csv?v=defense-20260525"),
+  d3.csv("data/web3_quarterly.csv?v=defense-20260525"),
+  d3.csv("data/energy_ai_funding.csv?v=defense-20260525")
 ]).then(([annualRaw, web3Raw, energyRaw]) => {
 
   // ---- parse ----
   const annual = annualRaw.map(d => ({
-    sector:d.sector, year:+d.year,
+    sector:normalizeSector(d.sector), year:+d.year,
     value:d.deal_value_usd_b===""?null:+d.deal_value_usd_b,
     est:d.source==="estimated", note:d.note
   }));
@@ -276,7 +277,7 @@ function drawLines(annual, years){
   const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
   const x=d3.scalePoint().domain(years).range([0,iw]).padding(0.5);
   const maxV=d3.max(annual,d=>d.value);
-  let scaleType="linear";
+  let scaleType="log";
   const yLin=d3.scaleLinear().domain([0,maxV]).nice().range([ih,0]);
   const yLog=d3.scaleLog().domain([2,Math.max(maxV,10)]).range([ih,0]);
 
@@ -297,12 +298,12 @@ function drawLines(annual, years){
       .x(d=>x(d.year)).y(d=>y(d.value));
     lineG.selectAll("path.s").data(bySector).join("path").attr("class","s")
       .attr("fill","none").attr("stroke",d=>COLOR[d[0]])
-      .attr("stroke-width",d=>d[0]==="AI"||d[0]==="Web3"?2.6:1.6)
+      .attr("stroke-width",d=>d[0]==="AI"||d[0]==="Web3"||d[0]==="Defense"?2.6:1.6)
       .attr("stroke-dasharray",d=>CAVEAT[d[0]]?"5,4":null)
       .transition().duration(400).attr("d",d=>line(d[1].sort((a,b)=>a.year-b.year)));
     // points
     lineG.selectAll("circle").data(annual.filter(d=>d.value!=null&&(scaleType==="linear"||d.value>0)))
-      .join("circle").attr("r",3.2).attr("fill",d=>COLOR[d.sector])
+      .join("circle").attr("r",d=>d.sector==="Defense"?4.1:3.2).attr("fill",d=>COLOR[d.sector])
       .attr("cx",d=>x(d.year)).attr("stroke","#0a0a0f").attr("stroke-width",1)
       .on("mousemove",(e,d)=>showTip(`<b>${d.sector}</b> ${d.year}<br>$${d.value}B${d.est?" <span style='color:#ffd60a'>(est)</span>":""}`,e))
       .on("mouseleave",hideTip)
