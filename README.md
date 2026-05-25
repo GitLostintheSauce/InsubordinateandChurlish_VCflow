@@ -14,10 +14,13 @@ Built with LLMs as the primary tool for research, data, and code — the meta-sk
 
 ## What it shows
 
-Three D3 views (vanilla HTML, no build step):
+Current D3 views (vanilla HTML, no build step):
 1. **Funding by sector, per year** — multi-line, with a linear ⇄ log toggle. AI's curve dwarfs everything (which is the story).
 2. **Share of the pie, per year** — 100% stacked bars; AI's slab swells from ~21% (2022) to ~60% (2025).
 3. **The crypto cycle, quarter-by-quarter** — Web3's peak → winter → rebuild, from Galaxy Digital.
+4. **AI-energy nexus** — selected power-sector rounds and data-center electricity demand, clearly labeled as an illustrative deep dive rather than a market total.
+
+The Phase 3 deals leaderboard is not built yet. `landmark_deals.csv` is prepared as the input for that later view.
 
 ## Repo structure
 
@@ -26,13 +29,15 @@ index.html                     The dashboard (loads the CSVs via d3.csv)
 data/
   sector_annual.csv            ★ comparison backbone — Crunchbase annual, 6 sectors × 4 years
   web3_quarterly.csv           ★ Web3 hero detail — Galaxy Digital, quarterly
-  landmark_deals.csv           ★ 158 cited landmark rounds (powers the leaderboard)
+  energy_ai_funding.csv        AI-energy selected rounds
+  energy_ai_ppa.csv            AI-energy hyperscaler power deals
+  landmark_deals.csv           145 cited landmark rounds (reserved for Phase 3 leaderboard)
   raw/                         source-of-record research files (provenance)
     ai_vc_2022_2025.csv          ┐
     fintech_vc_2022_2025.csv     │ original per-sector research,
     climate_vc_2022_2025.csv     │ gathered via LLM with citations;
     biotech_vc_2022_2025.csv     │ data extracted into the consolidated
-    space_defense_vc_2022_2025.csv     │ files above
+    defense_vc_2022_2025.csv     │ files above
     web3_crypto_vc_2022_2025.csv       │
     web3_galaxy_quarterly_provenance.csv  per-quarter Galaxy citations
 NARRATIVE.md                   1-page narrative brief (the 4 big shifts)
@@ -59,4 +64,6 @@ python3 -m http.server 8000
 
 ## Status
 
-Phase 1 (research + data + analysis) complete. Next: Phase 2 — polished hero chart, draggable timeline scrubber, and deals leaderboard.
+Phase 0 and Phase 1 are complete. Phase 2 is the current gate: the static dashboard, CSV loading, core charts, interaction, caveat labels, and GitHub Pages deployment are in place, but the project still needs a Phase 2 QA pass before moving to Phase 3.
+
+Before Phase 3, verify the live page in a clean browser session, check the console for errors, test desktop and mobile widths, and update the prompt/process log with the Phase 2 implementation decisions. Phase 3 starts with the deals leaderboard.

@@ -38,7 +38,19 @@ Format per entry:
 - **Tool**: Claude Code (Opus 4.7)
 - **Stack decision (t6)**: *"I'm using vanilla HTML + D3.js with flat CSV data on GitHub Pages, because it deploys as a static site with no build step and keeps hand-curated data easy to edit/diff — a framework adds tooling with zero payoff for a 3–4 chart dashboard."* CSV instead of `data.json` (curated by hand; D3 loads CSV natively). Full data model in `DATA_MODEL.md`.
 - **Narrative brief (t7)**: `NARRATIVE.md` — 4 shifts (AI's takeover → ~50% of all VC; concentration into mega-rounds; the crypto boom-bust-rebuild cycle; rotation to hard tech/defense). Climate/Biotech flagged as scope-shaky, not drawn as confident trends.
-- **Output usable?**: Yes — both deliverables done. Phase 1 substantially complete (backbone 21/24, 158 deals).
+- **Output usable?**: Yes — both deliverables done. Phase 1 substantially complete at the time (backbone 21/24, 158 deals). Later cleanup narrowed the dashboard sector from "Defense & Space" to "Defense" and removed space-only/double-count-prone deal rows, leaving 145 landmark deals.
+
+---
+
+## Current process-log gap to fill before Phase 2 signoff
+
+These entries should be added from actual memory/artifacts before moving to Phase 3. Do not invent verbatim prompts if they were not captured live; label any reconstructed entry as a "summary from memory."
+
+- **Source-quality pivot**: why the project moved from the original quarterly-everywhere plan to an annual Crunchbase backbone plus Web3 quarterly deep dive.
+- **D3 implementation pass**: which tool/code-agent prompts produced the current `index.html`, what worked, and what needed manual correction.
+- **AI-energy section**: how the question emerged, which research tool gathered sources, and why the chart is labeled selected rounds rather than a market total.
+- **Defense-only cleanup**: why "Defense & Space" was narrowed to "Defense", what data was removed, and why that makes the comparison more defensible.
+- **Phase 2 QA**: live URL check, console check, mobile/desktop sanity check, and any fixes made before Phase 3.
 
 ---
 

@@ -11,10 +11,10 @@ Climate,2022,14.0,,estimated,DERIVED ~14B (Crunchbase: 2023 'roughly flat' vs 20
 Climate,2023,13.9,,Crunchbase,Equity-only; 'roughly flat'; battery-dominated (Verkor/Northvolt/Redwood)
 Climate,2024,24.0,,Crunchbase,ALL-STAGES incl project finance - NOT comparable to 2022/23 equity-only; equity-only H1 was $9.6B (DOWN 10%)
 Climate,2025,20.0,,Crunchbase,All-stages through Oct (est ~22-24B FY); 17 rounds >=100M; DOE grant cancellations
-Defense & Space,2022,2.6,113,Crunchbase,Crunchbase 'defense tech' (narrow); Anduril $1.48B Series E catalyst
-Defense & Space,2023,2.7,100,Crunchbase,Shield AI $500M = 18.5% of total
-Defense & Space,2024,3.0,102,Crunchbase,Record; Anduril $1.5B = 50% of total
-Defense & Space,2025,7.7,,Crunchbase,Record year ~100 deals; same narrow military/security definition as 2022-24; Anduril $2.5B top round. (Line is defense-tech only; space not separately added on Crunchbase basis)
+Defense,2022,2.6,113,Crunchbase,Crunchbase 'defense tech' (narrow); Anduril $1.48B Series E catalyst
+Defense,2023,2.7,100,Crunchbase,Shield AI $500M = 18.5% of total
+Defense,2024,3.0,102,Crunchbase,Record; Anduril $1.5B = 50% of total
+Defense,2025,7.7,,Crunchbase,Record year ~100 deals; same narrow military/security definition as 2022-24; Anduril $2.5B top round
 Web3,2022,26.6,2891,Crunchbase,Crunchbase 'web3'; Galaxy broader = >$30B (see web3_quarterly detail)
 Web3,2023,6.8,1564,Crunchbase,Lowest since 2020; only 8 rounds >$100M all year
 Web3,2024,7.7,1180,Crunchbase,Galaxy broader = $11.5B

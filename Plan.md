@@ -12,7 +12,7 @@ The dashboard answers one question: **where is VC money flowing across sectors, 
 | `data/web3_quarterly.csv` | **Web3 hero deep-dive** (crypto is the audience's market) | quarterly, 16 rows |
 | `data/landmark_deals.csv` | **Landmark deals** (t5) — texture under the totals | per-deal |
 
-**Sectors (fixed, 6):** AI · Fintech · Climate · Defense & Space · Web3 · Biotech
+**Sectors (fixed, 6):** AI · Fintech · Climate · Defense · Web3 · Biotech
 **`sector_annual.csv` schema:** `sector, year, deal_value_usd_b, deal_count, source, note`
 
 ---
@@ -23,7 +23,7 @@ For an honest cross-sector comparison, every sector's annual total must use the 
 
 - **Backbone = Crunchbase annual totals, all 6 sectors.** It's the one free source covering every sector with a consistent "VC-backed startup" definition. Cross-sector bars are then comparable.
 - **Galaxy Digital** = Web3 *quarterly* detail only (broader scope than Crunchbase — kept separate, labeled).
-- **Space Capital IQ** = optional space deep-dive reference (very broad scope — NOT used in the comparison).
+- **Defense is defense-tech only.** Space data is intentionally excluded rather than mixed into the same line.
 
 **Hard rules:**
 1. **One source per line.** The annual backbone is all-Crunchbase. Don't splice PitchBook/CB Insights into it (their scopes differ — e.g. PitchBook "defense" $10B vs Crunchbase "defense tech" $3B).
@@ -67,24 +67,23 @@ Give me the 5 largest [SECTOR] venture rounds of [YEAR]: company, amount (USD mi
 
 ## 5. Progress
 
-**Backbone `sector_annual.csv` — 21/24:**
+**Backbone `sector_annual.csv` — 24/24:**
 ```
                 2022    2023    2024    2025
 AI              45.8    50.0   114.0   211.0    ✅ the surge → ~50% of all VC by 2025
 Fintech         90.2    43.0    40.8    51.8    ✅
 Climate         14.0e   13.9    24.0!   20.0    ⚠ scope shift: '22/'23 equity-only, '24/'25 all-stages
-Defense&Space    2.6*    2.7*    3.0*     —      *defense-only; add Crunchbase "space" ($9.6B'22,$5.9B'23)+2025
-Web3            26.6     6.8     7.7      —      need Crunchbase FY2025 (only Q1 $3.8B confirmed)
-Biotech         40.0e    —      60.0e   71.7    ⚠ '22 US-only, '24 derived, '23 missing, '25 global
+Defense          2.6     2.7     3.0     7.7     ✅ narrow Crunchbase defense-tech definition
+Web3            26.6     6.8     7.7    12.0e   ⚠ 2025 estimated; no clean Crunchbase FY2025 total found
+Biotech         40.0e   52.0e   60.0e   71.7    ⚠ '22 US-only, '24 derived, '23 estimated, '25 global
 ```
-`e` = estimated/derived · `!` = scope-widened · `*` = defense-only
-**`web3_quarterly.csv`:** ✅ 16/16 (Galaxy). **`landmark_deals.csv`:** ✅ 158 deals.
+`e` = estimated/derived · `!` = scope-widened
+**`web3_quarterly.csv`:** ✅ 16/16 (Galaxy). **`landmark_deals.csv`:** ✅ 145 deals after removing space-only and dual-use space rows.
 
-**Remaining (3 cells + 2 known-weak lines):**
-1. Stragglers: Web3 FY2025, Defense&Space 2025 (+ space component), Biotech 2023
-2. ⚠ Climate & Biotech lines have internal scope inconsistencies — see sources.md. Decide: footnote-and-accept, or targeted re-pull for a consistent basis.
-
-**Open question:** "Defense & Space" is one sector but Crunchbase tracks them separately (defense tech ~$3B vs space startups ~$9.6B). Decide: combine the two Crunchbase cuts, or split into two sectors (would break the 6-sector cap).
+**Remaining source caveats:**
+1. Web3 FY2025 remains estimated because no clean Crunchbase full-year total was found.
+2. Climate and Biotech have internal scope inconsistencies — see `sources.md`. These are footnoted and should not be used for precise slope claims.
+3. Defense is intentionally defense-tech only; space data was removed to keep the category defensible.
 
 ---
 
