@@ -1,0 +1,10 @@
+hyperscaler,counterparty,capacity,value_usd_m,deal_type,year,source_url,note
+Microsoft,Constellation / Three Mile Island (Crane),835 MW,undisclosed,20-yr nuclear PPA,2024,https://www.constellationenergy.com/news/2024/Constellation-to-Launch-Crane-Clean-Energy-Center-Restoring-Jobs-and-Carbon-Free-Power-to-The-Grid.html,restart-enabling offtake
+Microsoft,Brookfield,>10.5 GW,undisclosed,renewable framework,2024,https://www.sec.gov/Archives/edgar/data/1533232/000117184324002391/exh_991.htm,corporate procurement
+Amazon,Talen / Susquehanna,960 MW,$650M (campus asset sale),DC campus + power,2024,https://www.spglobal.com/market-intelligence/en/news-insights/articles/2024/3/talen-energy-sells-pa-datacenter-campus-to-amazon-web-services-for-650m-80711401,"$650M is asset sale, not PPA value"
+Google,Kairos Power,500 MW by 2035,undisclosed,Master plan + PPAs,2024,https://www.kairospower.com/updates/google-and-kairos-power-partner-to-deploy-500-mw-of-clean-electricity-generation,
+Meta,nuclear RFP,1-4 GW target,n/a,RFP (not signed),2024,https://sustainability.atmeta.com/blog/2024/12/03/accelerating-the-next-wave-of-nuclear-to-power-ai-innovation/,
+Amazon,Talen / Susquehanna,1.92 GW,undisclosed,17-yr nuclear PPA to 2042,2025,https://www.datacenterdynamics.com/en/news/aws-talen-sign-ppa-for-192gw-of-power-from-pennsylvania-nuclear-plant/,
+Meta,Constellation / Clinton,"1,121 MW",undisclosed,20-yr nuclear PPA,2025,https://www.constellationenergy.com/news/2025/constellation-meta-sign-20-year-deal-for-clean-reliable-nuclear-energy-in-illinois.html,
+Google,Commonwealth Fusion Systems,200 MW,undisclosed,fusion offtake + investment,2025,https://cfs.energy/news-and-media/google-and-commonwealth-fusion-systems-sign-strategic-partnership/,
+Google,Elementl Power,1.8 GW (3 sites),undisclosed,early capital + offtake option,2025,https://blog.google/feed/google-and-elementl-nuclear-energy-site-development/,

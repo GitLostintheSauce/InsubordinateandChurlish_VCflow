@@ -36,6 +36,16 @@
   footer{color:#666;font-size:.78rem;margin-top:1rem;text-align:center}
   footer a{color:var(--Fintech)}
   .err{color:#ff6b6b;padding:1rem;border:1px solid #ff6b6b55;border-radius:8px}
+  .divider{height:1px;background:linear-gradient(90deg,transparent,#2a2a3e,transparent);margin:3rem 0 1.5rem}
+  .section-title{font-size:1.7rem;color:var(--AI);margin-bottom:.4rem}
+  .section-sub{color:var(--muted);margin-bottom:1.4rem;font-size:1rem}
+  .stats{display:flex;flex-wrap:wrap;gap:.9rem;margin:1.1rem 0}
+  .stat{flex:1;min-width:155px;background:#15151f;border:1px solid var(--line);border-radius:10px;padding:.9rem 1rem}
+  .stat .num{font-size:1.35rem;font-weight:700;color:#fff}
+  .stat .lbl{font-size:.78rem;color:var(--muted);margin-top:.3rem}
+  .panel p{margin-bottom:.7rem;font-size:.92rem}
+  .process{font-style:italic;color:#888;border-top:1px dashed #2a2a3e;margin-top:1.1rem;padding-top:.8rem}
+  .process b{color:#aaa;font-style:normal}
 </style>
 </head>
 <body>
@@ -71,7 +81,30 @@
     <div class="note">Peak Q1 2022 ($14.2B) → FTX/rate-shock winter → trough 2023 → rebuild to $8.5B in Q4 2025, the strongest quarter since Q2 2022. <span class="warn">⚠</span> 2022 Q4 &amp; 2023 Q2 are derived estimates; some quarters revised upward over time (late-reported deals).</div>
   </div>
 
-  <footer>Data: Crunchbase (annual backbone), Galaxy Digital (crypto quarterly). Full citations in <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/sources.md">sources.md</a>. Built with D3.</footer>
+  <div class="divider"></div>
+  <h2 class="section-title">🤖 AI — the sector that ate venture</h2>
+  <p class="section-sub">The defining shift of 2022–2025, and where its appetite is now pulling capital next.</p>
+
+  <div class="panel">
+    <h2>AI's takeover of VC</h2>
+    <p>No sector reshaped venture capital like AI. Funding climbed from <b>$45.8B in 2022 to $211B in 2025</b> — by which point AI was roughly <b>half of all global venture dollars</b>. And it concentrated: per CB Insights' <i>Venture Trends 2025</i>, about <b>49% of AI funding went to just six companies</b>, and a single OpenAI round (~$40B) was ~19% of the year's AI total. (Charts 1 &amp; 2 above show the full trajectory and the swelling share of the pie.)</p>
+    <div class="stats">
+      <div class="stat"><div class="num">$45.8B → $211B</div><div class="lbl">AI VC funding, 2022 → 2025</div></div>
+      <div class="stat"><div class="num">~48–50%</div><div class="lbl">of all global VC in 2025</div></div>
+      <div class="stat"><div class="num">~49%</div><div class="lbl">of AI funding to just 6 companies</div></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>The AI–energy nexus</h2>
+    <p><b>The question I asked:</b> one of those six top-funded AI companies is <b>Aligned</b>, which builds AI data centers — and data centers are enormously power-hungry. So: <i>is venture money following AI's power demand into energy companies? Is it correlated, and is there a gap between startups raising VC and larger players capturing the biggest share? How did it shift from 2024 to 2025?</i></p>
+    <svg id="energyChart" viewBox="0 0 920 420"></svg>
+    <div class="legend" id="energyLegend"></div>
+    <p class="note"><b>The answer — yes, and it surged.</b> Disclosed VC funding to energy startups powering AI jumped <b>~14×</b>, from <b>~$264M (2024)</b> to <b>~$3.84B (2025)</b>, concentrated in <b>firm, clean baseload</b> — nuclear (X-energy, TerraPower) and fusion (Commonwealth Fusion, Helion) — because data centers need 24/7 power, not intermittent solar/wind. <b>But the larger channel is invisible on this chart:</b> hyperscalers (Microsoft, Amazon, Google, Meta) signed <b>gigawatts</b> of power deals — e.g. Amazon–Talen <b>1.92 GW</b> and Meta–Constellation <b>1.12 GW</b> in 2025 — whose dollar values are <b>undisclosed</b>. So venture funds the <i>speculative future supply</i> (measurable, concentrated in a few names — mirroring AI itself); incumbents lock in the <i>real near-term supply</i> (gigawatts, unmeasurable in dollars). The correlation with AI is <b>directional, not proven</b> — two years of data can't establish causation, and electrification/grid trends are also at play.</p>
+    <p class="process"><b>Process &amp; tools.</b> The question was sparked by CB Insights' <i>Venture Trends 2025</i> (48% of VC to AI; 49% of AI funding to six companies). The energy data was gathered with <b>ChatGPT Pro in Deep Research mode</b> — chosen over a plain chat model because it returns cited, multi-source results (critical for a no-hallucinated-numbers rule). It was then structured, classified by capital type (VC equity vs. project finance vs. PPA), and visualized in <b>Claude Code</b>. The main dashboard's sector data came from <b>Crunchbase</b>; the crypto detail from <b>Galaxy Digital</b>. Full citations: <code>data/energy_ai_funding.csv</code>, <code>data/energy_ai_ppa.csv</code>, <code>sources.md</code>.</p>
+  </div>
+
+  <footer>Data: Crunchbase (annual backbone), Galaxy Digital (crypto quarterly), ChatGPT Deep Research + named primary sources (AI–energy). Full citations in <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/sources.md">sources.md</a>. Built with D3.</footer>
 </div>
 <div id="tip"></div>
 
@@ -85,8 +118,9 @@ function hideTip(){tip.style("opacity",0);}
 
 Promise.all([
   d3.csv("data/sector_annual.csv"),
-  d3.csv("data/web3_quarterly.csv")
-]).then(([annualRaw, web3Raw]) => {
+  d3.csv("data/web3_quarterly.csv"),
+  d3.csv("data/energy_ai_funding.csv")
+]).then(([annualRaw, web3Raw, energyRaw]) => {
 
   // ---- parse ----
   const annual = annualRaw.map(d => ({
@@ -107,6 +141,8 @@ Promise.all([
   })).filter(d=>d.value!=null).sort((a,b)=> a.year-b.year || a.q-b.q);
   drawWeb3(web3);
 
+  drawEnergyAI(energyRaw);
+
   buildLegend("#legend", SECTORS);
   buildLegend("#legend2", SECTORS);
 }).catch(err=>{
@@ -120,6 +156,55 @@ function buildLegend(sel, sectors){
     g.append("span").attr("class","swatch").style("background",COLOR[s]);
     g.append("text").text(s+(CAVEAT[s]?" ⚠":""));
   });
+}
+
+// ---- AI–energy nexus: VC-equity energy funding, 2024 vs 2025 (stacked by subsector) ----
+function drawEnergyAI(raw){
+  const GROUPS=["Nuclear","Fusion","Geothermal","Solar/Storage"];
+  const ECOL={"Nuclear":"#ffd60a","Fusion":"#ff6b6b","Geothermal":"#ff9f0a","Solar/Storage":"#5ac8fa"};
+  const years=["2024","2025"];
+  const agg={}; years.forEach(y=>{agg[y]={}; GROUPS.forEach(g=>agg[y][g]=0);});
+  raw.filter(d=>d.counted_vc_equity==="yes").forEach(d=>{
+    if(agg[d.year] && d.subsector_group in agg[d.year]) agg[d.year][d.subsector_group]+=+d.amount_usd_m;
+  });
+  const totals={}; years.forEach(y=>totals[y]=d3.sum(GROUPS,g=>agg[y][g]));
+
+  const svg=d3.select("#energyChart"), W=920,H=420,m={t:34,r:160,b:38,l:62};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
+  const x=d3.scaleBand().domain(years).range([0,iw]).padding(0.5);
+  const y=d3.scaleLinear().domain([0,d3.max(years,yr=>totals[yr])]).nice().range([ih,0]);
+  g.append("g").attr("class","grid").selectAll("line").data(y.ticks(5)).join("line")
+    .attr("x1",0).attr("x2",iw).attr("y1",d=>y(d)).attr("y2",d=>y(d));
+  g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x));
+  g.append("g").attr("class","axis").call(d3.axisLeft(y).ticks(5).tickFormat(d=>"$"+(d/1000).toFixed(1)+"B"));
+
+  years.forEach(yr=>{
+    let acc=0;
+    GROUPS.forEach(grp=>{
+      const v=agg[yr][grp]; if(!v) return;
+      g.append("rect").attr("x",x(yr)).attr("width",x.bandwidth())
+        .attr("y",y(acc+v)).attr("height",ih-y(v)).attr("fill",ECOL[grp]).attr("stroke","#0a0a0f")
+        .on("mousemove",(e)=>showTip(`<b>${grp}</b> ${yr}<br>$${v}M`,e)).on("mouseleave",hideTip);
+      acc+=v;
+    });
+    const t=totals[yr];
+    g.append("text").attr("x",x(yr)+x.bandwidth()/2).attr("y",y(t)-9).attr("text-anchor","middle")
+      .attr("fill","#fff").attr("font-size",14).attr("font-weight",700)
+      .text(t>=1000?"$"+(t/1000).toFixed(2)+"B":"$"+t+"M");
+  });
+  // ~14x annotation between the bars
+  g.append("text").attr("x",iw/2).attr("y",16).attr("text-anchor","middle")
+    .attr("fill","#39ff14").attr("font-size",13).attr("font-weight",700).text("≈ 14× in one year ↗");
+
+  // legend
+  const L=d3.select("#energyLegend");
+  GROUPS.forEach(grp=>{
+    const s=L.append("span");
+    s.append("span").attr("class","swatch").style("background",ECOL[grp]);
+    s.append("text").text(grp);
+  });
+  L.append("span").style("color","#777").text("· bars = disclosed startup VC equity; hyperscaler PPAs (gigawatts) not shown — values undisclosed");
 }
 
 // ---- Chart 1: multi-line, linear/log toggle ----
