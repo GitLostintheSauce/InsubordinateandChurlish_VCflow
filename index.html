@@ -98,10 +98,11 @@
   <div class="panel">
     <h2>The AI–energy nexus</h2>
     <p><b>The question I asked:</b> one of those six top-funded AI companies is <b>Aligned</b>, which builds AI data centers — and data centers are enormously power-hungry. So: <i>is venture money following AI's power demand into energy companies? Is it correlated, and is there a gap between startups raising VC and larger players capturing the biggest share? How did it shift from 2024 to 2025?</i></p>
-    <svg id="energyChart" viewBox="0 0 920 420"></svg>
+    <p class="desc"><b>Selected notable rounds — illustrative, not a market total.</b> A few large named deals per year, split into venture capital vs. government grant. The true sector total is larger and isn't cleanly trackable (see caveat below), so read this as examples, not a census.</p>
+    <svg id="energyChart" viewBox="0 0 920 440"></svg>
     <div class="legend" id="energyLegend"></div>
-    <p class="note"><b>The answer — yes, but read it carefully.</b> Energy-for-AI capital was already sizeable in 2024 (~$2.6B) — but mostly <b>not venture capital</b>: a SPAC listing (Oklo), a federal DOE award (Kairos), milestone commitments (Pacific Fusion), and data-center-colocated growth equity (Intersect). In 2025 (~$3.8B) it <b>matured into closed startup VC equity</b>, concentrated in <b>firm clean baseload</b> — fission (X-energy, TerraPower) and fusion (Commonwealth Fusion, Helion) — because data centers need 24/7 power, not intermittent solar/wind. Closed VC equity specifically jumped <b>~14× ($264M → $3.84B)</b>. So the real shift is <b>maturation and concentration</b>, not money appearing from nowhere. <b>And the biggest channel is still invisible here:</b> hyperscaler PPAs (Amazon–Talen <b>1.92 GW</b>, Meta–Constellation <b>1.12 GW</b> in 2025) move gigawatts at <b>undisclosed</b> prices. Venture funds the <i>speculative future supply</i> (measurable, concentrated — mirroring AI itself); incumbents lock in the <i>real near-term supply</i> (gigawatts, unmeasurable in dollars). Correlation with AI is <b>directional, not proven</b> — two years can't establish causation, and electrification/grid trends are also at play.</p>
-    <p class="process"><b>Process &amp; tools.</b> The question was sparked by CB Insights' <i>Venture Trends 2025</i> (48% of VC to AI; 49% of AI funding to six companies). The energy data was gathered with <b>ChatGPT Pro in Deep Research mode</b> — chosen over a plain chat model because it returns cited, multi-source results (critical for a no-hallucinated-numbers rule). It was then structured, classified by capital type (VC equity vs. project finance vs. PPA), and visualized in <b>Claude Code</b>. The main dashboard's sector data came from <b>Crunchbase</b>; the crypto detail from <b>Galaxy Digital</b>. Full citations: <code>data/energy_ai_funding.csv</code>, <code>data/energy_ai_ppa.csv</code>, <code>sources.md</code>.</p>
+    <p class="note"><b>The answer — energy VC is clearly rising with AI, but no clean multiple exists.</b> The trustworthy figures are <b>sector aggregates</b>, not deal-counting: next-generation <b>nuclear</b> VC hit <b>~$2.4B in 2024 — roughly 12× the year before</b> (Oliver Wyman), and <b>fusion</b> drew <b>~$2.64B</b> in the year to mid-2025 (Fusion Industry Association); "frontier energy" has gone from under 5% to about a third of all energy VC since 2019. Individual rounds then scaled into the billions through 2025 — X-energy <b>$1.4B</b>, Base Power <b>$1B</b>, Commonwealth Fusion <b>$863M</b>. <b>The driver</b> is AI data-center electricity demand (US data centers: ~176 TWh / 4.4% of power in 2023 → a projected 325–580 TWh / up to 12% by 2028). <b>The discrepancy you asked about:</b> startups <i>do</i> raise the venture money (now billions, in fission/fusion/grid), but the <i>actual power</i> is locked up by incumbents through hyperscaler PPAs — Amazon–Talen <b>1.92 GW</b>, Meta–Constellation <b>1.12 GW</b> — at <b>undisclosed</b> prices, a far larger and unmeasurable channel. <b>Honest caveat:</b> "energy for AI" isn't a tracked category, so any precise 2024→2025 total or multiple is unreliable (earlier drafts of this card overstated the jump by under-counting 2024). What's solid: the <b>direction</b> (sharply up) and the <b>driver</b> (AI power demand). Correlation, not proven causation.</p>
+    <p class="process"><b>Process &amp; tools.</b> The question was sparked by CB Insights' <i>Venture Trends 2025</i> (48% of VC to AI; 49% of AI funding to six companies). The energy data was gathered with <b>ChatGPT Pro in Deep Research mode</b> — chosen over a plain chat model because it returns cited, multi-source results (critical for a no-hallucinated-numbers rule). It was structured and classified in <b>Claude Code</b>, then <b>cross-checked against sector aggregates</b> (Oliver Wyman clean-energy VC; Fusion Industry Association) — a check that revealed the deal list under-counts the true total, which is why this card leads with aggregates and labels the chart "selected rounds." The main dashboard's sector data came from <b>Crunchbase</b>; the crypto detail from <b>Galaxy Digital</b>. Full citations: <code>data/energy_ai_funding.csv</code>, <code>data/energy_ai_ppa.csv</code>, <code>sources.md</code>.</p>
   </div>
 
   <footer>Data: Crunchbase (annual backbone), Galaxy Digital (crypto quarterly), ChatGPT Deep Research + named primary sources (AI–energy). Full citations in <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/sources.md">sources.md</a>. Built with D3.</footer>
@@ -160,54 +161,55 @@ function buildLegend(sel, sectors){
 
 // ---- AI–energy nexus: energy-for-AI capital, 2024 vs 2025, by subsector + capital class ----
 function drawEnergyAI(raw){
-  const GROUPS=["Fission","Fusion","Geothermal","Solar/Storage"];
-  const ECOL={"Fission":"#ffd60a","Fusion":"#ff6b6b","Geothermal":"#ff9f0a","Solar/Storage":"#5ac8fa"};
+  const GROUPS=["Fission","Fusion","Geothermal","Grid & Storage"];
+  const ECOL={"Fission":"#ffd60a","Fusion":"#ff6b6b","Geothermal":"#ff9f0a","Grid & Storage":"#5ac8fa"};
   const years=["2024","2025"];
-  const agg={}; years.forEach(y=>{agg[y]={}; GROUPS.forEach(g=>agg[y][g]={"closed-VC":0,"other":0});});
+  const agg={}; years.forEach(y=>{agg[y]={}; GROUPS.forEach(g=>agg[y][g]={"VC":0,"gov-grant":0});});
   raw.forEach(d=>{
-    if(d.capital_class==="excluded") return;
+    if(d.capital_class!=="VC" && d.capital_class!=="gov-grant") return;  // drop excluded (non-VC)
     if(agg[d.year] && agg[d.year][d.subsector_group]) agg[d.year][d.subsector_group][d.capital_class]+=+d.amount_usd_m;
   });
-  const totals={}, vc={};
-  years.forEach(y=>{ totals[y]=0; vc[y]=0; GROUPS.forEach(g=>{ totals[y]+=agg[y][g]["closed-VC"]+agg[y][g]["other"]; vc[y]+=agg[y][g]["closed-VC"]; }); });
+  const vcT={}, grT={};
+  years.forEach(y=>{ vcT[y]=d3.sum(GROUPS,g=>agg[y][g]["VC"]); grT[y]=d3.sum(GROUPS,g=>agg[y][g]["gov-grant"]); });
 
-  const svg=d3.select("#energyChart"), W=920,H=440,m={t:46,r:180,b:38,l:62};
+  const svg=d3.select("#energyChart"), W=920,H=440,m={t:48,r:185,b:38,l:62};
   const iw=W-m.l-m.r, ih=H-m.t-m.b;
   const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
   const x=d3.scaleBand().domain(years).range([0,iw]).padding(0.5);
-  const y=d3.scaleLinear().domain([0,d3.max(years,yr=>totals[yr])]).nice().range([ih,0]);
+  const y=d3.scaleLinear().domain([0,d3.max(years,yr=>vcT[yr]+grT[yr])]).nice().range([ih,0]);
   g.append("g").attr("class","grid").selectAll("line").data(y.ticks(5)).join("line")
     .attr("x1",0).attr("x2",iw).attr("y1",d=>y(d)).attr("y2",d=>y(d));
   g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x));
   g.append("g").attr("class","axis").call(d3.axisLeft(y).ticks(5).tickFormat(d=>"$"+(d/1000).toFixed(1)+"B"));
 
   years.forEach(yr=>{
-    // closed-VC segments at bottom, then "other" on top; coloured by subsector
+    // VC segments at bottom (solid), government grants on top (dashed/faded); coloured by subsector
     const segs=[];
-    GROUPS.forEach(grp=>{ if(agg[yr][grp]["closed-VC"]>0) segs.push({grp,cls:"closed-VC",v:agg[yr][grp]["closed-VC"]}); });
-    GROUPS.forEach(grp=>{ if(agg[yr][grp]["other"]>0) segs.push({grp,cls:"other",v:agg[yr][grp]["other"]}); });
+    GROUPS.forEach(grp=>{ if(agg[yr][grp]["VC"]>0) segs.push({grp,cls:"VC",v:agg[yr][grp]["VC"]}); });
+    GROUPS.forEach(grp=>{ if(agg[yr][grp]["gov-grant"]>0) segs.push({grp,cls:"gov-grant",v:agg[yr][grp]["gov-grant"]}); });
     let acc=0;
     segs.forEach(s=>{
       const yTop=y(acc+s.v), h=ih-y(s.v);
       g.append("rect").attr("x",x(yr)).attr("width",x.bandwidth()).attr("y",yTop).attr("height",h)
-        .attr("fill",ECOL[s.grp]).attr("fill-opacity",s.cls==="closed-VC"?1:0.3)
-        .attr("stroke",ECOL[s.grp]).attr("stroke-width",1).attr("stroke-dasharray",s.cls==="other"?"4,3":null)
-        .on("mousemove",(e)=>showTip(`<b>${s.grp}</b> ${yr} · $${s.v}M<br>${s.cls==="closed-VC"?"closed VC equity":"other (public / federal / announced)"}`,e)).on("mouseleave",hideTip);
+        .attr("fill",ECOL[s.grp]).attr("fill-opacity",s.cls==="VC"?1:0.28)
+        .attr("stroke",ECOL[s.grp]).attr("stroke-width",1).attr("stroke-dasharray",s.cls==="gov-grant"?"4,3":null)
+        .on("mousemove",(e)=>showTip(`<b>${s.grp}</b> ${yr} · $${s.v}M<br>${s.cls==="VC"?"venture capital":"government grant"}`,e)).on("mouseleave",hideTip);
       if(h>15) g.append("text").attr("x",x(yr)+x.bandwidth()/2).attr("y",yTop+h/2).attr("dy","0.32em")
-        .attr("text-anchor","middle").attr("fill",s.cls==="closed-VC"?"#0a0a0f":"#e0e0e0").attr("font-size",10).attr("font-weight",600)
-        .text(s.grp+" $"+s.v+"M");
+        .attr("text-anchor","middle").attr("fill",s.cls==="VC"?"#0a0a0f":"#e0e0e0").attr("font-size",10).attr("font-weight",600)
+        .text(s.grp+" $"+s.v+"M"+(s.cls==="gov-grant"?" (grant)":""));
       acc+=s.v;
     });
-    g.append("text").attr("x",x(yr)+x.bandwidth()/2).attr("y",y(totals[yr])-24).attr("text-anchor","middle")
-      .attr("fill","#fff").attr("font-size",14).attr("font-weight",700).text("$"+(totals[yr]/1000).toFixed(2)+"B total");
-    g.append("text").attr("x",x(yr)+x.bandwidth()/2).attr("y",y(totals[yr])-8).attr("text-anchor","middle")
-      .attr("fill","#00f0ff").attr("font-size",11).text("$"+(vc[yr]/1000).toFixed(2)+"B closed VC");
+    const top=vcT[yr]+grT[yr];
+    g.append("text").attr("x",x(yr)+x.bandwidth()/2).attr("y",y(top)-24).attr("text-anchor","middle")
+      .attr("fill","#fff").attr("font-size",14).attr("font-weight",700).text("$"+(vcT[yr]/1000).toFixed(2)+"B VC (sel.)");
+    if(grT[yr]>0) g.append("text").attr("x",x(yr)+x.bandwidth()/2).attr("y",y(top)-8).attr("text-anchor","middle")
+      .attr("fill","#aaa").attr("font-size",11).text("+ $"+grT[yr]+"M grant");
   });
 
   const L=d3.select("#energyLegend");
   GROUPS.forEach(grp=>{ const s=L.append("span"); s.append("span").attr("class","swatch").style("background",ECOL[grp]); s.append("text").text(grp); });
-  L.append("span").style("color","#aaa").html("&nbsp;|&nbsp; <b>solid</b> = closed VC equity");
-  L.append("span").style("color","#aaa").html("<b>faded/dashed</b> = other capital (public · federal · announced)");
+  L.append("span").style("color","#aaa").html("&nbsp;|&nbsp; <b>solid</b> = venture capital");
+  L.append("span").style("color","#aaa").html("<b>dashed/faded</b> = government grant");
 }
 
 // ---- Chart 1: multi-line, linear/log toggle ----

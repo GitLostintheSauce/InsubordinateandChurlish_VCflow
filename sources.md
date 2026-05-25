@@ -37,3 +37,12 @@ Every number traces to a citation here. `source` columns in the data files hold 
 ## Definitions
 - Backbone values in USD billions, annual. Landmark deal amounts in USD millions.
 - "Deal value" = disclosed equity VC funding. Lesson: the same metric differs across firms — never mix providers within one line.
+
+## AI–energy nexus (the AI section's chart)
+
+Deal-level rounds: `data/energy_ai_funding.csv` (per-row source links). Hyperscaler PPAs: `data/energy_ai_ppa.csv`. The deal list is **selected notable rounds, not a sector total** — it under-counts (esp. 2024). The card's headline figures use published **aggregates**:
+
+- **Next-gen nuclear VC ≈ $2.4B in 2024, ~12× the prior year** — Oliver Wyman, "Clean Energy Startups Hit New VC Investment Peak In 2024" (https://www.oliverwyman.com/our-expertise/insights/2025/may/venture-capital-funding-clean-energy-startups-rebounds.html). Same source: clean-energy startup VC rebounded to ~$12.5B in 2024.
+- **Private fusion ≈ $2.64B** in the year to mid-2025 — Fusion Industry Association (https://www.fusionindustryassociation.org/over-2-5-billion-invested-in-fusion-industry-in-past-year/).
+- Data-center electricity demand — LBNL (US: 176 TWh / 4.4% in 2023 → 325–580 TWh by 2028) and IEA (global: 415 TWh in 2024 → ~945 TWh by 2030).
+- ⚠ Lesson logged: a hand-curated deal list cannot produce a reliable year-over-year total/multiple. Earlier drafts ("14×", then "4×") were under-counting artifacts; the card now leads with aggregates and the honest caveat.
