@@ -64,6 +64,11 @@ python3 -m http.server 8000
 
 ## Status
 
-Phase 0 and Phase 1 are complete. Phase 2 is the current gate: the static dashboard, CSV loading, core charts, interaction, caveat labels, and GitHub Pages deployment are in place, but the project still needs a Phase 2 QA pass before moving to Phase 3.
+**Phases 0, 1, and 2 are complete** (documented against both the original and the revised, source-quality-first plans):
+- **Phase 0** — tools compared (`PROMPTS.md`), prompt log live, GitHub Pages deployed.
+- **Phase 1** — source feasibility matrix + raw-access note (`sources.md`), Crunchbase annual backbone chosen, Galaxy Web3 quarterly deep dive labeled separate, data files built, sources & caveats written, narrative brief (`NARRATIVE.md`). The **quarterly → annual source-quality pivot is documented** in `PROMPTS.md` (this is why the original plan's quarterly hero + scrubber were intentionally not built).
+- **Phase 2** — static D3 site, CSV loading, annual hero + share view, Web3 quarterly deep dive, interactions (scale / sector focus / legend filters / year selector), tooltips + caveat indicators, live on GitHub Pages.
 
-Before Phase 3, verify the live page in a clean browser session, check the console for errors, test desktop and mobile widths, and update the prompt/process log with the Phase 2 implementation decisions. Phase 3 starts with the deals leaderboard.
+**Carries into the new session** — a few items still need *your* hands and are flagged in `PROMPTS.md`: confirming the personal tool-comparison verdicts, the Claude Desktop Project screenshot (external), and a live in-browser/mobile QA pass (console errors, 375px width). None block Phase 3.
+
+**Next: Phase 3** — secondary views. Start with the **deals leaderboard** off `landmark_deals.csv` (filter by sector + year), then a **sector comparison** view. See `HANDOFF.md` for the full catch-up.

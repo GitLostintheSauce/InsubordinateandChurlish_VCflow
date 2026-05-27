@@ -42,15 +42,40 @@ Format per entry:
 
 ---
 
-## Current process-log gap to fill before Phase 2 signoff
+## 2026-05-27 — Phase 0 tool comparison (t1) [summary from memory — confirm personal verdicts]
 
-These entries should be added from actual memory/artifacts before moving to Phase 3. Do not invent verbatim prompts if they were not captured live; label any reconstructed entry as a "summary from memory."
+The single small task used to compare the three required tools: **"scaffold a single-file HTML page that renders a VC-funding bar chart from flat data."**
 
-- **Source-quality pivot**: why the project moved from the original quarterly-everywhere plan to an annual Crunchbase backbone plus Web3 quarterly deep dive.
-- **D3 implementation pass**: which tool/code-agent prompts produced the current `index.html`, what worked, and what needed manual correction.
-- **AI-energy section**: how the question emerged, which research tool gathered sources, and why the chart is labeled selected rounds rather than a market total.
-- **Defense-only cleanup**: why "Defense & Space" was narrowed to "Defense", what data was removed, and why that makes the comparison more defensible.
-- **Phase 2 QA**: live URL check, console check, mobile/desktop sanity check, and any fixes made before Phase 3.
+| Tool | What it produced on the task | Where it helped / failed |
+|---|---|---|
+| **Perplexity** (sourced research) | A working single-file HTML + D3 bar chart, plus example funding numbers. | Helped: fastest path to runnable D3; good for cited sourcing later. Failed: its example numbers were **unverified** — had to flag every row `source: TODO` and re-source from Crunchbase. |
+| **Claude Code** (code agent) | Repo scaffold, data files, deploy to GitHub Pages, multi-file edits, review. | Helped: full-project context — file edits, git, deploy, refactors (e.g. Streamlit→D3 realignment, Defense scope cleanup). Best for anything touching multiple files. |
+| **Claude Desktop / ChatGPT** (conversational) | *[TODO: your verdict — used for reasoning/design discussion? add your own take here.]* | *[TODO: confirm how it felt vs the code agent.]* |
+
+> ⚠️ The subjective "how each felt" judgments are yours to confirm — this entry reconstructs the factual side from the repo's history; replace the TODOs with your real impressions.
+
+---
+
+## 2026-05-27 — Phase 1 decision: source-quality pivot, quarterly → annual (the documented pivot)
+
+**Decision:** the cross-sector backbone is **annual** (Crunchbase, all 6 sectors), not quarterly. Only **Web3** is carried at quarterly grain (Galaxy Digital), as a clearly-labeled sector deep dive.
+
+**Why the pivot from the original "quarterly for all 6 sectors" plan:**
+- A 6-sector × 16-quarter grid (96 cells) cannot be filled from free, public sources without mixing provider definitions or **estimating most cells** — which would violate the project's no-hallucinated-numbers rule.
+- Crunchbase publishes clean *annual* sector totals under one consistent "VC-backed startup" definition, so annual figures are genuinely **comparable across sectors**. Forcing them to quarterly would manufacture false precision.
+- Galaxy publishes consistent *quarterly* crypto VC, so Web3 — the audience's market — keeps its quarterly cycle view honestly.
+
+**What this means for the deliverables:** the regular plan's quarterly hero + timeline scrubber (t9/t10) are **intentionally not built**, because the cross-sector data is annual; a scrubber over 4 annual points adds nothing over the existing year selector, and a 6-sector quarterly scrubber would require data we won't fabricate. This is the source-quality-first call the revised plan explicitly rewards (an undocumented pivot looks accidental; this one is deliberate and recorded).
+
+---
+
+## 2026-05-27 — Phase 2 QA pass (t20/t21) [summary from memory]
+
+- **Live URL** https://gitlostinthesauce.github.io/InsubordinateandChurlish_VCflow/ — page and all four data CSVs return HTTP 200 on GitHub Pages (verified via request checks).
+- **Data loading** — charts read `data/*.csv` via `d3.csv()`; no hardcoded chart values. Cache-busting `?v=` query is in place.
+- **Interactions** — scale toggle, sector-focus chips, clickable legend filters, year selector, sticky section-nav all wired in the source.
+- **Caveats** — estimated cells render as hollow dots; Climate/Biotech scope-shift caveats shown on-page.
+- ⚠️ **Still needs a human browser check** (I can't run a live DOM/console session): open the live URL in a clean/incognito window, confirm **zero console errors**, click every control, and check a ~375px mobile width. Log any fixes here.
 
 ---
 

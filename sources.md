@@ -14,6 +14,25 @@ Every number traces to a citation here. `source` columns in the data files hold 
 
 **Rule:** one source per line. The backbone is all-Crunchbase — do not splice in CB Insights/PitchBook (scopes differ).
 
+## Source feasibility matrix (Phase 1 / t5)
+
+Sources checked and the verdict for each. "Suitable as cross-sector backbone?" is the key column — only one source can be the backbone (mixing definitions fakes the trend).
+
+| Source | Sectors covered | Grain available (free) | Fields | Scope notes | Backbone? | Verdict |
+|---|---|---|---|---|---|---|
+| **Crunchbase News** | All 6 | Annual (some quarterly recaps) | $ value, deal count, some named rounds | One consistent "VC-backed startup" definition | ✅ **Yes** | **Backbone.** Only free source covering all 6 sectors comparably. |
+| **Galaxy Digital** | Web3/crypto only | **Quarterly**, 2022–2025 | $ value, deal count | Broader "crypto VC" scope than Crunchbase web3 | No (1 sector) | **Web3 quarterly deep dive** (labeled separate). |
+| **CB Insights** (State of Venture/AI/Fintech) | AI, Fintech, macro | Annual + quarterly | $ value, deal count, stage | VC-only; scope differs from Crunchbase | No | **Context/cross-check only** (e.g. Fintech $52.7B vs CB's $90.2B). Not spliced into backbone. |
+| **PitchBook-NVCA / KPMG** | Macro, defense, stage mix | Quarterly (macro) | $ value, stage, geography | "Aerospace & defense" ≫ Crunchbase "defense tech" | No | **Context only** — scope conflict (Defense $19B vs $3B). |
+| **Oliver Wyman / Fusion Industry Assn.** | Clean energy, fusion | Annual aggregates | $ value | Specialized | No | **AI-energy aggregates** (the honest totals behind that card). |
+| **Space Capital** | Space | Quarterly | $ value | Scope broader than "defense tech"; would double-count | No | **Rejected** — drove the Defense-only (no space) scope decision. |
+| **CTVC / Climate, Rock Health / Health** | Climate, Health | Annual | $ value | Definitions differ from Crunchbase | No | **Reserved for context**; backbone uses Crunchbase climate/biotech with scope caveats. |
+| **Paid (Crunchbase Pro, PitchBook, Dealroom, Tracxn)** | All | Deal-level | Raw rows | — | — | **No access** — see raw-access note below. |
+
+## Raw deal-level access (t6)
+
+No legitimate raw deal-level export or API was available (no paid Crunchbase Pro / PitchBook / Dealroom / Tracxn seat). So the dataset is built from **published article-level aggregates** (Crunchbase News recaps, Galaxy quarterly reports), each cited per row, rather than from raw deal rows. `landmark_deals.csv` is the closest to deal-level — individually cited notable rounds, hand-collected — but it is a curated highlight list, not a complete export, and is not summed into sector totals.
+
 ## Backbone citations (Crunchbase)
 
 - **Fintech** — Crunchbase News: "Fintech Funding Jumped 27% In 2025" (https://news.crunchbase.com/fintech/funding-jumped-big-checks-ai-ye-2025/) and the 2023 year-end recap. FY: $90.2B / $43B / $40.8B (4486) / $51.8B (3457).

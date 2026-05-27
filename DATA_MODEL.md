@@ -41,6 +41,28 @@ Selected named rounds, grants, exclusions, and hyperscaler power deals used by t
 - `energy_ai_funding.csv` separates `VC`, `gov-grant`, and `excluded` capital classes so the chart does not mix venture capital with grants, SPACs, or infrastructure finance.
 - `energy_ai_ppa.csv` records hyperscaler power deals whose dollar values are often undisclosed; it supports the narrative caveat rather than a summed market total.
 
+## Schema vs the revised plan's unified schema (t10)
+
+The revised plan proposed one unified table:
+`sector,year,quarter,period_grain,deal_value_usd_b,deal_count,source_key,source_url,figure_type,method_note`
+
+This project uses **per-file schemas** instead of one combined table, because the backbone is annual and only Web3 is quarterly — a single table would leave `quarter` blank for 24 of 40 rows and invite false precision. Every field in the unified schema is still represented; here is the mapping:
+
+| Unified field | Where it lives here |
+|---|---|
+| `sector` | `sector` column |
+| `year` | `year` column |
+| `quarter` | only in `web3_quarterly.csv` (the sole quarterly series) |
+| `period_grain` | **implicit by file**: `sector_annual.csv` = annual, `web3_quarterly.csv` = quarterly (stated in headers/README/sources) |
+| `deal_value_usd_b` | `deal_value_usd_b` column |
+| `deal_count` | `deal_count` column (blank where Crunchbase didn't publish a count) |
+| `source_key` | `source` column (short key → resolved in `sources.md`) |
+| `source_url` | full URLs live in `sources.md` (per-key) and per-row in `landmark_deals.csv` |
+| `figure_type` | `source=estimated` flags estimated/derived cells; reported vs scope-shifted is annotated in `note` + `sources.md` |
+| `method_note` | `note` column + `sources.md` method notes |
+
+If a future phase needs the single flat table (e.g. for a data-table view or export), it can be generated from these files — the information is all present, just normalized across files rather than denormalized into one.
+
 ## Values computed in-browser (no extra files)
 - **Share of total per year** = sector value ÷ year total → the "AI ate the pie" view
 - **YoY delta / top movers** = value[year] − value[year−1]
