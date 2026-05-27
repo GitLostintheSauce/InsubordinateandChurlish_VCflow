@@ -89,3 +89,5 @@ Biotech         40.0e   52.0e   60.0e   71.7    ⚠ '22 US-only, '24 derived, '2
 
 ## 6. Handoff
 Paste raw model replies (links and all) into the Claude Code session. Claude structures them into the files, catches source-drift, and logs citations in `sources.md`.
+
+For the actual tool/process record, see `PROMPTS.md`. It now includes the later Codex sessions: repo audit, docs cleanup, Defense-only scope correction, Defense chart visibility fix, UI/UX redesign, browser QA, and guidance on when to use Codex vs. Claude Code on similar projects.

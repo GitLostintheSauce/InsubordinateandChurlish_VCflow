@@ -42,6 +42,33 @@ Format per entry:
 
 ---
 
+## 2026-05-25 — Codex repo audit and plan alignment
+
+- **Tool**: Codex (GPT-5) with GitHub plugin + local repo access.
+- **Prompt**: Asked Codex to connect to `GitLostintheSauce/InsubordinateandChurlish_VCflow`, inspect the repo, read the two intern plan files, and discuss where the project stood relative to the plan.
+- **Output usable?**: Yes. Codex cloned the repo, inspected `README.md`, `DATA_MODEL.md`, `NARRATIVE.md`, `sources.md`, `index.html`, and the CSVs. It identified that the revised plan mattered more than the original plan because it allowed the source-quality-first pivot from quarterly-everywhere to an annual Crunchbase backbone plus Web3 quarterly deep dive. It placed the project at Phase 0/1 complete and Phase 2 in progress, with Phase 3 not yet started.
+
+## 2026-05-25 — Codex docs cleanup and Defense-only scope
+
+- **Tool**: Codex (GPT-5) with local file editing, validation, git, and GitHub push.
+- **Prompt**: Asked Codex to update stale docs, remove Space from the dashboard scope, explain how to finish the prompt/process record, and keep Phase 0/1/2 clean before moving into Phase 3.
+- **Output usable?**: Yes. Codex updated `README.md`, `DATA_MODEL.md`, `Plan.md`, `sources.md`, and `PROMPTS.md`; renamed the annual dashboard sector from `Defense & Space` to `Defense`; removed Space-only and Dual-Use rows from `landmark_deals.csv`; replaced the mixed raw source file with `data/raw/defense_vc_2022_2025.csv`; and committed/pushed `e583393` (`Align docs and defense sector scope`).
+- **Judgment call**: The dashboard should not claim "Defense & Space" while the annual backbone uses Crunchbase's narrow defense-tech definition. Removing Space made the data less flashy but more defensible.
+
+## 2026-05-25 — Codex bug fix: Defense visibility
+
+- **Tool**: Codex (GPT-5) with local server checks and GitHub push.
+- **Prompt**: Reported that Defense no longer appeared clearly on the dashboard graphs after the sector rename.
+- **Output usable?**: Yes. Codex diagnosed two issues: the browser could cache old CSV rows labeled `Defense & Space`, and the linear chart buried tiny Defense values near the baseline. It normalized old `Defense & Space` rows to `Defense`, cache-busted CSV URLs, made log scale the default, thickened Defense styling, verified served CSV rows locally, and committed/pushed `1dc1ddb` (`Make defense visible in dashboard charts`).
+- **Lesson**: Data renames need visual QA, not just CSV checks. A technically correct line can still be invisible if the chart scale hides it.
+
+## 2026-05-26 — Codex Phase 2 UI/UX polish
+
+- **Tool**: Codex (GPT-5) with in-app browser QA.
+- **Prompt**: Asked Codex to make the dashboard feel shockingly professional, remove emoji, focus on the user, improve flow, and add more interaction.
+- **Output usable?**: Yes. Codex rebuilt `index.html` into a more polished analyst dashboard: executive hero, KPI tiles, sticky section navigation, sector focus controls, year selector, cleaner chart containers, better tooltips, a more professional AI-energy section, no visible emoji, and cache-busted data loading. It verified the page in the in-app browser, checked for console errors, tested Defense focus and year selection, and committed/pushed `636d144` (`Polish dashboard UI and interactions`).
+- **Lesson**: Codex was especially useful for the "tight loop" of edit -> run local server -> inspect in browser -> fix UX issue -> commit.
+
 ## 2026-05-27 — Phase 0 tool comparison (t1) [summary from memory — confirm personal verdicts]
 
 The single small task used to compare the three required tools: **"scaffold a single-file HTML page that renders a VC-funding bar chart from flat data."**
@@ -93,6 +120,29 @@ The single small task used to compare the three required tools: **"scaffold a si
 **Finding — median round size cannot be computed honestly:** it requires deal-level distribution data the project does not hold. *Average* round size (funding ÷ count) is derivable only where both numbers are real (labeled "derived"); a median over the 145 curated landmark deals is biased to large rounds and would misrepresent the market.
 
 **Decision:** the comparison view reports **funding totals + % change** for all sectors, **deal count only where Crunchbase published it** (blanks shown as "not published," not invented), and an optional **derived** average round size where both inputs exist. No median. Same source-quality-first logic as the [quarterly → annual pivot](#2026-05-27--phase-1-decision-source-quality-pivot-quarterly--annual-the-documented-pivot); recorded so the gap reads as a judgment call, not an omission. Also logged in `README.md` (Data principles).
+
+---
+
+## Tool judgment: when to use Codex vs. Claude Code
+
+Use **Codex** when the task is tightly connected to the repository state and needs execution, verification, and GitHub operations in one loop:
+
+- repo inspection and "where are we actually?" audits
+- precise multi-file edits with diffs
+- data cleanup that needs validation scripts or CSV sanity checks
+- local browser QA after frontend changes
+- debugging a visual/runtime issue from user feedback
+- committing and pushing a scoped change
+
+Use **Claude Code / Claude Desktop** when the task benefits more from broad reasoning, writing, or early architecture:
+
+- brainstorming the dashboard concept and narrative
+- drafting the first data model or research plan
+- synthesizing sourced research into a coherent story
+- writing narrative briefs, caveats, and analysis copy
+- exploring several design or data-model directions before choosing one
+
+Practical rule for future projects: use Claude to think through the shape of the work; use Codex when it is time to make the repo match that decision, test it, and ship it. They overlap, but Codex felt strongest here during late Phase 2: cleanup, validation, UI polish, browser verification, and GitHub publishing.
 
 ---
 
