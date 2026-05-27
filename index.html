@@ -16,8 +16,9 @@
     /* ================================================ */
     --bg:#08080b; --surface:#15151c; --surface-2:#1b1b23; --line:#2a2a33;
     --line-soft:#1d1d24; --text:#f1f1f5; --muted:#a2a2ad; --faint:#6f6f7a;
-    --danger:#ff7575; --warn:#ffd76b; --panel-top:#1a1a21; --panel-bot:#101015;
+    --danger:#ff7575; --warn:#ffd76b; --panel-top:#141419; --panel-bot:#0c0c10;
     --AI:#ff7a18; --Fintech:#b88cff; --Biotech:#ff7575; --Climate:#72b8ff; --Web3:#77e26d; --Defense:#ffd76b;
+    --r-sm:7px; --r-md:11px; --r-lg:16px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -25,14 +26,16 @@
     font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     -webkit-font-smoothing:antialiased;letter-spacing:-.011em;
     background:
-      radial-gradient(circle at 50% -18%, rgba(var(--accent-rgb),.16), transparent 34rem),
-      radial-gradient(820px 540px at 100% 2%, rgba(var(--accent-2-rgb),.07), transparent 60%),
-      linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px) 0 0/100% 44px,
-      linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px) 0 0/44px 100%,
+      radial-gradient(circle at 50% -20%, rgba(var(--accent-rgb),.13), transparent 32rem),
+      radial-gradient(760px 520px at 102% 0%, rgba(var(--accent-2-rgb),.06), transparent 60%),
+      linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px) 0 0/100% 46px,
+      linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px) 0 0/46px 100%,
       linear-gradient(180deg,#0a0a0f 0%,#08080b 44rem,#0a0a0f 100%);
     background-attachment:fixed;
     color:var(--text);line-height:1.55;padding:0 1rem 3rem;
   }
+  body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.028;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   body::before{content:"";position:fixed;left:0;right:0;top:0;height:2px;z-index:50;
     background:linear-gradient(90deg,var(--accent-deep),var(--accent),var(--accent-2),var(--accent-bright));
     background-size:220% 100%;animation:rail 9s linear infinite;box-shadow:0 0 16px rgba(var(--accent-rgb),.5)}
@@ -43,58 +46,64 @@
   .eyebrow{font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:.74rem;font-weight:600;
     letter-spacing:.2em;text-transform:uppercase;margin-bottom:.9rem;display:inline-flex;align-items:center;gap:.55rem}
   .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px 1px rgba(var(--accent-rgb),.8)}
-  h1{font-family:'Chakra Petch',sans-serif;max-width:960px;font-size:clamp(2.3rem,4.8vw,4.6rem);line-height:.98;
-    letter-spacing:-.01em;font-weight:700;background:linear-gradient(180deg,#fff,#cfcfd6);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .sub{max-width:780px;color:#bfc2cb;font-size:1.08rem;margin-top:1.1rem}
-  .hero-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.4rem}
-  .action{font-family:'Inter',sans-serif;border:1px solid var(--line);background:linear-gradient(180deg,#191920,#121217);
-    color:var(--text);border-radius:10px;padding:.62rem .95rem;font-size:.86rem;font-weight:600;cursor:pointer;transition:all .18s}
-  .action:hover{border-color:#3f3f4a;transform:translateY(-1px)}
-  .action.primary{background:linear-gradient(180deg,var(--accent-bright),var(--accent));border-color:var(--accent);
-    color:#1a0c00;font-weight:700;box-shadow:0 8px 22px -6px rgba(var(--accent-rgb),.6)}
-  .action.primary:hover{background:linear-gradient(180deg,#ffb466,var(--accent-bright))}
-  .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.85rem;margin-top:1.7rem}
-  .kpi{position:relative;background:linear-gradient(180deg,var(--panel-top),var(--panel-bot));border:1px solid var(--line);
-    border-radius:14px;padding:1.1rem 1.15rem;overflow:hidden;box-shadow:0 16px 38px -24px rgba(0,0,0,.85);transition:transform .2s,border-color .2s}
-  .kpi::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-bright))}
-  .kpi:hover{transform:translateY(-2px);border-color:rgba(var(--accent-rgb),.4)}
-  .kpi .label{font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;font-weight:500}
-  .kpi .value{font-family:'Chakra Petch',sans-serif;margin-top:.4rem;font-size:1.7rem;font-weight:700;letter-spacing:-.01em;
-    background:linear-gradient(120deg,#fff,var(--accent-bright));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .kpi .note{margin-top:.3rem;color:var(--faint);font-size:.8rem}
-  .section-nav{position:sticky;top:0;z-index:4;backdrop-filter:blur(18px);background:rgba(10,10,15,.8);
-    border:1px solid var(--line-soft);border-radius:12px;padding:.45rem;display:flex;gap:.35rem;overflow:auto;margin-bottom:1.1rem}
-  .section-nav button{font-family:'JetBrains Mono',monospace;border:0;background:transparent;color:var(--muted);border-radius:8px;
-    padding:.48rem .8rem;white-space:nowrap;cursor:pointer;font-size:.76rem;font-weight:500;text-transform:uppercase;letter-spacing:.06em;transition:all .15s}
-  .section-nav button:hover{color:#fff}
-  .section-nav button.active{background:rgba(var(--accent-rgb),.14);color:var(--accent-bright)}
-  .intro{background:linear-gradient(90deg,rgba(var(--accent-rgb),.10),rgba(var(--accent-2-rgb),.06));border:1px solid var(--line);
-    border-radius:14px;padding:1.1rem 1.2rem;margin-bottom:1.2rem;color:#dadce2;font-size:.97rem}
+  h1{font-family:'Chakra Petch',sans-serif;max-width:1000px;font-size:clamp(2.4rem,5vw,4.9rem);line-height:.94;
+    letter-spacing:-.02em;font-weight:700;color:#fbfbfd;text-wrap:balance}
+  h1 em{font-style:normal;color:var(--accent);position:relative}
+  .sub{max-width:760px;color:#b6b9c4;font-size:1.06rem;margin-top:1.15rem}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.5rem}
+  .action{font-family:'JetBrains Mono',monospace;border:1px solid var(--line);background:rgba(22,22,29,.7);
+    color:var(--text);border-radius:var(--r-sm);padding:.6rem .9rem;font-size:.78rem;font-weight:500;letter-spacing:.02em;cursor:pointer;transition:all .16s}
+  .action:hover{border-color:#454552;background:rgba(30,30,40,.8);transform:translateY(-1px)}
+  .action.primary{background:var(--accent);border-color:var(--accent);color:#160a00;font-weight:700;box-shadow:0 8px 24px -10px rgba(var(--accent-rgb),.7)}
+  .action.primary:hover{background:var(--accent-bright);transform:translateY(-1px)}
+  .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:1.9rem;
+    border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:rgba(17,17,23,.55);
+    box-shadow:0 24px 60px -38px rgba(0,0,0,.95)}
+  .kpi{position:relative;padding:1.05rem 1.2rem 1.1rem;border-right:1px solid var(--line-soft);transition:background .2s}
+  .kpi:last-child{border-right:0}
+  .kpi::before{content:"";position:absolute;left:0;top:0;width:2px;height:100%;background:linear-gradient(180deg,var(--accent),transparent 75%)}
+  .kpi:hover{background:rgba(var(--accent-rgb),.05)}
+  .kpi .label{font-family:'JetBrains Mono',monospace;color:var(--faint);font-size:.64rem;text-transform:uppercase;letter-spacing:.16em;font-weight:500}
+  .kpi .value{font-family:'Chakra Petch',sans-serif;margin-top:.5rem;font-size:1.9rem;font-weight:700;letter-spacing:-.02em;color:#fff;line-height:1}
+  .kpi .note{margin-top:.38rem;color:var(--faint);font-size:.72rem;font-family:'JetBrains Mono',monospace}
+  .section-nav{position:sticky;top:0;z-index:4;backdrop-filter:blur(20px);background:rgba(9,9,13,.85);
+    border:1px solid var(--line-soft);border-radius:var(--r-md);padding:.28rem;display:flex;gap:.12rem;overflow:auto;margin-bottom:1.1rem;
+    box-shadow:0 10px 28px -18px rgba(0,0,0,.9)}
+  .section-nav button{position:relative;font-family:'JetBrains Mono',monospace;border:0;background:transparent;color:var(--faint);border-radius:var(--r-sm);
+    padding:.5rem .82rem;white-space:nowrap;cursor:pointer;font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:.07em;
+    transition:color .15s,background .15s;display:inline-flex;align-items:baseline;gap:.42rem}
+  .section-nav button::before{content:attr(data-idx);color:var(--line);font-size:.6rem;font-weight:600;transition:color .15s}
+  .section-nav button:hover{color:#e6e6ec}
+  .section-nav button:hover::before{color:var(--faint)}
+  .section-nav button.active{background:rgba(var(--accent-rgb),.12);color:var(--accent-bright)}
+  .section-nav button.active::before{color:var(--accent)}
+  .intro{position:relative;background:rgba(17,17,23,.5);border:1px solid var(--line);border-left:2px solid var(--accent);
+    border-radius:var(--r-md);padding:1rem 1.2rem;margin-bottom:1.2rem;color:#d2d4dd;font-size:.95rem}
   .intro b{color:#fff}
-  .panel{position:relative;background:
-      radial-gradient(360px 360px at 100% -10%, rgba(var(--accent-rgb),.09), transparent 60%),
-      linear-gradient(180deg,var(--panel-top),var(--panel-bot));
-    border:1px solid var(--line);border-radius:18px;padding:1.5rem 1.6rem;margin-bottom:1.2rem;overflow:hidden;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 22px 54px -30px rgba(0,0,0,.9);transition:border-color .3s,box-shadow .3s}
-  .panel::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,.1) 40%,rgba(255,255,255,.1) 60%,transparent)}
-  .panel:hover{border-color:#3a3a44;box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 28px 64px -28px rgba(0,0,0,.95),0 0 0 1px rgba(var(--accent-rgb),.1)}
+  .panel{position:relative;background:linear-gradient(180deg,var(--panel-top),var(--panel-bot));
+    border:1px solid var(--line);border-radius:var(--r-lg);padding:1.6rem 1.7rem;margin-bottom:1.1rem;overflow:hidden;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 24px 60px -36px rgba(0,0,0,.95);transition:border-color .25s,box-shadow .25s}
+  .panel::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+    background:radial-gradient(440px 200px at 100% -12%, rgba(var(--accent-rgb),.055), transparent 70%)}
+  .panel::after{content:"";position:absolute;left:1.7rem;right:1.7rem;top:0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.12) 50%,transparent)}
+  .panel:hover{border-color:#383844;box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 30px 70px -34px rgba(0,0,0,1),0 0 0 1px rgba(var(--accent-rgb),.08)}
   .panel,.section-label{scroll-margin-top:5rem}
   .panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.8rem}
   .panel-title{display:flex;gap:.8rem;align-items:flex-start}
-  .num{font-family:'Chakra Petch',sans-serif;width:1.9rem;height:1.9rem;border-radius:9px;background:rgba(var(--accent-rgb),.14);
-    color:var(--accent-bright);display:inline-grid;place-items:center;font-size:.9rem;font-weight:700;flex:0 0 auto;border:1px solid rgba(var(--accent-rgb),.3)}
+  .num{font-family:'JetBrains Mono',monospace;width:1.7rem;height:1.7rem;border-radius:var(--r-sm);background:rgba(var(--accent-rgb),.1);
+    color:var(--accent-bright);display:inline-grid;place-items:center;font-size:.8rem;font-weight:700;flex:0 0 auto;border:1px solid rgba(var(--accent-rgb),.25)}
   h2{font-family:'Chakra Petch',sans-serif;font-size:1.32rem;letter-spacing:-.01em;color:#fff;font-weight:600}
   .desc{color:var(--muted);font-size:.9rem;margin-top:.25rem;max-width:760px}
   .toolbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.8rem;margin:1rem 0 .8rem}
   .control-group{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem}
   .control-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--faint);font-weight:500;
     text-transform:uppercase;letter-spacing:.1em;margin-right:.2rem}
-  .chip,.toggle button,.year-buttons button{font-family:'JetBrains Mono',monospace;border:1px solid var(--line);background:#14141b;
-    color:#aeb0bb;border-radius:8px;padding:.4rem .68rem;font-size:.76rem;font-weight:500;cursor:pointer;transition:all .15s}
-  .chip:hover,.toggle button:hover,.year-buttons button:hover{border-color:#3f3f4a;color:#fff}
-  .chip.on,.toggle button.on,.year-buttons button.on{background:linear-gradient(180deg,var(--accent-bright),var(--accent));
-    border-color:var(--accent);color:#1a0c00;font-weight:700;box-shadow:0 4px 14px -4px rgba(var(--accent-rgb),.55)}
+  .chip,.toggle button,.year-buttons button{font-family:'JetBrains Mono',monospace;border:1px solid var(--line);background:rgba(20,20,27,.8);
+    color:#aeb0bb;border-radius:var(--r-sm);padding:.4rem .68rem;font-size:.75rem;font-weight:500;cursor:pointer;transition:all .14s}
+  .chip:hover,.toggle button:hover,.year-buttons button:hover{border-color:#43434f;color:#fff;background:rgba(28,28,38,.9)}
+  .chip.on,.toggle button.on,.year-buttons button.on{background:var(--accent);
+    border-color:var(--accent);color:#160a00;font-weight:700;box-shadow:0 4px 16px -6px rgba(var(--accent-rgb),.6)}
   .chart-frame{border:1px solid var(--line-soft);border-radius:12px;background:linear-gradient(180deg,#0c0c11,#0a0a0e);padding:.8rem .9rem}
   svg{display:block;width:100%;height:auto;overflow:visible}
   .axis text{fill:#8a8a95;font-size:11px;font-family:'JetBrains Mono',monospace}
@@ -112,8 +121,9 @@
     padding:.8rem .9rem;font-size:.88rem;margin:.7rem 0}
   .focus-summary b,.share-copy b{color:#fff}
   .split{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.85rem}
-  .answer{position:relative;background:linear-gradient(180deg,var(--panel-top),var(--panel-bot));border:1px solid var(--line-soft);
-    border-radius:13px;padding:1rem;overflow:hidden;transition:transform .2s,border-color .2s}
+  .answer{position:relative;background:rgba(18,18,24,.55);border:1px solid var(--line-soft);
+    border-radius:var(--r-md);padding:1rem 1.05rem 1rem 1.15rem;overflow:hidden;transition:transform .2s,border-color .2s}
+  .answer::before{content:"";position:absolute;left:0;top:0;width:2px;height:100%;background:var(--accent);opacity:.6}
   .answer:hover{transform:translateY(-2px);border-color:#3a3a44}
   .answer .q{font-family:'Chakra Petch',sans-serif;color:var(--accent-bright);font-size:.82rem;text-transform:uppercase;
     letter-spacing:.04em;font-weight:700;margin-bottom:.5rem}
@@ -126,6 +136,36 @@
     text-transform:uppercase;letter-spacing:.04em;padding:.8rem .9rem}
   details.more summary:hover{color:var(--accent-bright)}
   details.more p{color:#9ca0ac;font-size:.86rem;padding:0 .9rem .9rem}
+  /* ===== Reveal on scroll (opt-in via body.anim; content stays visible without JS) ===== */
+  .anim .panel,.anim .section-label,.anim .intro{opacity:0;transform:translateY(16px);transition:opacity .55s cubic-bezier(.22,.61,.36,1),transform .55s cubic-bezier(.22,.61,.36,1)}
+  .anim .panel.in,.anim .section-label.in,.anim .intro.in{opacity:1;transform:none}
+  /* ===== Deals leaderboard ===== */
+  .deals-toolbar{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:space-between;align-items:center;margin:.4rem 0 .8rem}
+  .deals-meta{font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--faint)}
+  .deals-meta b{color:#fff}
+  .deals-scroll{border:1px solid var(--line-soft);border-radius:12px;overflow:auto;background:linear-gradient(180deg,#0c0c11,#0a0a0e);max-height:560px}
+  table.deals{width:100%;border-collapse:collapse;font-size:.86rem;min-width:680px}
+  table.deals th{font-family:'JetBrains Mono',monospace;font-size:.66rem;text-transform:uppercase;letter-spacing:.09em;
+    color:var(--faint);font-weight:600;text-align:left;padding:.7rem .8rem;border-bottom:1px solid var(--line);
+    position:sticky;top:0;background:#0c0c11;white-space:nowrap;z-index:1}
+  table.deals th.sortable{cursor:pointer}
+  table.deals th.sortable:hover{color:#fff}
+  table.deals th.sorted{color:var(--accent-bright)}
+  table.deals th.sorted::after{content:" ↓"}
+  table.deals th.asc.sorted::after{content:" ↑"}
+  table.deals th.num-col,table.deals td.num-col{text-align:right}
+  table.deals td{padding:.6rem .8rem;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  table.deals tbody tr:last-child td{border-bottom:0}
+  table.deals tbody tr:hover{background:rgba(var(--accent-rgb),.05)}
+  .deal-rank{font-family:'Chakra Petch',sans-serif;color:var(--faint);font-weight:700}
+  .deal-co{color:#fff;font-weight:600}
+  .deal-sub{color:var(--faint);font-size:.74rem;margin-top:.12rem}
+  .deal-amt{font-family:'Chakra Petch',sans-serif;font-weight:700;color:var(--accent-bright);white-space:nowrap}
+  .deal-badge{display:inline-flex;align-items:center;gap:.36rem;font-family:'JetBrains Mono',monospace;font-size:.74rem;color:#cdd0d8;white-space:nowrap}
+  .deal-src{color:var(--accent-2);text-decoration:none;font-size:.78rem;white-space:nowrap}
+  .deal-src:hover{text-decoration:underline}
+  .deal-flag{cursor:help}
+  .deals-empty{padding:1.6rem;text-align:center;color:var(--muted)}
   #tip{position:fixed;pointer-events:none;background:rgba(16,16,20,.97);border:1px solid #3a3a44;border-left:3px solid var(--accent);
     border-radius:10px;padding:.55rem .72rem;font-size:.8rem;font-family:'JetBrains Mono',monospace;color:#edf0f5;opacity:0;
     transition:opacity .08s;z-index:60;box-shadow:0 14px 36px rgba(0,0,0,.7);max-width:260px}
@@ -137,6 +177,9 @@
     body{padding:0 .75rem 2.5rem}
     .hero{padding-top:1.9rem}
     .kpis,.split{grid-template-columns:1fr 1fr}
+    .kpi{border-bottom:1px solid var(--line-soft)}
+    .kpi:nth-child(2n){border-right:0}
+    .kpi:nth-last-child(-n+2){border-bottom:0}
     .panel{padding:1.2rem}
     .panel-head,.toolbar{display:block}
     .control-group{margin:.6rem 0}
@@ -146,14 +189,17 @@
     .hero-actions{display:none}
     .chart-frame{padding:.5rem}
   }
-  @media (prefers-reduced-motion:reduce){ body::before{animation:none} }
+  @media (prefers-reduced-motion:reduce){
+    body::before{animation:none}
+    .anim .panel,.anim .section-label,.anim .intro{opacity:1;transform:none;transition:none}
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hero">
     <div class="eyebrow">Venture capital migration | 2022-2025</div>
-    <h1>Where capital moved when the market reset.</h1>
+    <h1>Where capital <em>moved</em> when the market reset.</h1>
     <p class="sub">A sourced, interactive dashboard tracking how venture funding reallocated across AI, fintech, climate, defense, Web3, and biotech.</p>
     <div class="hero-actions">
       <button class="action primary" data-scroll="#overview">Explore the charts</button>
@@ -169,11 +215,14 @@
   </header>
 
   <nav class="section-nav" aria-label="Dashboard sections">
-    <button class="active" data-scroll="#overview">Overview</button>
-    <button data-scroll="#share-section">Capital Share</button>
-    <button data-scroll="#web3-section">Web3 Cycle</button>
-    <button data-scroll="#energy-section">AI-Energy</button>
-    <button data-scroll="#sources-section">Sources</button>
+    <button class="active" data-idx="01" data-scroll="#overview">Overview</button>
+    <button data-idx="02" data-scroll="#share-section">Capital Share</button>
+    <button data-idx="03" data-scroll="#web3-section">Web3 Cycle</button>
+    <button data-idx="04" data-scroll="#energy-section">AI-Energy</button>
+    <button data-idx="05" data-scroll="#deals-section">Deals</button>
+    <button data-idx="06" data-scroll="#compare-section">Compare</button>
+    <button data-idx="07" data-scroll="#insights-section">Megarounds</button>
+    <button data-idx="08" data-scroll="#sources-section">Sources</button>
   </nav>
 
   <div class="intro">
@@ -272,9 +321,93 @@
     </details>
   </section>
 
+  <section class="panel" id="deals-section">
+    <div class="panel-head">
+      <div class="panel-title">
+        <span class="num">4</span>
+        <div>
+          <h2>Landmark deals leaderboard</h2>
+          <p class="desc">The rounds that defined each sector, 2022-2025. Filter by sector and year, sort any column, and follow every row to its source. Default order is largest round first.</p>
+        </div>
+      </div>
+    </div>
+    <div class="toolbar">
+      <div class="control-group deal-sector-controls"></div>
+      <div class="control-group deal-year-buttons"></div>
+    </div>
+    <div class="deals-toolbar">
+      <div class="deals-meta" id="dealsMeta"></div>
+      <button class="chip" id="dealsToggle" style="display:none"></button>
+    </div>
+    <div class="deals-scroll">
+      <table class="deals">
+        <thead id="dealsHead"></thead>
+        <tbody id="dealsBody"></tbody>
+      </table>
+    </div>
+    <div class="note">145 cited rounds from <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/data/landmark_deals.csv">landmark_deals.csv</a>. Amounts are reported round sizes in USD. A <span class="deal-flag">⚠️</span> marks deals with a material caveat (e.g. a later collapse) — hover it for the note. Lead investors are abbreviated where several firms co-led, and timing shows the year only where the quarter is unconfirmed.</div>
+  </section>
+
+  <section class="panel" id="compare-section">
+    <div class="panel-head">
+      <div class="panel-title">
+        <span class="num">5</span>
+        <div>
+          <h2>Sector comparison</h2>
+          <p class="desc">Pick two or three sectors to compare head-to-head. The chart rebases each to its own 2022 level (=100), so relative growth is visible regardless of absolute size; the cards below carry the absolute totals.</p>
+        </div>
+      </div>
+    </div>
+    <div class="toolbar">
+      <div class="control-group compare-controls"></div>
+    </div>
+    <div class="chart-frame"><svg id="compare" viewBox="0 0 940 400"></svg></div>
+    <div class="split" id="compareCards"></div>
+    <div class="note">Indexed to 2022 = 100 (each sector against its own 2022 baseline). Absolute funding is in USD billions. Deal count shows only where Crunchbase published it; <b>not published</b> marks AI, Climate and Biotech, where no comparable annual count exists (see Data principles in the README). Average round size is derived (funding ÷ count) over the years where both are reported. Climate and Biotech shift scope across years — read their trajectories with that caveat (dashed lines).</div>
+  </section>
+
+  <h2 class="section-label" id="insights-section">The anatomy of the megaround era</h2>
+  <p class="section-sub">The leaderboard and the comparison hide a sharper story: capital didn't just rotate into AI — it collapsed into a handful of giant, repeat rounds, while Web3 stayed a crowd. Four cuts of the 145 landmark deals show how.</p>
+
+  <section class="panel">
+    <div class="panel-head"><div class="panel-title"><div>
+      <h2>1 · The megaround era</h2>
+      <p class="desc">Every landmark round by date and size (log scale). The average round ballooned from ~$440M in 2022 to ~$2.6B in 2025. Hover any dot for the deal.</p>
+    </div></div></div>
+    <div class="chart-frame"><svg id="escalation" viewBox="0 0 940 440"></svg></div>
+    <div class="legend" id="escLegend"></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><div class="panel-title"><div>
+      <h2>2 · Capital magnets</h2>
+      <p class="desc">Companies that raised more than one landmark round, sized by total capital pulled in. Three AI labs — OpenAI, Anthropic, xAI — absorbed ~$93B, nearly half of all $197B tracked here.</p>
+    </div></div></div>
+    <div class="chart-frame"><svg id="magnets" viewBox="0 0 940 460"></svg></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><div class="panel-title"><div>
+      <h2>3 · A king vs a crowd: concentration</h2>
+      <p class="desc">Share of each sector's landmark capital held by its single biggest round, its next two, and everyone else. AI and Defense are winner-take-most; Web3 is a long tail.</p>
+    </div></div></div>
+    <div class="chart-frame"><svg id="concentration" viewBox="0 0 940 300"></svg></div>
+    <div class="focus-summary" id="concNote"></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><div class="panel-title"><div>
+      <h2>4 · The capital map: US vs rest of world</h2>
+      <p class="desc">Where the landmark capital actually sits. AI and Defense are almost entirely American; Climate is the outlier — roughly 70% non-US, driven by European battery gigafactories.</p>
+    </div></div></div>
+    <div class="chart-frame"><svg id="geography" viewBox="0 0 940 300"></svg></div>
+    <div class="legend" id="geoLegend"></div>
+    <div class="note">Shares are of <b>landmark-deal</b> capital (the 145 cited rounds), not whole-market totals — a curated sample, so read it as direction, not census. Country is the company's headquarters as recorded in <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/data/landmark_deals.csv">landmark_deals.csv</a>.</div>
+  </section>
+
   <section class="panel" id="sources-section">
     <div class="panel-title">
-      <span class="num">4</span>
+      <span class="num">6</span>
       <div>
         <h2>Source discipline</h2>
         <p class="desc">Cross-sector comparisons use one backbone source. Specialized deep dives stay labeled and separate so different definitions do not masquerade as one clean trend.</p>
@@ -292,13 +425,28 @@ const DATA_VERSION = "ui-20260526";
 const SECTORS = ["AI","Fintech","Biotech","Climate","Web3","Defense"];
 const COLOR = {"AI":"#ff7a18","Fintech":"#b88cff","Biotech":"#ff7575","Climate":"#72b8ff","Web3":"#77e26d","Defense":"#ffd76b","Defense & Space":"#ffd76b"};
 const CAVEAT = {"Climate":true,"Biotech":true};
-const state = {scale:"log", focus:"All", shareYear:null};
+const state = {scale:"log", focus:"All", shareYear:null,
+  dealSector:"All", dealYear:"All", dealSort:"amount", dealDir:-1, dealLimit:15,
+  compareSectors:["AI","Defense","Web3"]};
 let annual = [], years = [], web3 = [], energyRaw = [];
+let deals = [], dealYears = [], dealSectors = [];
+const DEAL_COLS = [
+  {key:"rank",   label:"#",            sort:false, cls:"num-col"},
+  {key:"company",label:"Company",      sort:true},
+  {key:"sector", label:"Sector",       sort:true},
+  {key:"amount", label:"Amount",       sort:true, cls:"num-col"},
+  {key:"round",  label:"Round",        sort:true},
+  {key:"lead",   label:"Lead investor",sort:true},
+  {key:"when",   label:"When",         sort:true},
+  {key:"source", label:"Source",       sort:false}
+];
 const tip = d3.select("#tip");
 
 function normalizeSector(sector){ return sector==="Defense & Space" ? "Defense" : sector; }
 function moneyB(v){ return "$" + (v >= 100 ? Math.round(v) : v.toFixed(v < 10 ? 1 : 0)) + "B"; }
 function moneyM(v){ return "$" + d3.format(",")(Math.round(v)) + "M"; }
+function dealAmount(v){ return v>=1000 ? "$"+(v/1000).toFixed(v>=10000?0:1)+"B" : "$"+d3.format(",")(Math.round(v))+"M"; }
+function escAttr(s){ return (s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
 function pct(v){ return (v*100).toFixed(0) + "%"; }
 function showTip(html,e){ tip.html(html).style("opacity",1).style("left",(e.clientX+14)+"px").style("top",(e.clientY+14)+"px"); }
 function hideTip(){ tip.style("opacity",0); }
@@ -307,11 +455,13 @@ function isActive(sector){ return state.focus==="All" || state.focus===sector; }
 Promise.all([
   d3.csv(`data/sector_annual.csv?v=${DATA_VERSION}`),
   d3.csv(`data/web3_quarterly.csv?v=${DATA_VERSION}`),
-  d3.csv(`data/energy_ai_funding.csv?v=${DATA_VERSION}`)
-]).then(([annualRaw, web3Raw, energyRows]) => {
+  d3.csv(`data/energy_ai_funding.csv?v=${DATA_VERSION}`),
+  d3.csv(`data/landmark_deals.csv?v=${DATA_VERSION}`)
+]).then(([annualRaw, web3Raw, energyRows, dealsRaw]) => {
   annual = annualRaw.map(d => ({
     sector:normalizeSector(d.sector), year:+d.year,
     value:d.deal_value_usd_b===""?null:+d.deal_value_usd_b,
+    count:d.deal_count===""?null:+d.deal_count,
     est:d.source==="estimated", note:d.note
   }));
   years = [...new Set(annual.map(d=>d.year))].sort((a,b)=>a-b);
@@ -322,6 +472,20 @@ Promise.all([
     est:d.source==="estimated", note:d.note
   })).filter(d=>d.value!=null).sort((a,b)=> a.year-b.year || a.q-b.q);
   energyRaw = energyRows;
+
+  deals = dealsRaw.map(d=>{
+    const qm = /^Q([1-4])$/.exec((d.quarter||"").trim());
+    return {
+      company:d.company, sector:normalizeSector(d.sector), subsector:d.subsector,
+      year:+d.year, quarter:qm?qm[0]:"", qnum:qm?+qm[1]:0,
+      amount:+d.amount_usd_m, round:d.round_type, lead:d.lead_investor,
+      country:d.country, sourceName:d.source_name, sourceUrl:d.source_url, note:d.note,
+      caveat:/⚠/.test(d.note||"")
+    };
+  }).filter(d=>!isNaN(d.amount));
+  dealYears = [...new Set(deals.map(d=>d.year))].sort((a,b)=>a-b);
+  const present = new Set(deals.map(d=>d.sector));
+  dealSectors = SECTORS.filter(s=>present.has(s)).concat([...present].filter(s=>!SECTORS.includes(s)));
 
   bindControls();
   renderAll();
@@ -362,6 +526,46 @@ function bindControls(){
       .on("click",()=>{ state.shareYear=y; updateYearButtons(); drawStack(); updateShareCopy(); });
   });
   updateYearButtons();
+
+  const dsc = d3.select(".deal-sector-controls");
+  dsc.append("span").attr("class","control-label").text("Sector");
+  ["All",...dealSectors].forEach(s=>{
+    dsc.append("button")
+      .attr("class","chip"+(s==="All"?" on":""))
+      .attr("data-dsector",s).text(s)
+      .on("click",()=>{ state.dealSector=s; state.dealLimit=15;
+        d3.selectAll("[data-dsector]").classed("on",function(){return this.dataset.dsector===s;});
+        renderDeals(); });
+  });
+  const dyb = d3.select(".deal-year-buttons");
+  dyb.append("span").attr("class","control-label").text("Year");
+  ["All",...dealYears].forEach(y=>{
+    dyb.append("button")
+      .attr("class","chip"+(y==="All"?" on":""))
+      .attr("data-dyear",String(y)).text(y)
+      .on("click",()=>{ state.dealYear=y; state.dealLimit=15;
+        d3.selectAll("[data-dyear]").classed("on",function(){return this.dataset.dyear===String(y);});
+        renderDeals(); });
+  });
+  d3.select("#dealsToggle").on("click",()=>{
+    state.dealLimit = state.dealLimit===Infinity ? 15 : Infinity;
+    renderDeals();
+  });
+
+  const cc = d3.select(".compare-controls");
+  cc.append("span").attr("class","control-label").text("Compare (pick 2-3)");
+  SECTORS.forEach(s=>{
+    cc.append("button")
+      .attr("class","chip"+(state.compareSectors.includes(s)?" on":""))
+      .attr("data-csector",s).text(s)
+      .on("click",()=>{
+        const arr = state.compareSectors;
+        if(arr.includes(s)){ if(arr.length>1) state.compareSectors = arr.filter(x=>x!==s); }
+        else { if(arr.length>=3) arr.shift(); state.compareSectors = [...arr, s]; }
+        d3.selectAll("[data-csector]").classed("on",function(){return state.compareSectors.includes(this.dataset.csector);});
+        renderCompare();
+      });
+  });
 }
 
 function renderAll(){
@@ -374,8 +578,285 @@ function renderAll(){
   drawWeb3();
   drawEnergyAI();
   drawDemand();
+  renderDeals();
+  renderCompare();
+  drawEscalation();
+  drawMagnets();
+  drawConcentration();
+  drawGeography();
   buildLegend("#legend");
   buildLegend("#legend2");
+}
+
+function dealCompare(a,b){
+  const k=state.dealSort, dir=state.dealDir;
+  let av,bv;
+  if(k==="amount"){ av=a.amount; bv=b.amount; }
+  else if(k==="when"){ av=a.year*10+a.qnum; bv=b.year*10+b.qnum; }
+  else if(k==="company"){ av=a.company.toLowerCase(); bv=b.company.toLowerCase(); }
+  else { av=(a[k]||"").toLowerCase(); bv=(b[k]||"").toLowerCase(); }
+  if(av<bv) return -dir;
+  if(av>bv) return dir;
+  return a.amount<b.amount ? 1 : -1; // stable-ish tiebreak: larger round first
+}
+
+function renderDeals(){
+  const rows = deals
+    .filter(d=> (state.dealSector==="All" || d.sector===state.dealSector)
+             && (state.dealYear==="All"   || d.year===+state.dealYear))
+    .sort(dealCompare);
+  const total = rows.length;
+  const shown = state.dealLimit===Infinity ? rows : rows.slice(0, state.dealLimit);
+
+  const head = d3.select("#dealsHead"); head.selectAll("*").remove();
+  const htr = head.append("tr");
+  DEAL_COLS.forEach(c=>{
+    const sorted = c.sort && state.dealSort===c.key;
+    const th = htr.append("th")
+      .attr("class",[c.cls||"", c.sort?"sortable":"", sorted?"sorted":"", sorted&&state.dealDir===1?"asc":""].filter(Boolean).join(" "))
+      .text(c.label);
+    if(c.sort) th.on("click",()=>{
+      if(state.dealSort===c.key) state.dealDir*=-1;
+      else { state.dealSort=c.key; state.dealDir=(c.key==="amount"||c.key==="when")?-1:1; }
+      renderDeals();
+    });
+  });
+
+  const body = d3.select("#dealsBody"); body.selectAll("*").remove();
+  if(!shown.length){
+    body.append("tr").append("td").attr("colspan",DEAL_COLS.length).attr("class","deals-empty").text("No deals match this filter.");
+  }
+  shown.forEach((d,i)=>{
+    const tr = body.append("tr");
+    tr.append("td").attr("class","num-col deal-rank").text(i+1);
+    const co = tr.append("td");
+    const coLine = co.append("div").attr("class","deal-co");
+    coLine.append("span").text(d.company);
+    if(d.caveat){
+      coLine.append("span").attr("class","deal-flag").html(" ⚠️")
+        .on("mousemove",(e)=>showTip(`<b>${escAttr(d.company)}</b><br>${escAttr(d.note)}`,e))
+        .on("mouseleave",hideTip);
+    }
+    if(d.subsector) co.append("div").attr("class","deal-sub").text(d.subsector);
+    tr.append("td").append("span").attr("class","deal-badge")
+      .html(`<span class="swatch" style="background:${COLOR[d.sector]||'#888'}"></span>${escAttr(d.sector)}`);
+    tr.append("td").attr("class","num-col").append("span").attr("class","deal-amt").text(dealAmount(d.amount));
+    tr.append("td").text(d.round||"—");
+    tr.append("td").text(d.lead||"—");
+    tr.append("td").text(d.year + (d.quarter?" "+d.quarter:""));
+    const src = tr.append("td");
+    if(d.sourceUrl) src.append("a").attr("class","deal-src").attr("href",d.sourceUrl)
+      .attr("target","_blank").attr("rel","noopener").attr("title",d.sourceName||d.sourceUrl).text("Source ↗");
+    else src.text("—");
+  });
+
+  d3.select("#dealsMeta").html(
+    `Showing <b>${shown.length}</b> of ${total} deals`
+    + (state.dealSector!=="All" ? ` · ${state.dealSector}` : "")
+    + (state.dealYear!=="All"   ? ` · ${state.dealYear}`   : "")
+  );
+  const tg = d3.select("#dealsToggle");
+  if(total>15){ tg.style("display","").text(state.dealLimit===Infinity ? "Show top 15" : `Show all ${total}`); }
+  else tg.style("display","none");
+}
+
+function signedPct(v){ const p=v*100; return (p>=0?"+":"")+p.toFixed(0)+"%"; }
+
+function renderCompare(){
+  const svg=d3.select("#compare"), W=940,H=400,m={t:24,r:120,b:38,l:52};
+  svg.selectAll("*").remove();
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
+  const series = state.compareSectors.map(s=>{
+    const rows=annual.filter(d=>d.sector===s && d.value!=null).sort((a,b)=>a.year-b.year);
+    const base=rows[0].value;
+    return {s, rows:rows.map(d=>({year:d.year, idx:d.value/base*100, value:d.value, est:d.est}))};
+  });
+  const x=d3.scalePoint().domain(years).range([0,iw]).padding(0.5);
+  const maxIdx=d3.max(series,se=>d3.max(se.rows,r=>r.idx));
+  const y=d3.scaleLinear().domain([0,maxIdx]).nice().range([ih,0]);
+  g.append("g").attr("class","grid").selectAll("line").data(y.ticks(6)).join("line")
+    .attr("x1",0).attr("x2",iw).attr("y1",d=>y(d)).attr("y2",d=>y(d));
+  g.append("line").attr("x1",0).attr("x2",iw).attr("y1",y(100)).attr("y2",y(100))
+    .attr("stroke","#3a3a44").attr("stroke-dasharray","2,3");
+  g.append("text").attr("x",2).attr("y",y(100)-4).attr("fill","#6f6f7a").attr("font-size",10)
+    .attr("font-family","'JetBrains Mono',monospace").text("2022 = 100");
+  g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x).tickFormat(d3.format("d")));
+  g.append("g").attr("class","axis").call(d3.axisLeft(y).ticks(6));
+  const line=d3.line().x(d=>x(d.year)).y(d=>y(d.idx));
+  const labs=[];
+  series.forEach(se=>{
+    g.append("path").datum(se.rows).attr("fill","none").attr("stroke",COLOR[se.s]).attr("stroke-width",2.6)
+      .attr("stroke-dasharray",CAVEAT[se.s]?"5,4":null).attr("d",line);
+    g.append("g").selectAll("circle").data(se.rows).join("circle")
+      .attr("cx",d=>x(d.year)).attr("cy",d=>y(d.idx)).attr("r",3.8)
+      .attr("fill",d=>d.est?"#0b0b0f":COLOR[se.s]).attr("stroke",COLOR[se.s]).attr("stroke-width",1.8)
+      .on("mousemove",(e,d)=>showTip(`<b>${se.s}</b> ${d.year}<br>Index ${d.idx.toFixed(0)} (2022=100)<br>${moneyB(d.value)}${d.est?"<br><span style='color:#ffd76b'>Estimated</span>":""}`,e))
+      .on("mouseleave",hideTip);
+    const last=se.rows[se.rows.length-1];
+    labs.push({s:se.s, y:y(last.idx)});
+  });
+  labs.sort((a,b)=>a.y-b.y);
+  for(let i=1;i<labs.length;i++){ if(labs[i].y-labs[i-1].y<14) labs[i].y=labs[i-1].y+14; }
+  g.append("g").selectAll("text").data(labs).join("text")
+    .attr("x",iw+8).attr("y",d=>d.y).attr("dy","0.32em").attr("fill",d=>COLOR[d.s])
+    .attr("font-size",11).attr("font-weight",850).text(d=>d.s+(CAVEAT[d.s]?" *":""));
+  drawCompareCards();
+}
+
+function drawCompareCards(){
+  const wrap=d3.select("#compareCards"); wrap.selectAll("*").remove();
+  state.compareSectors.forEach(s=>{
+    const rows=annual.filter(d=>d.sector===s && d.value!=null).sort((a,b)=>a.year-b.year);
+    const total=d3.sum(rows,d=>d.value);
+    const first=rows[0], last=rows[rows.length-1];
+    const change=first.value>0 ? (last.value-first.value)/first.value : null;
+    const withCount=rows.filter(d=>d.count!=null);
+    const ny=withCount.length, ty=rows.length;
+    const countTotal=ny ? d3.sum(withCount,d=>d.count) : null;
+    const avg=ny ? d3.sum(withCount,d=>d.value*1000)/d3.sum(withCount,d=>d.count) : null;
+    const chColor = change==null ? "#cdd0d8" : (change>=0 ? "#77e26d" : "#ff7575");
+    let countStr;
+    if(ny===0) countStr=`<span style="color:#7e818c">not published</span>`;
+    else if(ny<ty) countStr=`${d3.format(",")(countTotal)} <span style="color:#7e818c">(partial · ${ny} of ${ty} yrs)</span>`;
+    else countStr=`${d3.format(",")(countTotal)}`;
+    const avgStr = ny ? `${moneyM(avg)} <span style="color:#7e818c">(derived${ny<ty?", "+ny+" yrs":""})</span>` : "—";
+    const card=wrap.append("div").attr("class","answer");
+    card.append("div").attr("class","q")
+      .html(`<span class="swatch" style="background:${COLOR[s]};margin-right:.4rem"></span>${s}${CAVEAT[s]?" · scope caveat":""}`);
+    card.append("div").attr("class","a").html(
+      `Total 2022–2025: <b>${moneyB(total)}</b><br>`+
+      `Change ${first.year}→${last.year}: <b style="color:${chColor}">${change==null?"n/a":signedPct(change)}</b><br>`+
+      `Deals (period): ${countStr}<br>`+
+      `Avg round: ${avgStr}`
+    );
+  });
+}
+
+function drawEscalation(){
+  const svg=d3.select("#escalation"), W=940,H=440,m={t:20,r:28,b:40,l:62};
+  svg.selectAll("*").remove();
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
+  const yrs=[2022,2023,2024,2025];
+  const pts=deals.filter(d=>d.amount>0);
+  const xb=d3.scaleBand().domain(yrs).range([0,iw]).padding(0.08);
+  const maxA=d3.max(pts,d=>d.amount), minA=d3.min(pts,d=>d.amount);
+  const y=d3.scaleLog().domain([Math.max(minA*0.8,40),maxA*1.12]).range([ih,0]);
+  const ticks=[100,300,1000,3000,10000,40000].filter(t=>t<=maxA*1.12 && t>=minA*0.7);
+  g.append("g").attr("class","grid").selectAll("line").data(ticks).join("line")
+    .attr("x1",0).attr("x2",iw).attr("y1",d=>y(d)).attr("y2",d=>y(d));
+  g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(xb).tickFormat(d3.format("d")));
+  g.append("g").attr("class","axis").call(d3.axisLeft(y).tickValues(ticks).tickFormat(d=> d>=1000?"$"+(d/1000)+"B":"$"+d+"M"));
+  const r=d3.scaleSqrt().domain([0,maxA]).range([2.2,15]);
+  yrs.forEach(yr=>{
+    const ds=pts.filter(p=>p.year===yr).sort((a,b)=>(a.qnum-b.qnum)||(b.amount-a.amount));
+    const n=ds.length||1, bw=xb.bandwidth();
+    ds.forEach((d,i)=>{ d._x=xb(yr)+bw*(i+0.5)/n; });
+  });
+  g.append("g").selectAll("circle").data(pts).join("circle")
+    .attr("cx",d=>d._x).attr("cy",d=>y(d.amount)).attr("r",d=>r(d.amount))
+    .attr("fill",d=>COLOR[d.sector]||"#888").attr("fill-opacity",.72)
+    .attr("stroke",d=>COLOR[d.sector]||"#888").attr("stroke-width",.8)
+    .on("mousemove",(e,d)=>showTip(`<b>${d.company}</b> · ${d.sector}<br>${dealAmount(d.amount)}${d.round?" · "+d.round:""}<br>${d.year}${d.quarter?" "+d.quarter:""}`,e))
+    .on("mouseleave",hideTip);
+  const avg=yrs.map(yr=>({yr, v:d3.mean(pts.filter(p=>p.year===yr),p=>p.amount)}));
+  g.append("path").datum(avg).attr("fill","none").attr("stroke","#fff").attr("stroke-width",2).attr("stroke-dasharray","6,4")
+    .attr("d",d3.line().x(d=>xb(d.yr)+xb.bandwidth()/2).y(d=>y(d.v)));
+  g.append("g").selectAll("text.avg").data(avg).join("text")
+    .attr("x",d=>xb(d.yr)+xb.bandwidth()/2).attr("y",d=>y(d.v)-10).attr("text-anchor","middle")
+    .attr("fill","#fff").attr("font-size",11).attr("font-weight",800).text(d=>"avg "+dealAmount(d.v));
+  const L=d3.select("#escLegend"); L.selectAll("*").remove();
+  SECTORS.forEach(s=> L.append("button").html(`<span class="swatch" style="background:${COLOR[s]}"></span>${s}`));
+  L.append("button").html(`<span class="swatch" style="background:#fff"></span>avg deal size`);
+}
+
+function drawMagnets(){
+  const svg=d3.select("#magnets"), W=940,H=460;
+  svg.selectAll("*").remove();
+  const mags=Array.from(d3.group(deals,d=>d.company),([company,ds])=>({company,sector:ds[0].sector,total:d3.sum(ds,x=>x.amount),n:ds.length}))
+    .filter(m=>m.n>1 && m.total>0);
+  if(!mags.length) return;
+  const root=d3.hierarchy({children:mags}).sum(d=>d.total);
+  d3.pack().size([W,H]).padding(3)(root);
+  const node=svg.append("g").selectAll("g").data(root.leaves()).join("g").attr("transform",d=>`translate(${d.x},${d.y})`);
+  node.append("circle").attr("r",d=>d.r).attr("fill",d=>COLOR[d.data.sector]||"#888").attr("fill-opacity",.78)
+    .attr("stroke",d=>COLOR[d.data.sector]||"#888").attr("stroke-width",1)
+    .on("mousemove",(e,d)=>showTip(`<b>${d.data.company}</b> · ${d.data.sector}<br>${dealAmount(d.data.total)} across ${d.data.n} rounds`,e))
+    .on("mouseleave",hideTip);
+  node.filter(d=>d.r>24).append("text").attr("text-anchor","middle").attr("dy","-0.1em")
+    .attr("fill","#07101a").attr("font-size",d=>Math.min(13,d.r/2.6)).attr("font-weight",800)
+    .style("font-family","'Chakra Petch',sans-serif").text(d=>d.data.company.length>14?d.data.company.slice(0,13)+"…":d.data.company);
+  node.filter(d=>d.r>24).append("text").attr("text-anchor","middle").attr("dy","1.15em")
+    .attr("fill","#07101a").attr("font-size",d=>Math.min(12,d.r/3)).attr("font-weight",700)
+    .style("font-family","'JetBrains Mono',monospace").text(d=>dealAmount(d.data.total));
+}
+
+function drawConcentration(){
+  const svg=d3.select("#concentration"), W=940,H=300,m={t:14,r:96,b:26,l:78};
+  svg.selectAll("*").remove();
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
+  const data=SECTORS.map(s=>{
+    const ds=deals.filter(d=>d.sector===s && d.amount>0).sort((a,b)=>b.amount-a.amount);
+    const tot=d3.sum(ds,d=>d.amount);
+    const top1=ds[0]?ds[0].amount:0, next2=d3.sum(ds.slice(1,3),d=>d.amount);
+    return {s,tot,top1,next2,rest:tot-top1-next2,top3pct:tot?(top1+next2)/tot:0,topName:ds[0]?ds[0].company:""};
+  }).filter(d=>d.tot>0).sort((a,b)=>b.top3pct-a.top3pct);
+  const yb=d3.scaleBand().domain(data.map(d=>d.s)).range([0,ih]).padding(0.28);
+  const x=d3.scaleLinear().domain([0,1]).range([0,iw]);
+  data.forEach(d=>{
+    const yy=yb(d.s),h=yb.bandwidth();
+    const segs=[{k:"top deal",v:d.top1,o:1},{k:"next 2",v:d.next2,o:0.55},{k:"the rest",v:d.rest,o:0.20}];
+    let acc=0;
+    segs.forEach(seg=>{
+      g.append("rect").attr("x",x(acc/d.tot)).attr("y",yy).attr("width",Math.max(0,x(seg.v/d.tot))).attr("height",h)
+        .attr("fill",COLOR[d.s]).attr("fill-opacity",seg.o).attr("stroke","#0a0a0e").attr("stroke-width",1)
+        .on("mousemove",(e)=>showTip(`<b>${d.s}</b> — ${seg.k}<br>${pct(seg.v/d.tot)} of $${(d.tot/1000).toFixed(1)}B${seg.k==="top deal"?"<br>"+d.topName+" "+dealAmount(seg.v):""}`,e))
+        .on("mouseleave",hideTip);
+      acc+=seg.v;
+    });
+    g.append("text").attr("x",-8).attr("y",yy+h/2).attr("dy","0.32em").attr("text-anchor","end")
+      .attr("fill","#dfe1e8").attr("font-size",12).attr("font-weight",700).text(d.s);
+    g.append("text").attr("x",iw+8).attr("y",yy+h/2).attr("dy","0.32em")
+      .attr("fill",COLOR[d.s]).attr("font-size",11).attr("font-weight",800).text("top3 "+pct(d.top3pct));
+  });
+  g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x).ticks(5).tickFormat(d3.format(".0%")));
+  d3.select("#concNote").html(`<b>The Web3 ↔ AI contrast:</b> AI's single biggest round (OpenAI) is <b>33%</b> of all its landmark capital, and its top three are <b>53%</b> — a few names <em>are</em> the sector. Web3's biggest (Binance) is just <b>12%</b>, top three only <b>29%</b>: 56 deals sharing the pot. Same boom, opposite structure — a king vs a crowd.`);
+}
+
+function drawGeography(){
+  const svg=d3.select("#geography"), W=940,H=300,m={t:14,r:70,b:26,l:78};
+  svg.selectAll("*").remove();
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
+  const USSET=new Set(["USA","US","UNITED STATES"]);
+  const data=SECTORS.map(s=>{
+    const ds=deals.filter(d=>d.sector===s && d.amount>0);
+    let us=0,row=0;
+    ds.forEach(d=> USSET.has((d.country||"").trim().toUpperCase()) ? us+=d.amount : row+=d.amount);
+    const tot=us+row;
+    return {s,us,row,tot,uspct:tot?us/tot:0};
+  }).filter(d=>d.tot>0).sort((a,b)=>b.uspct-a.uspct);
+  const yb=d3.scaleBand().domain(data.map(d=>d.s)).range([0,ih]).padding(0.28);
+  const x=d3.scaleLinear().domain([0,1]).range([0,iw]);
+  const US="#ff7a18", ROW="#2dd4bf";
+  data.forEach(d=>{
+    const yy=yb(d.s),h=yb.bandwidth();
+    g.append("rect").attr("x",0).attr("y",yy).attr("width",x(d.uspct)).attr("height",h).attr("fill",US).attr("fill-opacity",.9)
+      .on("mousemove",(e)=>showTip(`<b>${d.s}</b> — US<br>${pct(d.uspct)} · ${dealAmount(d.us)}`,e)).on("mouseleave",hideTip);
+    g.append("rect").attr("x",x(d.uspct)).attr("y",yy).attr("width",x(1-d.uspct)).attr("height",h).attr("fill",ROW).attr("fill-opacity",.85)
+      .on("mousemove",(e)=>showTip(`<b>${d.s}</b> — rest of world<br>${pct(1-d.uspct)} · ${dealAmount(d.row)}`,e)).on("mouseleave",hideTip);
+    g.append("text").attr("x",-8).attr("y",yy+h/2).attr("dy","0.32em").attr("text-anchor","end")
+      .attr("fill","#dfe1e8").attr("font-size",12).attr("font-weight",700).text(d.s);
+    g.append("text").attr("x",d.uspct>0.14?x(d.uspct)-6:x(d.uspct)+6).attr("y",yy+h/2).attr("dy","0.32em")
+      .attr("text-anchor",d.uspct>0.14?"end":"start").attr("fill",d.uspct>0.14?"#07101a":"#dfe1e8")
+      .attr("font-size",11).attr("font-weight",800).text(pct(d.uspct)+" US");
+  });
+  g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x).ticks(5).tickFormat(d3.format(".0%")));
+  const L=d3.select("#geoLegend"); L.selectAll("*").remove();
+  L.append("button").html(`<span class="swatch" style="background:${US}"></span>United States`);
+  L.append("button").html(`<span class="swatch" style="background:${ROW}"></span>Rest of world`);
 }
 
 function updateFocusControls(){
@@ -613,6 +1094,32 @@ function drawDemand(){
   const L=d3.select("#demandLegend"); L.selectAll("*").remove();
   L.append("button").text("Source: LBNL for US demand; IEA for global context in sources.md");
 }
+
+/* ===== Presentation only: scroll-spy nav + reveal-on-scroll. Fails safe — never hides content. ===== */
+(function(){
+  if(!("IntersectionObserver" in window)) return;
+  const navBtns=[...document.querySelectorAll(".section-nav button")];
+  const targets=navBtns.map(b=>document.querySelector(b.dataset.scroll)).filter(Boolean);
+  if(targets.length){
+    const spy=new IntersectionObserver(es=>{
+      es.forEach(en=>{ if(en.isIntersecting){
+        const id="#"+en.target.id;
+        navBtns.forEach(b=>b.classList.toggle("active", b.dataset.scroll===id));
+      }});
+    },{rootMargin:"-45% 0px -50% 0px"});
+    targets.forEach(t=>spy.observe(t));
+  }
+  const reduce=window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  if(!reduce){
+    const items=[...document.querySelectorAll(".panel,.section-label,.intro")];
+    document.body.classList.add("anim");
+    const rev=new IntersectionObserver(es=>{
+      es.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add("in"); rev.unobserve(en.target); } });
+    },{rootMargin:"0px 0px -8% 0px",threshold:0.06});
+    items.forEach(el=>rev.observe(el));
+    setTimeout(()=>items.forEach(el=>el.classList.add("in")),2500); // safety net
+  }
+})();
 </script>
 </body>
 </html>

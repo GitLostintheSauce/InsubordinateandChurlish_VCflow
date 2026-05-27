@@ -19,8 +19,9 @@ Current D3 views (vanilla HTML, no build step):
 2. **Share of the pie, per year** — 100% stacked bars; AI's slab swells from ~21% (2022) to ~60% (2025).
 3. **The crypto cycle, quarter-by-quarter** — Web3's peak → winter → rebuild, from Galaxy Digital.
 4. **AI-energy nexus** — selected power-sector rounds and data-center electricity demand, clearly labeled as an illustrative deep dive rather than a market total.
+5. **Landmark deals leaderboard** (Phase 3) — the 145 cited rounds in `landmark_deals.csv`, filterable by sector and year, sortable by any column, with a ⚠️ caveat flag and a source link on every row.
 
-The Phase 3 deals leaderboard is not built yet. `landmark_deals.csv` is prepared as the input for that later view.
+The **sector comparison** view is the remaining Phase 3 panel.
 
 ## Repo structure
 
@@ -54,6 +55,13 @@ The files marked ★ are what the dashboard reads. `data/raw/` holds the origina
 - **No hallucinated numbers.** Every figure traces to a citation in `sources.md`, or is marked `estimated` (shown as hollow dots on the charts). Five cells are estimated; the rest are sourced.
 - **Scope caveats are visible, not hidden** — Climate and Biotech change definition across years and are flagged on the page.
 
+### Why there is no deal-count or median-round-size metric
+
+The sector comparison reports **funding totals and % change** — not deal counts or median round size — for the same source-quality reason the backbone is annual:
+
+- **Deal count.** Crunchbase publishes each sector's annual *funding* under one consistent definition, but **not** a comparable annual *deal count* for every sector. Clean counts exist only for some cells (Fintech 2024–25, Defense 2022–24, Web3 2022–24, all Crunchbase) and are kept where they are real. The blanks — **AI (all years), Climate, Biotech** — are gaps Crunchbase never published. This was confirmed by checking Crunchbase's own 2024 and 2025 end-of-year reports: they give AI in dollars and share of total but state **no AI deal count**. The count-shaped numbers that *are* published are different scopes (e.g. "~10,500 rounds" = all North American sectors; "250 companies" = a single month), so dropping one into an "AI deal count" cell would mix definitions and manufacture a figure — exactly what the no-hallucination rule forbids. Where a count is missing, the comparison shows **"not published"** rather than an invented value; the gap itself is a finding about source coverage.
+- **Median round size.** This needs deal-level distribution data the project does not have. *Average* round size (funding ÷ count) is derivable only where both numbers are real, and is labeled "derived." A median computed over the 145 landmark deals would be biased toward large rounds, so it is not presented as a market median.
+
 ## View locally
 
 It loads CSVs over HTTP, so use a tiny static server (not `file://`):
@@ -71,4 +79,4 @@ python3 -m http.server 8000
 
 **Carries into the new session** — a few items still need *your* hands and are flagged in `PROMPTS.md`: confirming the personal tool-comparison verdicts, the Claude Desktop Project screenshot (external), and a live in-browser/mobile QA pass (console errors, 375px width). None block Phase 3.
 
-**Next: Phase 3** — secondary views. Start with the **deals leaderboard** off `landmark_deals.csv` (filter by sector + year), then a **sector comparison** view. See `HANDOFF.md` for the full catch-up.
+**Phase 3 in progress** — secondary views. The **deals leaderboard** off `landmark_deals.csv` (filter by sector + year, sortable, sourced rows) is **built**. Remaining: the **sector comparison** view (funding + % change + sourced counts where they exist; see the deal-count note under Data principles for why counts are partial). The optional Sankey/stage view is intentionally skipped — no real stage-level data exists. See `HANDOFF.md` for the full catch-up.

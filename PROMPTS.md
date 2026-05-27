@@ -79,6 +79,23 @@ The single small task used to compare the three required tools: **"scaffold a si
 
 ---
 
+## 2026-05-27 — Phase 3 decision: no deal-count / median-round-size metric (a second documented pivot)
+
+**Context:** building the Phase 3 **sector comparison** view. The original plan envisioned comparing sectors on funding *and* deal count *and* median round size. Tested whether the backbone could honestly support deal count / median.
+
+**Tool:** Claude Code (read the data) + Web search against Crunchbase's own end-of-year reports.
+
+**Finding — deal count is only partially available, and the gaps are real, not lazy:**
+- `sector_annual.csv` already carries clean Crunchbase deal counts for **Fintech 2024–25, Defense 2022–24, Web3 2022–24**. Those stay.
+- **AI, Climate, Biotech counts are blank by design.** Crunchbase reports AI in *dollars and share of total* but publishes **no comparable annual AI deal count** — confirmed against its [AI EOY 2024](https://news.crunchbase.com/venture/global-funding-data-analysis-ai-eoy-2024/) and [AI trends EOY 2025](https://news.crunchbase.com/ai/big-funding-trends-charts-eoy-2025/) write-ups. The count-shaped numbers in circulation are **different scopes** ("~10,500 rounds" = all North American sectors; "250 companies" = one month), so using one as an "AI deal count" would mix definitions and fabricate a figure.
+- Climate (equity-only → all-stages scope flips) and Biotech (US-only vs global) have no clean per-year counts for the same scope reasons already documented for their funding lines.
+
+**Finding — median round size cannot be computed honestly:** it requires deal-level distribution data the project does not hold. *Average* round size (funding ÷ count) is derivable only where both numbers are real (labeled "derived"); a median over the 145 curated landmark deals is biased to large rounds and would misrepresent the market.
+
+**Decision:** the comparison view reports **funding totals + % change** for all sectors, **deal count only where Crunchbase published it** (blanks shown as "not published," not invented), and an optional **derived** average round size where both inputs exist. No median. Same source-quality-first logic as the [quarterly → annual pivot](#2026-05-27--phase-1-decision-source-quality-pivot-quarterly--annual-the-documented-pivot); recorded so the gap reads as a judgment call, not an omission. Also logged in `README.md` (Data principles).
+
+---
+
 ## Template for future entries
 
 ### YYYY-MM-DD — short title
