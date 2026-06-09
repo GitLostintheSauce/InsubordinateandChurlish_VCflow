@@ -17,7 +17,7 @@
     --bg:#08080b; --surface:#15151c; --surface-2:#1b1b23; --line:#2a2a33;
     --line-soft:#1d1d24; --text:#f1f1f5; --muted:#a2a2ad; --faint:#6f6f7a;
     --danger:#ff7575; --warn:#ffd76b; --panel-top:#141419; --panel-bot:#0c0c10;
-    --AI:#ff7a18; --Fintech:#b88cff; --Biotech:#ff7575; --Climate:#72b8ff; --Web3:#77e26d; --Defense:#ffd76b;
+    --AI:#ff7a18; --Fintech:#b88cff; --Biotech:#e879d4; --Climate:#72b8ff; --Web3:#77e26d; --Defense:#9ca0a8;
     --r-sm:7px; --r-md:11px; --r-lg:16px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -80,6 +80,38 @@
   .intro{position:relative;background:rgba(17,17,23,.5);border:1px solid var(--line);border-left:2px solid var(--accent);
     border-radius:var(--r-md);padding:1rem 1.2rem;margin-bottom:1.2rem;color:#d2d4dd;font-size:.95rem}
   .intro b{color:#fff}
+  /* ===== Phase-4 insight cards (analyst layer) ===== */
+  .insights{position:relative;background:linear-gradient(180deg,var(--panel-top),var(--panel-bot));
+    border:1px solid var(--line);border-radius:var(--r-lg);padding:1.4rem 1.5rem 1.5rem;margin-bottom:1.1rem;overflow:hidden;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 24px 60px -36px rgba(0,0,0,.95)}
+  .insights::after{content:"";position:absolute;left:1.5rem;right:1.5rem;top:0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.12) 50%,transparent)}
+  .insights-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:.6rem;margin-bottom:1.05rem}
+  .insights-head h2{font-size:1.18rem}
+  .insights-head .desc{margin-top:.18rem;font-size:.86rem}
+  .insights-meta{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.1em}
+  .insights-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem}
+  .insight{position:relative;background:rgba(20,20,27,.6);border:1px solid var(--line-soft);
+    border-left:3px solid var(--accent);border-radius:var(--r-md);padding:.9rem 1rem .85rem;
+    transition:transform .15s,border-color .2s,background .2s;display:flex;flex-direction:column;gap:.5rem;min-height:0}
+  .insight:hover{transform:translateY(-2px);background:rgba(26,26,34,.78);border-color:#3a3a44}
+  .insight[data-sector="AI"]{border-left-color:var(--AI)}
+  .insight[data-sector="Fintech"]{border-left-color:var(--Fintech)}
+  .insight[data-sector="Biotech"]{border-left-color:var(--Biotech)}
+  .insight[data-sector="Climate"]{border-left-color:var(--Climate)}
+  .insight[data-sector="Web3"]{border-left-color:var(--Web3)}
+  .insight[data-sector="Defense"]{border-left-color:var(--Defense)}
+  .insight .big{font-family:'Chakra Petch',sans-serif;font-size:1.6rem;font-weight:700;color:#fff;line-height:1;letter-spacing:-.01em}
+  .insight .claim{color:#cdd0d8;font-size:.86rem;line-height:1.42;flex:1}
+  .insight .meta{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;font-family:'JetBrains Mono',monospace;
+    font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;margin-top:.1rem}
+  .insight .tag{display:inline-flex;align-items:center;gap:.32rem;background:rgba(35,35,45,.6);
+    border:1px solid var(--line-soft);border-radius:6px;padding:.2rem .45rem;color:#c4c6cf}
+  .insight .tag .swatch{width:7px;height:7px;border-radius:2px;flex:0 0 auto}
+  .insight .src{color:var(--accent-2);background:rgba(45,212,191,.06);border:1px solid rgba(45,212,191,.18);
+    border-radius:6px;padding:.2rem .45rem}
+  @media (max-width:840px){.insights-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.insights-grid{grid-template-columns:1fr}.insights{padding:1.1rem 1.05rem 1.2rem}}
   .panel{position:relative;background:linear-gradient(180deg,var(--panel-top),var(--panel-bot));
     border:1px solid var(--line);border-radius:var(--r-lg);padding:1.6rem 1.7rem;margin-bottom:1.1rem;overflow:hidden;
     box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 24px 60px -36px rgba(0,0,0,.95);transition:border-color .25s,box-shadow .25s}
@@ -208,7 +240,7 @@
     </div>
     <div class="kpis">
       <div class="kpi"><div class="label">AI funding</div><div class="value">$211B</div><div class="note">2025 annual total</div></div>
-      <div class="kpi"><div class="label">AI share</div><div class="value">56%</div><div class="note">of tracked sectors in 2025</div></div>
+      <div class="kpi"><div class="label">Concentration</div><div class="value">~$93B</div><div class="note">3 AI labs (OpenAI, Anthropic, xAI) ≈ half of $197B landmark capital</div></div>
       <div class="kpi"><div class="label">Web3 rebound</div><div class="value">$8.5B</div><div class="note">Q4 2025, Galaxy data</div></div>
       <div class="kpi"><div class="label">Defense record</div><div class="value">$7.7B</div><div class="note">2025 defense tech</div></div>
     </div>
@@ -229,13 +261,24 @@
     <b>Executive read:</b> AI became the gravity well for venture capital. Web3 collapsed and rebuilt. Fintech reset, defense accelerated from a small base, and climate/biotech require careful caveats because source definitions shift.
   </div>
 
+  <section class="insights" id="headline-insights">
+    <div class="insights-head">
+      <div>
+        <h2>Headline insights</h2>
+        <p class="desc">Twelve sourced claims behind the charts. Every number traces to a citation in <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/sources.md" style="color:var(--accent-2)">sources.md</a>.</p>
+      </div>
+      <div class="insights-meta">2022 — 2025 · 12 cards</div>
+    </div>
+    <div class="insights-grid" id="insightsGrid"></div>
+  </section>
+
   <section class="panel" id="overview">
     <div class="panel-head">
       <div class="panel-title">
         <span class="num">1</span>
         <div>
           <h2>Funding by sector, per year</h2>
-          <p class="desc">Use the sector focus control to isolate a line. Log scale is the default because it keeps smaller sectors, especially Defense, visible.</p>
+          <p class="desc">Linear scale is the default — it shows AI's dominance honestly. Toggle to log, or use the sector focus, to inspect smaller sectors like Defense.</p>
         </div>
       </div>
     </div>
@@ -243,8 +286,8 @@
       <div class="control-group sector-controls"></div>
       <div class="control-group toggle" id="scaleToggle">
         <span class="control-label">Scale</span>
-        <button data-scale="log" class="on">Log</button>
-        <button data-scale="linear">Linear</button>
+        <button data-scale="linear" class="on">Linear</button>
+        <button data-scale="log">Log</button>
       </div>
     </div>
     <div class="focus-summary" id="focusSummary"></div>
@@ -423,9 +466,36 @@
 <script>
 const DATA_VERSION = "ui-20260526";
 const SECTORS = ["AI","Fintech","Biotech","Climate","Web3","Defense"];
-const COLOR = {"AI":"#ff7a18","Fintech":"#b88cff","Biotech":"#ff7575","Climate":"#72b8ff","Web3":"#77e26d","Defense":"#ffd76b","Defense & Space":"#ffd76b"};
+const COLOR = {"AI":"#ff7a18","Fintech":"#b88cff","Biotech":"#e879d4","Climate":"#72b8ff","Web3":"#77e26d","Defense":"#9ca0a8","Defense & Space":"#9ca0a8"};
+// Phase-4 insight cards — every number traces to sources.md or to landmark_deals.csv (computed).
+const INSIGHTS = [
+  {big:"~$93B", sector:"AI", tag:"AI · Concentration", source:"landmark_deals.csv",
+    claim:"OpenAI, Anthropic, and xAI absorbed nearly half of all $197B in tracked landmark capital, 2022–2025."},
+  {big:"$211B", sector:"AI", tag:"AI · 2025", source:"Crunchbase",
+    claim:"AI funding in 2025 — up from $45.8B in 2022, a 4.6× run in three years."},
+  {big:"~50%", sector:"AI", tag:"AI · 2025", source:"Crunchbase",
+    claim:"AI took roughly half of all global venture dollars in 2025 — a category that was one of several three years earlier."},
+  {big:"$40B", sector:"AI", tag:"AI · Q1 2025", source:"Crunchbase",
+    claim:"OpenAI's single Q1 2025 round was ~19% of all AI funding for the year by itself."},
+  {big:"~6×", sector:"AI", tag:"Cross-sector · Megarounds", source:"landmark_deals.csv",
+    claim:"The average landmark round ballooned from ~$440M (2022) to ~$2.6B (2025)."},
+  {big:"−86%", sector:"Web3", tag:"Web3 · 2022→2023", source:"Galaxy Digital",
+    claim:"Web3 quarterly funding collapsed from $14.2B (Q1 2022) to $1.93B (Q4 2023)."},
+  {big:"$8.5B", sector:"Web3", tag:"Web3 · Q4 2025", source:"Galaxy Digital",
+    claim:"Strongest Web3 quarter since Q2 2022 — capital returned to infrastructure and trading rails, not the consumer/NFT froth of 2022."},
+  {big:"~41%", sector:"Web3", tag:"Web3 · Q1 2025", source:"Galaxy Digital",
+    claim:"A single $2B Binance/MGX deal made up ~41% of Web3 funding that quarter — concentration is not just an AI story."},
+  {big:"−52%", sector:"Fintech", tag:"Fintech · 2022→2023", source:"Crunchbase",
+    claim:"Fintech halved from $90.2B (2022) to $43B (2023), then disciplined-rebuilt to $51.8B (2025): fewer, larger rounds."},
+  {big:"~15%", sector:"Fintech", tag:"Fintech · 2023", source:"Crunchbase",
+    claim:"Stripe's $6.5B 2023 round was ~15% of all fintech funding that year — every sector has capital magnets."},
+  {big:"~3×", sector:"Defense", tag:"Defense · 2022→2025", source:"Crunchbase",
+    claim:"Defense tech tripled from $2.6B (2022) to $7.7B (2025) — record year, ~100 deals, Anduril's $2.5B leading."},
+  {big:"99% / 70%", sector:"Climate", tag:"Cross-sector · Geography", source:"landmark_deals.csv",
+    claim:"AI's landmark capital is ~99% US; Climate is the outlier at ~70% non-US, driven by European battery gigafactories."}
+];
 const CAVEAT = {"Climate":true,"Biotech":true};
-const state = {scale:"log", focus:"All", shareYear:null,
+const state = {scale:"linear", focus:"All", shareYear:null,
   dealSector:"All", dealYear:"All", dealSort:"amount", dealDir:-1, dealLimit:15,
   compareSectors:["AI","Defense","Web3"]};
 let annual = [], years = [], web3 = [], energyRaw = [];
@@ -568,7 +638,24 @@ function bindControls(){
   });
 }
 
+function renderInsights(){
+  const grid = d3.select("#insightsGrid");
+  if(grid.empty()) return;
+  grid.selectAll(".insight").remove();
+  grid.selectAll(".insight").data(INSIGHTS).enter().append("div")
+    .attr("class","insight").attr("data-sector",d=>d.sector)
+    .html(d=>`
+      <div class="big">${d.big}</div>
+      <div class="claim">${d.claim}</div>
+      <div class="meta">
+        <span class="tag"><span class="swatch" style="background:${COLOR[d.sector]||"#888"}"></span>${d.tag}</span>
+        <span class="src">${d.source}</span>
+      </div>
+    `);
+}
+
 function renderAll(){
+  renderInsights();
   updateFocusControls();
   updateYearButtons();
   updateFocusSummary();
