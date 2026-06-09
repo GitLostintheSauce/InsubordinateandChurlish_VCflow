@@ -80,6 +80,24 @@
   .intro{position:relative;background:rgba(17,17,23,.5);border:1px solid var(--line);border-left:2px solid var(--accent);
     border-radius:var(--r-md);padding:1rem 1.2rem;margin-bottom:1.2rem;color:#d2d4dd;font-size:.95rem}
   .intro b{color:#fff}
+  /* ===== Phase-5 methodology strip (replaces .intro) + Macro sub-section headers ===== */
+  .methodology{position:relative;background:rgba(17,17,23,.55);border:1px solid var(--line);
+    border-left:2px solid var(--accent-2);border-radius:var(--r-md);padding:1rem 1.2rem;margin-bottom:1.2rem;
+    color:#d2d4dd;font-size:.88rem}
+  .meth-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem 1.1rem;margin-bottom:.65rem}
+  .meth-grid > div{line-height:1.45}
+  .meth-label{font-family:'JetBrains Mono',monospace;color:var(--accent-bright);font-size:.66rem;
+    text-transform:uppercase;letter-spacing:.08em;font-weight:700;display:block;margin-bottom:.18rem}
+  .meth-foot{font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--faint);
+    border-top:1px solid var(--line-soft);padding-top:.55rem;margin-top:.1rem}
+  .meth-foot a{color:var(--accent-2)}
+  @media (max-width:840px){.meth-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.meth-grid{grid-template-columns:1fr}}
+  .subhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:.6rem;
+    margin:1.6rem 0 .4rem;padding-top:.9rem;border-top:1px solid var(--line-soft)}
+  .subhead:first-of-type{border-top:0;padding-top:0;margin-top:.5rem}
+  .subhead h3{font-family:'Chakra Petch',sans-serif;font-size:1.04rem;color:#fff;font-weight:600;letter-spacing:-.005em;margin:0}
+  .subhead .desc{font-size:.86rem;margin:.2rem 0 0;flex:1 1 100%}
   /* ===== Phase-4 insight cards (analyst layer) ===== */
   .insights{position:relative;background:linear-gradient(180deg,var(--panel-top),var(--panel-bot));
     border:1px solid var(--line);border-radius:var(--r-lg);padding:1.4rem 1.5rem 1.5rem;margin-bottom:1.1rem;overflow:hidden;
@@ -230,35 +248,39 @@
 <body>
 <div class="wrap">
   <header class="hero">
-    <div class="eyebrow">Venture capital migration | 2022-2025</div>
-    <h1>Where capital <em>moved</em> when the market reset.</h1>
-    <p class="sub">A sourced, interactive dashboard tracking how venture funding reallocated across AI, fintech, climate, defense, Web3, and biotech.</p>
+    <div class="eyebrow">Venture capital · 2022–2025 · FY2025 final</div>
+    <h1>It wasn't a rotation. It was a <em>concentration event.</em></h1>
+    <p class="sub">Of AI's $211B in FY2025 funding, ~$93B — nearly half — landed in three private labs: OpenAI, Anthropic, xAI. Almost every other story below (Web3's rebuild, the AI-energy buildout, the megaround era) is downstream of that one fact. The dashboards are evidence. The 145-deal leaderboard is the product.</p>
     <div class="hero-actions">
-      <button class="action primary" data-scroll="#overview">Explore the charts</button>
-      <button class="action" data-scroll="#web3-section">Inspect Web3 cycle</button>
-      <button class="action" data-scroll="#energy-section">Review AI-energy thesis</button>
+      <button class="action primary" data-scroll="#thesis">See the concentration evidence</button>
+      <button class="action" data-scroll="#deals-section">Browse the 145 deals</button>
+      <button class="action" data-scroll="#methodology">Read the methodology</button>
     </div>
     <div class="kpis">
-      <div class="kpi"><div class="label">AI funding</div><div class="value">$211B</div><div class="note">2025 annual total</div></div>
-      <div class="kpi"><div class="label">Concentration</div><div class="value">~$93B</div><div class="note">3 AI labs (OpenAI, Anthropic, xAI) ≈ half of $197B landmark capital</div></div>
-      <div class="kpi"><div class="label">Web3 rebound</div><div class="value">$8.5B</div><div class="note">Q4 2025, Galaxy data</div></div>
-      <div class="kpi"><div class="label">Defense record</div><div class="value">$7.7B</div><div class="note">2025 defense tech</div></div>
+      <div class="kpi"><div class="label">AI funding</div><div class="value">$211B</div><div class="note">FY2025 final · Crunchbase</div></div>
+      <div class="kpi"><div class="label">Concentration</div><div class="value">~$93B</div><div class="note">OpenAI + Anthropic + xAI · ≈ half of $197B landmark capital</div></div>
+      <div class="kpi"><div class="label">Web3 rebound</div><div class="value">$8.5B</div><div class="note">Q4 2025 · Galaxy Digital quarterly</div></div>
+      <div class="kpi"><div class="label">Defense record</div><div class="value">$7.7B</div><div class="note">FY2025 final · Crunchbase</div></div>
     </div>
   </header>
 
   <nav class="section-nav" aria-label="Dashboard sections">
-    <button class="active" data-idx="01" data-scroll="#overview">Overview</button>
-    <button data-idx="02" data-scroll="#share-section">Capital Share</button>
-    <button data-idx="03" data-scroll="#web3-section">Web3 Cycle</button>
-    <button data-idx="04" data-scroll="#energy-section">AI-Energy</button>
-    <button data-idx="05" data-scroll="#deals-section">Deals</button>
+    <button class="active" data-idx="01" data-scroll="#thesis">Concentration</button>
+    <button data-idx="02" data-scroll="#deals-section">Deals</button>
+    <button data-idx="03" data-scroll="#macro-section">Macro</button>
+    <button data-idx="04" data-scroll="#web3-section">Web3 Cycle</button>
+    <button data-idx="05" data-scroll="#energy-section">AI-Energy</button>
     <button data-idx="06" data-scroll="#compare-section">Compare</button>
-    <button data-idx="07" data-scroll="#insights-section">Megarounds</button>
-    <button data-idx="08" data-scroll="#sources-section">Sources</button>
   </nav>
 
-  <div class="intro">
-    <b>Executive read:</b> AI became the gravity well for venture capital. Web3 collapsed and rebuilt. Fintech reset, defense accelerated from a small base, and climate/biotech require careful caveats because source definitions shift.
+  <div class="methodology" id="methodology">
+    <div class="meth-grid">
+      <div><b class="meth-label">Backbone</b> Crunchbase annual, six sectors. The six are a deliberate slice — this is not "all of global VC."</div>
+      <div><b class="meth-label">Web3 deep dive</b> Galaxy Digital quarterly. Different scope than Crunchbase's Web3 line — shown separately, not added or stacked.</div>
+      <div><b class="meth-label">AI-energy</b> Curated named rounds and PPAs. Illustrative direction, not a market total.</div>
+      <div><b class="meth-label">Deals leaderboard</b> 145 cited landmark rounds. Survivorship-skewed toward headline raises; primary source per row.</div>
+    </div>
+    <div class="meth-foot">Estimates and scope-shifts marked on every chart (hollow dots, dashed lines, ⚠️ flags). Every figure traces to <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/sources.md">sources.md</a>. Numbers stamped FY2025 final unless noted.</div>
   </div>
 
   <section class="insights" id="headline-insights">
@@ -272,105 +294,52 @@
     <div class="insights-grid" id="insightsGrid"></div>
   </section>
 
-  <section class="panel" id="overview">
-    <div class="panel-head">
-      <div class="panel-title">
-        <span class="num">1</span>
-        <div>
-          <h2>Funding by sector, per year</h2>
-          <p class="desc">Linear scale is the default — it shows AI's dominance honestly. Toggle to log, or use the sector focus, to inspect smaller sectors like Defense.</p>
-        </div>
-      </div>
-    </div>
-    <div class="toolbar">
-      <div class="control-group sector-controls"></div>
-      <div class="control-group toggle" id="scaleToggle">
-        <span class="control-label">Scale</span>
-        <button data-scale="linear" class="on">Linear</button>
-        <button data-scale="log">Log</button>
-      </div>
-    </div>
-    <div class="focus-summary" id="focusSummary"></div>
-    <div class="chart-frame"><svg id="lines" viewBox="0 0 940 430"></svg></div>
-    <div class="legend" id="legend"></div>
-    <div class="note">Values in USD billions. Hollow dots mark estimated or derived cells. Climate and Biotech are caveated because their source definitions shift across years.</div>
-  </section>
-
-  <section class="panel" id="share-section">
-    <div class="panel-head">
-      <div class="panel-title">
-        <span class="num">2</span>
-        <div>
-          <h2>Share of tracked capital</h2>
-          <p class="desc">The same annual data normalized to 100%. Select a year to focus the bar and update the summary.</p>
-        </div>
-      </div>
-      <div class="control-group year-buttons" id="yearButtons"></div>
-    </div>
-    <div class="share-copy" id="shareCopy"></div>
-    <div class="chart-frame"><svg id="stack" viewBox="0 0 940 360"></svg></div>
-    <div class="legend" id="legend2"></div>
-    <div class="note">This is a tracked-sector share, not total global VC share. Web3 2025 and Biotech 2023 are estimated; see <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/sources.md">sources.md</a>.</div>
-  </section>
-
-  <section class="panel" id="web3-section">
-    <div class="panel-head">
-      <div class="panel-title">
-        <span class="num">3</span>
-        <div>
-          <h2>The Web3 cycle, quarter by quarter</h2>
-          <p class="desc">Quarterly Galaxy data reveals the peak, winter, and 2025 rebuild that annual totals flatten.</p>
-        </div>
-      </div>
-    </div>
-    <div class="chart-frame"><svg id="web3" viewBox="0 0 940 390"></svg></div>
-    <div class="note">Galaxy's Web3 scope is broader than Crunchbase's annual Web3 line, so this is intentionally separated as a sector deep dive.</div>
-  </section>
-
-  <h2 class="section-label" id="energy-section">AI funding and the energy constraint</h2>
-  <p class="section-sub">The AI surge creates a second-order question: who captures the capital required to power the data-center buildout?</p>
+  <h2 class="section-label" id="thesis">The concentration event</h2>
+  <p class="section-sub">Capital didn't rotate into AI — it concentrated. Four cuts of the 145 landmark deals show that the megaround era was a handful of giant, repeat rounds in a few AI labs, while Web3 stayed a crowd. This is the spine of the dashboard; the sections below are evidence and context.</p>
 
   <section class="panel">
-    <div class="split">
-      <div class="answer"><div class="q">Did energy VC rise?</div><div class="a">Yes, directionally. Named startup rounds expanded from selected 2024 activity into billion-dollar 2025 financings.</div></div>
-      <div class="answer"><div class="q">Why does it matter?</div><div class="a">AI data centers move the bottleneck from chips alone to power, interconnection, firm generation, and storage.</div></div>
-      <div class="answer"><div class="q">Who captures it?</div><div class="a">Startups capture measurable VC. Incumbents and hyperscalers capture large undisclosed power agreements.</div></div>
-    </div>
-    <div class="toolbar">
-      <div>
-        <h2>Selected AI-energy rounds</h2>
-        <p class="desc">Illustrative named rounds by subsector and capital class. Hover for detail.</p>
-      </div>
-    </div>
-    <div class="chart-frame"><svg id="energyChart" viewBox="0 0 940 430"></svg></div>
-    <div class="legend" id="energyLegend"></div>
+    <div class="panel-head"><div class="panel-title"><div>
+      <h2>1 · The megaround era</h2>
+      <p class="desc">Every landmark round by date and size (log scale). The average round ballooned from ~$440M (2022) to ~$2.6B (2025). Hover any dot for the deal.</p>
+    </div></div></div>
+    <div class="chart-frame"><svg id="escalation" viewBox="0 0 940 440"></svg></div>
+    <div class="legend" id="escLegend"></div>
+  </section>
 
-    <div class="toolbar">
-      <div>
-        <h2>Data-center electricity demand</h2>
-        <p class="desc">The driver behind the funding question: demand is projected to roughly double or triple by 2028 in the US.</p>
-      </div>
-    </div>
-    <div class="chart-frame"><svg id="demandChart" viewBox="0 0 940 240"></svg></div>
-    <div class="legend" id="demandLegend"></div>
+  <section class="panel">
+    <div class="panel-head"><div class="panel-title"><div>
+      <h2>2 · Capital magnets</h2>
+      <p class="desc">Companies that raised more than one landmark round, sized by total capital pulled in. Three AI labs — OpenAI, Anthropic, xAI — absorbed ~$93B, nearly half of all $197B tracked here.</p>
+    </div></div></div>
+    <div class="chart-frame"><svg id="magnets" viewBox="0 0 940 460"></svg></div>
+  </section>
 
-    <details class="more">
-      <summary>Read the caveat before quoting the AI-energy chart</summary>
-      <p>"Energy for AI" is not a clean tracked category. The bars show selected named rounds and under-count the true market. The stronger claim is directional: AI power demand is pulling capital toward nuclear, fusion, geothermal, grid hardware, storage, and hyperscaler power contracts. Correlation is not proof of causation.</p>
-    </details>
-    <details class="more">
-      <summary>Process note</summary>
-      <p>The dashboard uses Crunchbase for the annual cross-sector backbone, Galaxy for Web3 quarterly detail, and named source links for AI-energy. Estimates and scope shifts are kept visible rather than hidden.</p>
-    </details>
+  <section class="panel">
+    <div class="panel-head"><div class="panel-title"><div>
+      <h2>3 · A king vs a crowd</h2>
+      <p class="desc">Share of each sector's landmark capital held by its single biggest round, its next two, and everyone else. AI and Defense are winner-take-most; Web3 is a long tail.</p>
+    </div></div></div>
+    <div class="chart-frame"><svg id="concentration" viewBox="0 0 940 300"></svg></div>
+    <div class="focus-summary" id="concNote"></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><div class="panel-title"><div>
+      <h2>4 · The capital map: US vs rest of world</h2>
+      <p class="desc">Where the landmark capital actually sits. AI and Defense are almost entirely American; Climate is the outlier — roughly 70% non-US, driven by European battery gigafactories.</p>
+    </div></div></div>
+    <div class="chart-frame"><svg id="geography" viewBox="0 0 940 300"></svg></div>
+    <div class="legend" id="geoLegend"></div>
+    <div class="note">Shares are of <b>landmark-deal</b> capital (145 cited rounds), not whole-market totals — a curated sample, so read it as direction, not census. Country is HQ as recorded in <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/data/landmark_deals.csv">landmark_deals.csv</a>.</div>
   </section>
 
   <section class="panel" id="deals-section">
     <div class="panel-head">
       <div class="panel-title">
-        <span class="num">4</span>
+        <span class="num">2</span>
         <div>
-          <h2>Landmark deals leaderboard</h2>
-          <p class="desc">The rounds that defined each sector, 2022-2025. Filter by sector and year, sort any column, and follow every row to its source. Default order is largest round first.</p>
+          <h2>The 145-deal leaderboard</h2>
+          <p class="desc">This is the product. The macro charts above and below exist on fifty other sites; a clean, sourced, filterable deal table with primary links is the actual artifact worth bookmarking. Filter by sector and year, sort any column, follow every row to its source.</p>
         </div>
       </div>
     </div>
@@ -391,10 +360,85 @@
     <div class="note">145 cited rounds from <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/data/landmark_deals.csv">landmark_deals.csv</a>. Amounts are reported round sizes in USD. A <span class="deal-flag">⚠️</span> marks deals with a material caveat (e.g. a later collapse) — hover it for the note. Lead investors are abbreviated where several firms co-led, and timing shows the year only where the quarter is unconfirmed.</div>
   </section>
 
+  <section class="panel" id="macro-section">
+    <div class="panel-head">
+      <div class="panel-title">
+        <span class="num">3</span>
+        <div>
+          <h2>Macro context</h2>
+          <p class="desc">The shape of the period in two views off the same Crunchbase backbone. AI's curve dwarfs everything in absolute dollars, and capital share confirms it. Demoted from the lead because it's context, not thesis.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="subhead">
+      <h3>Funding by sector, per year</h3>
+      <p class="desc">Linear default shows AI's dominance honestly. Toggle log or focus a single sector to inspect smaller lines.</p>
+    </div>
+    <div class="toolbar">
+      <div class="control-group sector-controls"></div>
+      <div class="control-group toggle" id="scaleToggle">
+        <span class="control-label">Scale</span>
+        <button data-scale="linear" class="on">Linear</button>
+        <button data-scale="log">Log</button>
+      </div>
+    </div>
+    <div class="focus-summary" id="focusSummary"></div>
+    <div class="chart-frame"><svg id="lines" viewBox="0 0 940 430"></svg></div>
+    <div class="legend" id="legend"></div>
+
+    <div class="subhead">
+      <h3>Share of tracked capital</h3>
+      <div class="control-group year-buttons" id="yearButtons"></div>
+    </div>
+    <div class="share-copy" id="shareCopy"></div>
+    <div class="chart-frame"><svg id="stack" viewBox="0 0 940 360"></svg></div>
+    <div class="legend" id="legend2"></div>
+    <div class="note">USD billions. Hollow dots = estimated; Climate and Biotech use dashed lines because source definitions shift across years. "Share" is of these six tracked sectors — <b>not</b> share of total global VC (see the methodology strip up top).</div>
+  </section>
+
+  <section class="panel" id="web3-section">
+    <div class="panel-head">
+      <div class="panel-title">
+        <span class="num">4</span>
+        <div>
+          <h2>The Web3 cycle, quarter by quarter</h2>
+          <p class="desc">Galaxy's quarterly data reveals the peak → winter → 2025 rebuild that annual totals flatten. Q4 2025 ($8.5B) is the strongest quarter since Q2 2022 — capital is back, but in infrastructure and trading rails, not consumer/NFT froth.</p>
+        </div>
+      </div>
+    </div>
+    <div class="chart-frame"><svg id="web3" viewBox="0 0 940 390"></svg></div>
+    <div class="note">Galaxy's Web3 scope is broader than Crunchbase's annual Web3 line — intentionally shown as a separate deep dive, not added or stacked into the macro charts.</div>
+  </section>
+
+  <h2 class="section-label" id="energy-section">The downstream play: AI-energy</h2>
+  <p class="section-sub">The concentration into a few AI labs has a second-order consequence: someone has to power them. Below — selected named rounds and the demand curve pulling the capital.</p>
+
+  <section class="panel">
+    <div class="subhead">
+      <h3>Selected AI-energy rounds</h3>
+      <p class="desc">Illustrative named rounds by subsector and capital class. Under-counts the true market — read as direction, not census.</p>
+    </div>
+    <div class="chart-frame"><svg id="energyChart" viewBox="0 0 940 430"></svg></div>
+    <div class="legend" id="energyLegend"></div>
+
+    <div class="subhead">
+      <h3>Data-center electricity demand</h3>
+      <p class="desc">The driver behind the funding question: US data-center demand is projected to roughly double or triple by 2028.</p>
+    </div>
+    <div class="chart-frame"><svg id="demandChart" viewBox="0 0 940 240"></svg></div>
+    <div class="legend" id="demandLegend"></div>
+
+    <details class="more">
+      <summary>Methodology + caveat — read before quoting</summary>
+      <p>"Energy for AI" is not a clean tracked category. The bars show selected named rounds and under-count the true market. The stronger claim is directional: AI power demand is pulling capital toward nuclear, fusion, geothermal, grid hardware, and storage, alongside large undisclosed hyperscaler PPAs. Correlation is not proof of causation.</p>
+    </details>
+  </section>
+
   <section class="panel" id="compare-section">
     <div class="panel-head">
       <div class="panel-title">
-        <span class="num">5</span>
+        <span class="num">6</span>
         <div>
           <h2>Sector comparison</h2>
           <p class="desc">Pick two or three sectors to compare head-to-head. The chart rebases each to its own 2022 level (=100), so relative growth is visible regardless of absolute size; the cards below carry the absolute totals.</p>
@@ -406,57 +450,7 @@
     </div>
     <div class="chart-frame"><svg id="compare" viewBox="0 0 940 400"></svg></div>
     <div class="split" id="compareCards"></div>
-    <div class="note">Indexed to 2022 = 100 (each sector against its own 2022 baseline). Absolute funding is in USD billions. Deal count shows only where Crunchbase published it; <b>not published</b> marks AI, Climate and Biotech, where no comparable annual count exists (see Data principles in the README). Average round size is derived (funding ÷ count) over the years where both are reported. Climate and Biotech shift scope across years — read their trajectories with that caveat (dashed lines).</div>
-  </section>
-
-  <h2 class="section-label" id="insights-section">The anatomy of the megaround era</h2>
-  <p class="section-sub">The leaderboard and the comparison hide a sharper story: capital didn't just rotate into AI — it collapsed into a handful of giant, repeat rounds, while Web3 stayed a crowd. Four cuts of the 145 landmark deals show how.</p>
-
-  <section class="panel">
-    <div class="panel-head"><div class="panel-title"><div>
-      <h2>1 · The megaround era</h2>
-      <p class="desc">Every landmark round by date and size (log scale). The average round ballooned from ~$440M in 2022 to ~$2.6B in 2025. Hover any dot for the deal.</p>
-    </div></div></div>
-    <div class="chart-frame"><svg id="escalation" viewBox="0 0 940 440"></svg></div>
-    <div class="legend" id="escLegend"></div>
-  </section>
-
-  <section class="panel">
-    <div class="panel-head"><div class="panel-title"><div>
-      <h2>2 · Capital magnets</h2>
-      <p class="desc">Companies that raised more than one landmark round, sized by total capital pulled in. Three AI labs — OpenAI, Anthropic, xAI — absorbed ~$93B, nearly half of all $197B tracked here.</p>
-    </div></div></div>
-    <div class="chart-frame"><svg id="magnets" viewBox="0 0 940 460"></svg></div>
-  </section>
-
-  <section class="panel">
-    <div class="panel-head"><div class="panel-title"><div>
-      <h2>3 · A king vs a crowd: concentration</h2>
-      <p class="desc">Share of each sector's landmark capital held by its single biggest round, its next two, and everyone else. AI and Defense are winner-take-most; Web3 is a long tail.</p>
-    </div></div></div>
-    <div class="chart-frame"><svg id="concentration" viewBox="0 0 940 300"></svg></div>
-    <div class="focus-summary" id="concNote"></div>
-  </section>
-
-  <section class="panel">
-    <div class="panel-head"><div class="panel-title"><div>
-      <h2>4 · The capital map: US vs rest of world</h2>
-      <p class="desc">Where the landmark capital actually sits. AI and Defense are almost entirely American; Climate is the outlier — roughly 70% non-US, driven by European battery gigafactories.</p>
-    </div></div></div>
-    <div class="chart-frame"><svg id="geography" viewBox="0 0 940 300"></svg></div>
-    <div class="legend" id="geoLegend"></div>
-    <div class="note">Shares are of <b>landmark-deal</b> capital (the 145 cited rounds), not whole-market totals — a curated sample, so read it as direction, not census. Country is the company's headquarters as recorded in <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/data/landmark_deals.csv">landmark_deals.csv</a>.</div>
-  </section>
-
-  <section class="panel" id="sources-section">
-    <div class="panel-title">
-      <span class="num">6</span>
-      <div>
-        <h2>Source discipline</h2>
-        <p class="desc">Cross-sector comparisons use one backbone source. Specialized deep dives stay labeled and separate so different definitions do not masquerade as one clean trend.</p>
-      </div>
-    </div>
-    <div class="note">Data: Crunchbase annual backbone, Galaxy Digital crypto quarterly reports, and named primary/secondary sources for AI-energy. Full citation trail lives in <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/sources.md">sources.md</a>.</div>
+    <div class="note">Indexed to 2022 = 100. Absolute funding is in USD billions. Deal count shows only where Crunchbase published it; <b>not published</b> marks AI, Climate and Biotech, where no comparable annual count exists. Average round size is derived (funding ÷ count) where both are real. Climate and Biotech shift scope across years — dashed lines.</div>
   </section>
 
   <footer>Built as a static GitHub Pages dashboard with D3 and flat CSV data.</footer>
