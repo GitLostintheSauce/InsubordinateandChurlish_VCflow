@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VC Funding 2022-2025 | Capital Reallocation Dashboard · v2 nav</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ===== THEME — orange primary / teal accent ===== */
+    --accent:#ff7a18; --accent-bright:#ffa24d; --accent-deep:#c2510a; --accent-rgb:255,122,24;
+    --accent-2:#2dd4bf; --accent-2-rgb:45,212,191;
+    /* ================================================ */
+    --bg:#08080b; --surface:#15151c; --surface-2:#1b1b23; --line:#2a2a33;
+    --line-soft:#1d1d24; --text:#f1f1f5; --muted:#a2a2ad; --faint:#6f6f7a;
+    --danger:#ff7575; --warn:#ffd76b; --panel-top:#141419; --panel-bot:#0c0c10;
+    --AI:#ff7a18; --Fintech:#b88cff; --Biotech:#e879d4; --Climate:#72b8ff; --Web3:#77e26d; --Defense:#9ca0a8;
+    --r-sm:7px; --r-md:11px; --r-lg:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;letter-spacing:-.011em;
+    background:
+      radial-gradient(circle at 50% -20%, rgba(var(--accent-rgb),.13), transparent 32rem),
+      radial-gradient(760px 520px at 102% 0%, rgba(var(--accent-2-rgb),.06), transparent 60%),
+      linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px) 0 0/100% 46px,
+      linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px) 0 0/46px 100%,
+      linear-gradient(180deg,#0a0a0f 0%,#08080b 44rem,#0a0a0f 100%);
+    background-attachment:fixed;
+    color:var(--text);line-height:1.55;padding:0 1rem 3rem;
+  }
+  body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.028;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  body::before{content:"";position:fixed;left:0;right:0;top:0;height:2px;z-index:50;
+    background:linear-gradient(90deg,var(--accent-deep),var(--accent),var(--accent-2),var(--accent-bright));
+    background-size:220% 100%;animation:rail 9s linear infinite;box-shadow:0 0 16px rgba(var(--accent-rgb),.5)}
+  @keyframes rail{to{background-position:220% 0}}
+  button{font:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding-top:.6rem}
+  .hero{padding:2.8rem 0 1.4rem}
+  .eyebrow{font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:.74rem;font-weight:600;
+    letter-spacing:.2em;text-transform:uppercase;margin-bottom:.9rem;display:inline-flex;align-items:center;gap:.55rem}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px 1px rgba(var(--accent-rgb),.8)}
+  h1{font-family:'Chakra Petch',sans-serif;max-width:1000px;font-size:clamp(2.4rem,5vw,4.9rem);line-height:.94;
+    letter-spacing:-.02em;font-weight:700;color:#fbfbfd;text-wrap:balance}
+  h1 em{font-style:normal;color:var(--accent);position:relative}
+  .sub{max-width:760px;color:#b6b9c4;font-size:1.06rem;margin-top:1.15rem}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.5rem}
+  .action{font-family:'JetBrains Mono',monospace;border:1px solid var(--line);background:rgba(22,22,29,.7);
+    color:var(--text);border-radius:var(--r-sm);padding:.6rem .9rem;font-size:.78rem;font-weight:500;letter-spacing:.02em;cursor:pointer;transition:all .16s}
+  .action:hover{border-color:#454552;background:rgba(30,30,40,.8);transform:translateY(-1px)}
+  .action.primary{background:var(--accent);border-color:var(--accent);color:#160a00;font-weight:700;box-shadow:0 8px 24px -10px rgba(var(--accent-rgb),.7)}
+  .action.primary:hover{background:var(--accent-bright);transform:translateY(-1px)}
+  .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:1.9rem;
+    border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:rgba(17,17,23,.55);
+    box-shadow:0 24px 60px -38px rgba(0,0,0,.95)}
+  .kpi{position:relative;padding:1.05rem 1.2rem 1.1rem;border-right:1px solid var(--line-soft);transition:background .2s}
+  .kpi:last-child{border-right:0}
+  .kpi::before{content:"";position:absolute;left:0;top:0;width:2px;height:100%;background:linear-gradient(180deg,var(--accent),transparent 75%)}
+  .kpi:hover{background:rgba(var(--accent-rgb),.05)}
+  .kpi .label{font-family:'JetBrains Mono',monospace;color:var(--faint);font-size:.64rem;text-transform:uppercase;letter-spacing:.16em;font-weight:500}
+  .kpi .value{font-family:'Chakra Petch',sans-serif;margin-top:.5rem;font-size:1.9rem;font-weight:700;letter-spacing:-.02em;color:#fff;line-height:1}
+  .kpi .note{margin-top:.38rem;color:var(--faint);font-size:.72rem;font-family:'JetBrains Mono',monospace}
+  /* ===== v2: persistent ordered side navigation ===== */
+  .wrap.layout{max-width:1400px;display:grid;grid-template-columns:208px minmax(0,1fr);gap:1.6rem;align-items:start}
+  .main{min-width:0;max-width:1120px}
+  .sidenav{position:sticky;top:0;align-self:start;max-height:100vh;z-index:5;padding:1rem 0 1.2rem}
+  .sidenav-inner{border:1px solid var(--line);border-radius:var(--r-md);background:rgba(13,13,18,.92);
+    backdrop-filter:blur(18px);padding:.85rem .5rem .9rem;box-shadow:0 18px 44px -28px rgba(0,0,0,.9);
+    max-height:calc(100vh - 2.2rem);overflow-y:auto;overscroll-behavior:contain}
+  .sidenav-brand{display:block;font-family:'JetBrains Mono',monospace;color:var(--accent);text-decoration:none;
+    font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:.15rem .6rem .6rem;
+    border-bottom:1px solid var(--line-soft);margin-bottom:.5rem}
+  .sidenav ol{list-style:none}
+  .sidenav-list > li + li{margin-top:.1rem}
+  .sidenav a{display:flex;align-items:baseline;gap:.5rem;color:var(--faint);text-decoration:none;
+    font-family:'JetBrains Mono',monospace;font-size:.73rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;
+    padding:.4rem .6rem;border-radius:var(--r-sm);border-left:2px solid transparent;
+    transition:color .15s,background .15s,border-color .15s}
+  .sidenav a:hover{color:#e6e6ec;background:rgba(28,28,38,.7)}
+  .sidenav a .idx{color:var(--line);font-size:.6rem;font-weight:600;flex:0 0 auto;transition:color .15s}
+  .sidenav a:hover .idx{color:var(--faint)}
+  .sidenav a.active{color:var(--accent-bright);background:rgba(var(--accent-rgb),.12);border-left-color:var(--accent)}
+  .sidenav a.active .idx{color:var(--accent)}
+  .sidenav a.parent{color:#d6d8e0}
+  .sidenav .sub{margin:.05rem 0 .25rem;padding-left:1.45rem}
+  .sidenav .sub a{font-size:.67rem;padding:.26rem .55rem;color:#71717c;text-transform:none;letter-spacing:.02em}
+  .sidenav .sub a:hover{color:#e6e6ec}
+  .sidenav .sub a.active{color:var(--accent-bright);background:rgba(var(--accent-rgb),.1);border-left-color:var(--accent)}
+  .sidenav-top{display:block;margin-top:.65rem;padding:.45rem .6rem 0;border-top:1px solid var(--line-soft);
+    color:var(--faint);text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:.67rem}
+  .sidenav-top:hover{color:var(--accent-bright)}
+  .sidenav-progress{height:2px;background:var(--line-soft);border-radius:2px;margin:.6rem .6rem 0;overflow:hidden}
+  .sidenav-progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+  .section-label .num{vertical-align:middle;margin-right:.55rem}
+  .methodology,.insights,.subhead[id]{scroll-margin-top:5rem}
+  @media (max-width:840px){
+    .wrap.layout{display:block}
+    .sidenav{position:sticky;top:0;max-height:none;padding:.45rem 0 .55rem;background:rgba(8,8,11,.92);backdrop-filter:blur(18px)}
+    .sidenav-inner{display:flex;align-items:center;overflow-x:auto;max-height:none;padding:.28rem .35rem;
+      -webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .sidenav-inner::-webkit-scrollbar{display:none}
+    .sidenav-brand{display:none}
+    .sidenav-list{display:flex;gap:.1rem}
+    .sidenav-list > li + li{margin-top:0}
+    .sidenav a{white-space:nowrap;border-left:0;border-bottom:2px solid transparent;border-radius:var(--r-sm) var(--r-sm) 0 0}
+    .sidenav a.active{border-bottom-color:var(--accent)}
+    .sidenav .sub,.sidenav-top,.sidenav-progress{display:none}
+  }
+  .intro{position:relative;background:rgba(17,17,23,.5);border:1px solid var(--line);border-left:2px solid var(--accent);
+    border-radius:var(--r-md);padding:1rem 1.2rem;margin-bottom:1.2rem;color:#d2d4dd;font-size:.95rem}
+  .intro b{color:#fff}
+  /* ===== Phase-5 methodology strip (replaces .intro) + Macro sub-section headers ===== */
+  .methodology{position:relative;background:rgba(17,17,23,.55);border:1px solid var(--line);
+    border-left:2px solid var(--accent-2);border-radius:var(--r-md);padding:1rem 1.2rem;margin-bottom:1.2rem;
+    color:#d2d4dd;font-size:.88rem}
+  .meth-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem 1.1rem;margin-bottom:.65rem}
+  .meth-grid > div{line-height:1.45}
+  .meth-label{font-family:'JetBrains Mono',monospace;color:var(--accent-bright);font-size:.66rem;
+    text-transform:uppercase;letter-spacing:.08em;font-weight:700;display:block;margin-bottom:.18rem}
+  .meth-foot{font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--faint);
+    border-top:1px solid var(--line-soft);padding-top:.55rem;margin-top:.1rem}
+  .meth-foot a{color:var(--accent-2)}
+  @media (max-width:840px){.meth-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.meth-grid{grid-template-columns:1fr}}
+  .subhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:.6rem;
+    margin:1.6rem 0 .4rem;padding-top:.9rem;border-top:1px solid var(--line-soft)}
+  .subhead:first-of-type{border-top:0;padding-top:0;margin-top:.5rem}
+  .subhead h3{font-family:'Chakra Petch',sans-serif;font-size:1.04rem;color:#fff;font-weight:600;letter-spacing:-.005em;margin:0}
+  .subhead .desc{font-size:.86rem;margin:.2rem 0 0;flex:1 1 100%}
+  /* ===== Phase-4 insight cards (analyst layer) ===== */
+  .insights{position:relative;background:linear-gradient(180deg,var(--panel-top),var(--panel-bot));
+    border:1px solid var(--line);border-radius:var(--r-lg);padding:1.4rem 1.5rem 1.5rem;margin-bottom:1.1rem;overflow:hidden;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 24px 60px -36px rgba(0,0,0,.95)}
+  .insights::after{content:"";position:absolute;left:1.5rem;right:1.5rem;top:0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.12) 50%,transparent)}
+  .insights-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:.6rem;margin-bottom:1.05rem}
+  .insights-head h2{font-size:1.18rem}
+  .insights-head .desc{margin-top:.18rem;font-size:.86rem}
+  .insights-meta{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.1em}
+  .insights-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem}
+  .insight{position:relative;background:rgba(20,20,27,.6);border:1px solid var(--line-soft);
+    border-left:3px solid var(--accent);border-radius:var(--r-md);padding:.9rem 1rem .85rem;
+    transition:transform .15s,border-color .2s,background .2s;display:flex;flex-direction:column;gap:.5rem;min-height:0}
+  .insight:hover{transform:translateY(-2px);background:rgba(26,26,34,.78);border-color:#3a3a44}
+  .insight[data-sector="AI"]{border-left-color:var(--AI)}
+  .insight[data-sector="Fintech"]{border-left-color:var(--Fintech)}
+  .insight[data-sector="Biotech"]{border-left-color:var(--Biotech)}
+  .insight[data-sector="Climate"]{border-left-color:var(--Climate)}
+  .insight[data-sector="Web3"]{border-left-color:var(--Web3)}
+  .insight[data-sector="Defense"]{border-left-color:var(--Defense)}
+  .insight .big{font-family:'Chakra Petch',sans-serif;font-size:1.6rem;font-weight:700;color:#fff;line-height:1;letter-spacing:-.01em}
+  .insight .claim{color:#cdd0d8;font-size:.86rem;line-height:1.42;flex:1}
+  .insight .meta{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;font-family:'JetBrains Mono',monospace;
+    font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;margin-top:.1rem}
+  .insight .tag{display:inline-flex;align-items:center;gap:.32rem;background:rgba(35,35,45,.6);
+    border:1px solid var(--line-soft);border-radius:6px;padding:.2rem .45rem;color:#c4c6cf}
+  .insight .tag .swatch{width:7px;height:7px;border-radius:2px;flex:0 0 auto}
+  .insight .src{color:var(--accent-2);background:rgba(45,212,191,.06);border:1px solid rgba(45,212,191,.18);
+    border-radius:6px;padding:.2rem .45rem}
+  @media (max-width:840px){.insights-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.insights-grid{grid-template-columns:1fr}.insights{padding:1.1rem 1.05rem 1.2rem}}
+  .panel{position:relative;background:linear-gradient(180deg,var(--panel-top),var(--panel-bot));
+    border:1px solid var(--line);border-radius:var(--r-lg);padding:1.6rem 1.7rem;margin-bottom:1.1rem;overflow:hidden;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 24px 60px -36px rgba(0,0,0,.95);transition:border-color .25s,box-shadow .25s}
+  .panel::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+    background:radial-gradient(440px 200px at 100% -12%, rgba(var(--accent-rgb),.055), transparent 70%)}
+  .panel::after{content:"";position:absolute;left:1.7rem;right:1.7rem;top:0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.12) 50%,transparent)}
+  .panel:hover{border-color:#383844;box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 30px 70px -34px rgba(0,0,0,1),0 0 0 1px rgba(var(--accent-rgb),.08)}
+  .panel,.section-label{scroll-margin-top:5rem}
+  .panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.8rem}
+  .panel-title{display:flex;gap:.8rem;align-items:flex-start}
+  .num{font-family:'JetBrains Mono',monospace;width:1.7rem;height:1.7rem;border-radius:var(--r-sm);background:rgba(var(--accent-rgb),.1);
+    color:var(--accent-bright);display:inline-grid;place-items:center;font-size:.8rem;font-weight:700;flex:0 0 auto;border:1px solid rgba(var(--accent-rgb),.25)}
+  h2{font-family:'Chakra Petch',sans-serif;font-size:1.32rem;letter-spacing:-.01em;color:#fff;font-weight:600}
+  .desc{color:var(--muted);font-size:.9rem;margin-top:.25rem;max-width:760px}
+  .toolbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.8rem;margin:1rem 0 .8rem}
+  .control-group{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem}
+  .control-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--faint);font-weight:500;
+    text-transform:uppercase;letter-spacing:.1em;margin-right:.2rem}
+  .chip,.toggle button,.year-buttons button{font-family:'JetBrains Mono',monospace;border:1px solid var(--line);background:rgba(20,20,27,.8);
+    color:#aeb0bb;border-radius:var(--r-sm);padding:.4rem .68rem;font-size:.75rem;font-weight:500;cursor:pointer;transition:all .14s}
+  .chip:hover,.toggle button:hover,.year-buttons button:hover{border-color:#43434f;color:#fff;background:rgba(28,28,38,.9)}
+  .chip.on,.toggle button.on,.year-buttons button.on{background:var(--accent);
+    border-color:var(--accent);color:#160a00;font-weight:700;box-shadow:0 4px 16px -6px rgba(var(--accent-rgb),.6)}
+  .chip{display:inline-flex;align-items:center;gap:.45rem}
+  .chip .swatch{width:9px;height:9px}
+  .chip.on .swatch{outline:1px solid #160a00}
+  .chart-frame{border:1px solid var(--line-soft);border-radius:12px;background:linear-gradient(180deg,#0c0c11,#0a0a0e);padding:.8rem .9rem}
+  svg{display:block;width:100%;height:auto;overflow:visible}
+  .axis text{fill:#8a8a95;font-size:11px;font-family:'JetBrains Mono',monospace}
+  .axis path,.axis line{stroke:#2e2e36}
+  .grid line{stroke:#191920}
+  .legend{display:flex;flex-wrap:wrap;gap:.45rem .6rem;margin-top:.8rem}
+  /* legends are read-only keys, not controls — interactive filtering lives in the chip toolbars */
+  .legend .key{font-family:'JetBrains Mono',monospace;display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--line-soft);
+    background:#101016;color:#9da0ab;border-radius:8px;padding:.36rem .58rem;font-size:.74rem;font-weight:500}
+  .swatch{width:10px;height:10px;border-radius:3px;display:inline-block;flex:0 0 auto}
+  .note{color:#7e818c;font-size:.78rem;border-top:1px solid var(--line-soft);margin-top:.8rem;padding-top:.7rem}
+  .note a{color:var(--accent-2)}
+  .focus-summary,.share-copy{color:#dadce3;background:#101016;border:1px solid var(--line-soft);border-radius:12px;
+    padding:.8rem .9rem;font-size:.88rem;margin:.7rem 0}
+  .focus-summary b,.share-copy b{color:#fff}
+  .split{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.85rem}
+  .answer{position:relative;background:rgba(18,18,24,.55);border:1px solid var(--line-soft);
+    border-radius:var(--r-md);padding:1rem 1.05rem 1rem 1.15rem;overflow:hidden;transition:transform .2s,border-color .2s}
+  .answer::before{content:"";position:absolute;left:0;top:0;width:2px;height:100%;background:var(--accent);opacity:.6}
+  .answer:hover{transform:translateY(-2px);border-color:#3a3a44}
+  .answer .q{font-family:'Chakra Petch',sans-serif;color:var(--accent-bright);font-size:.82rem;text-transform:uppercase;
+    letter-spacing:.04em;font-weight:700;margin-bottom:.5rem}
+  .answer .a{color:#cdd0d8;font-size:.88rem}
+  .section-label{font-family:'Chakra Petch',sans-serif;font-size:clamp(1.6rem,3vw,2.1rem);color:#fff;margin:2.4rem 0 .4rem;
+    font-weight:700;letter-spacing:-.01em}
+  .section-sub{color:var(--muted);max-width:780px;margin-bottom:1.2rem;font-size:1.04rem}
+  details.more{margin-top:.85rem;border:1px solid var(--line-soft);border-radius:12px;background:#0c0c11}
+  details.more summary{font-family:'JetBrains Mono',monospace;cursor:pointer;color:#dce0e8;font-size:.8rem;font-weight:500;
+    text-transform:uppercase;letter-spacing:.04em;padding:.8rem .9rem}
+  details.more summary:hover{color:var(--accent-bright)}
+  details.more p{color:#9ca0ac;font-size:.86rem;padding:0 .9rem .9rem}
+  /* ===== Reveal on scroll (opt-in via body.anim; content stays visible without JS) ===== */
+  .anim .panel,.anim .section-label,.anim .intro{opacity:0;transform:translateY(16px);transition:opacity .55s cubic-bezier(.22,.61,.36,1),transform .55s cubic-bezier(.22,.61,.36,1)}
+  .anim .panel.in,.anim .section-label.in,.anim .intro.in{opacity:1;transform:none}
+  /* ===== Deals leaderboard ===== */
+  .deals-toolbar{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:space-between;align-items:center;margin:.4rem 0 .8rem}
+  .deals-meta{font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--faint)}
+  .deals-meta b{color:#fff}
+  .deals-scroll{border:1px solid var(--line-soft);border-radius:12px;overflow:auto;background:linear-gradient(180deg,#0c0c11,#0a0a0e);max-height:560px}
+  table.deals{width:100%;border-collapse:collapse;font-size:.86rem;min-width:680px}
+  table.deals th{font-family:'JetBrains Mono',monospace;font-size:.66rem;text-transform:uppercase;letter-spacing:.09em;
+    color:var(--faint);font-weight:600;text-align:left;padding:.7rem .8rem;border-bottom:1px solid var(--line);
+    position:sticky;top:0;background:#0c0c11;white-space:nowrap;z-index:1}
+  table.deals th.sortable{cursor:pointer}
+  table.deals th.sortable:hover{color:#fff}
+  table.deals th.sorted{color:var(--accent-bright)}
+  table.deals th.sorted::after{content:" ↓"}
+  table.deals th.asc.sorted::after{content:" ↑"}
+  table.deals th.num-col,table.deals td.num-col{text-align:right}
+  table.deals td{padding:.6rem .8rem;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  table.deals tbody tr:last-child td{border-bottom:0}
+  table.deals tbody tr:hover{background:rgba(var(--accent-rgb),.05)}
+  .deal-rank{font-family:'Chakra Petch',sans-serif;color:var(--faint);font-weight:700}
+  .deal-co{color:#fff;font-weight:600}
+  .deal-sub{color:var(--faint);font-size:.74rem;margin-top:.12rem}
+  .deal-amt{font-family:'Chakra Petch',sans-serif;font-weight:700;color:var(--accent-bright);white-space:nowrap}
+  .deal-badge{display:inline-flex;align-items:center;gap:.36rem;font-family:'JetBrains Mono',monospace;font-size:.74rem;color:#cdd0d8;white-space:nowrap}
+  .deal-src{color:var(--accent-2);text-decoration:none;font-size:.78rem;white-space:nowrap}
+  .deal-src:hover{text-decoration:underline}
+  .deal-flag{cursor:help}
+  .deals-empty{padding:1.6rem;text-align:center;color:var(--muted)}
+  #tip{position:fixed;pointer-events:none;background:rgba(16,16,20,.97);border:1px solid #3a3a44;border-left:3px solid var(--accent);
+    border-radius:10px;padding:.55rem .72rem;font-size:.8rem;font-family:'JetBrains Mono',monospace;color:#edf0f5;opacity:0;
+    transition:opacity .08s;z-index:60;box-shadow:0 14px 36px rgba(0,0,0,.7);max-width:260px}
+  #tip b{color:#fff;font-family:'Inter',sans-serif;font-weight:600}
+  .err{color:#ff9b9b;padding:1rem;border:1px solid #ff757555;border-radius:10px;background:#1a0c0f}
+  footer{color:#6c6f79;font-size:.8rem;text-align:center;margin-top:1.8rem;font-family:'JetBrains Mono',monospace}
+  footer a{color:var(--accent)}
+  @media (max-width:840px){
+    body{padding:0 .75rem 2.5rem}
+    .hero{padding-top:1.9rem}
+    .kpis,.split{grid-template-columns:1fr 1fr}
+    .kpi{border-bottom:1px solid var(--line-soft)}
+    .kpi:nth-child(2n){border-right:0}
+    .kpi:nth-last-child(-n+2){border-bottom:0}
+    .panel{padding:1.2rem}
+    .panel-head,.toolbar{display:block}
+    .control-group{margin:.6rem 0}
+  }
+  @media (max-width:560px){
+    .kpis,.split{grid-template-columns:1fr}
+    .hero-actions{display:none}
+    .chart-frame{padding:.5rem}
+  }
+  @media (prefers-reduced-motion:reduce){
+    body::before{animation:none}
+    .anim .panel,.anim .section-label,.anim .intro{opacity:1;transform:none;transition:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap layout" id="top">
+  <aside class="sidenav" aria-label="Page navigation">
+    <div class="sidenav-inner">
+      <a class="sidenav-brand" href="#top">VC Flow · 2022–25</a>
+      <ol class="sidenav-list">
+        <li><a href="#methodology"><span class="idx">01</span>Methodology</a></li>
+        <li><a href="#headline-insights"><span class="idx">02</span>Insights</a></li>
+        <li><a href="#thesis"><span class="idx">03</span>Concentration</a>
+          <ol class="sub">
+            <li><a href="#megarounds">Megaround era</a></li>
+            <li><a href="#magnets-panel">Capital magnets</a></li>
+            <li><a href="#king-crowd">King vs crowd</a></li>
+            <li><a href="#geo-panel">US vs world</a></li>
+          </ol>
+        </li>
+        <li><a href="#deals-section"><span class="idx">04</span>Deals</a></li>
+        <li><a href="#macro-section"><span class="idx">05</span>Macro</a>
+          <ol class="sub">
+            <li><a href="#macro-lines">Funding by sector</a></li>
+            <li><a href="#macro-share">Capital share</a></li>
+          </ol>
+        </li>
+        <li><a href="#web3-section"><span class="idx">06</span>Web3 cycle</a></li>
+        <li><a href="#energy-section"><span class="idx">07</span>AI-Energy</a>
+          <ol class="sub">
+            <li><a href="#energy-rounds">Selected rounds</a></li>
+            <li><a href="#energy-demand">Demand curve</a></li>
+          </ol>
+        </li>
+      </ol>
+      <a class="sidenav-top" href="#top">↑ Back to top</a>
+      <div class="sidenav-progress"><i></i></div>
+    </div>
+  </aside>
+  <main class="main">
+  <header class="hero">
+    <div class="eyebrow">Venture capital · 2022–2025 · FY2025 final</div>
+    <h1>It wasn't a rotation. It was a <em>concentration event.</em></h1>
+    <p class="sub">Of AI's $211B in FY2025 funding, ~$93B — nearly half — landed in three private labs: OpenAI, Anthropic, xAI. Almost every other story below (Web3's rebuild, the AI-energy buildout, the megaround era) is downstream of that one fact. The dashboards are evidence. The 145-deal leaderboard is the product.</p>
+    <div class="hero-actions">
+      <button class="action primary" data-scroll="#thesis">See the concentration evidence</button>
+      <button class="action" data-scroll="#deals-section">Browse the 145 deals</button>
+      <button class="action" data-scroll="#methodology">Read the methodology</button>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><div class="label">AI funding</div><div class="value">$211B</div><div class="note">FY2025 final · Crunchbase</div></div>
+      <div class="kpi"><div class="label">Concentration</div><div class="value">~$93B</div><div class="note">OpenAI + Anthropic + xAI · ≈ half of $197B landmark capital</div></div>
+      <div class="kpi"><div class="label">Web3 rebound</div><div class="value">$8.5B</div><div class="note">Q4 2025 · Galaxy Digital quarterly</div></div>
+      <div class="kpi"><div class="label">Defense record</div><div class="value">$7.7B</div><div class="note">FY2025 final · Crunchbase</div></div>
+    </div>
+  </header>
+
+  <div class="methodology" id="methodology">
+    <div class="meth-grid">
+      <div><b class="meth-label">Backbone</b> Crunchbase annual, six sectors. The six are a deliberate slice — this is not "all of global VC."</div>
+      <div><b class="meth-label">Web3 deep dive</b> Galaxy Digital quarterly. Different scope than Crunchbase's Web3 line — shown separately, not added or stacked.</div>
+      <div><b class="meth-label">AI-energy</b> Curated named rounds and PPAs. Illustrative direction, not a market total.</div>
+      <div><b class="meth-label">Deals leaderboard</b> 145 cited landmark rounds. Survivorship-skewed toward headline raises; primary source per row.</div>
+    </div>
+    <div class="meth-foot">Estimates and scope-shifts marked on every chart (hollow dots, dashed lines, ⚠️ flags). Every figure traces to <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/sources.md">sources.md</a>. Numbers stamped FY2025 final unless noted.</div>
+  </div>
+
+  <section class="insights" id="headline-insights">
+    <div class="insights-head">
+      <div>
+        <h2>Headline insights</h2>
+        <p class="desc">Twelve sourced claims behind the charts. Every number traces to a citation in <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/sources.md" style="color:var(--accent-2)">sources.md</a>.</p>
+      </div>
+      <div class="insights-meta">2022 — 2025 · 12 cards</div>
+    </div>
+    <div class="insights-grid" id="insightsGrid"></div>
+  </section>
+
+  <h2 class="section-label" id="thesis"><span class="num">03</span>The concentration event</h2>
+  <p class="section-sub">Capital didn't rotate into AI — it concentrated. Four cuts of the 145 landmark deals show that the megaround era was a handful of giant, repeat rounds in a few AI labs, while Web3 stayed a crowd. This is the spine of the dashboard; the sections below are evidence and context.</p>
+
+  <section class="panel" id="megarounds">
+    <div class="panel-head"><div class="panel-title"><div>
+      <h2>03.1 · The megaround era</h2>
+      <p class="desc">Every landmark round by date and size (log scale). The average round ballooned from ~$440M (2022) to ~$2.6B (2025). Hover any dot for the deal.</p>
+    </div></div></div>
+    <div class="chart-frame"><svg id="escalation" viewBox="0 0 940 440"></svg></div>
+    <div class="legend" id="escLegend"></div>
+  </section>
+
+  <section class="panel" id="magnets-panel">
+    <div class="panel-head"><div class="panel-title"><div>
+      <h2>03.2 · Capital magnets</h2>
+      <p class="desc">Companies that raised more than one landmark round, sized by total capital pulled in. Three AI labs — OpenAI, Anthropic, xAI — absorbed ~$93B, nearly half of all $197B tracked here.</p>
+    </div></div></div>
+    <div class="chart-frame"><svg id="magnets" viewBox="0 0 940 460"></svg></div>
+  </section>
+
+  <section class="panel" id="king-crowd">
+    <div class="panel-head"><div class="panel-title"><div>
+      <h2>03.3 · A king vs a crowd</h2>
+      <p class="desc">Share of each sector's landmark capital held by its single biggest round, its next two, and everyone else. AI and Defense are winner-take-most; Web3 is a long tail.</p>
+    </div></div></div>
+    <div class="chart-frame"><svg id="concentration" viewBox="0 0 940 300"></svg></div>
+    <div class="focus-summary" id="concNote"></div>
+  </section>
+
+  <section class="panel" id="geo-panel">
+    <div class="panel-head"><div class="panel-title"><div>
+      <h2>03.4 · The capital map: US vs rest of world</h2>
+      <p class="desc">Where the landmark capital actually sits. AI and Defense are almost entirely American; Climate is the outlier — roughly 70% non-US, driven by European battery gigafactories.</p>
+    </div></div></div>
+    <div class="chart-frame"><svg id="geography" viewBox="0 0 940 300"></svg></div>
+    <div class="legend" id="geoLegend"></div>
+    <div class="note">Shares are of <b>landmark-deal</b> capital (145 cited rounds), not whole-market totals — a curated sample, so read it as direction, not census. Country is HQ as recorded in <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/data/landmark_deals.csv">landmark_deals.csv</a>.</div>
+  </section>
+
+  <section class="panel" id="deals-section">
+    <div class="panel-head">
+      <div class="panel-title">
+        <span class="num">04</span>
+        <div>
+          <h2>The 145-deal leaderboard</h2>
+          <p class="desc">This is the product. The macro charts above and below exist on fifty other sites; a clean, sourced, filterable deal table with primary links is the actual artifact worth bookmarking. Filter by sector and year, sort any column, follow every row to its source.</p>
+        </div>
+      </div>
+    </div>
+    <div class="toolbar">
+      <div class="control-group deal-sector-controls"></div>
+      <div class="control-group deal-year-buttons"></div>
+    </div>
+    <div class="deals-toolbar">
+      <div class="deals-meta" id="dealsMeta"></div>
+      <button class="chip" id="dealsToggle" style="display:none"></button>
+    </div>
+    <div class="deals-scroll">
+      <table class="deals">
+        <thead id="dealsHead"></thead>
+        <tbody id="dealsBody"></tbody>
+      </table>
+    </div>
+    <div class="note">145 cited rounds from <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/data/landmark_deals.csv">landmark_deals.csv</a>. Amounts are reported round sizes in USD. A <span class="deal-flag">⚠️</span> marks deals with a material caveat (e.g. a later collapse) — hover it for the note. Lead investors are abbreviated where several firms co-led, and timing shows the year only where the quarter is unconfirmed.</div>
+  </section>
+
+  <section class="panel" id="macro-section">
+    <div class="panel-head">
+      <div class="panel-title">
+        <span class="num">05</span>
+        <div>
+          <h2>Macro context</h2>
+          <p class="desc">The shape of the period off the same Crunchbase backbone: absolute funding, growth rebased to 2022, and capital share. One sector selector drives all of it. Context, not thesis.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="subhead" id="macro-lines">
+      <h3>Funding by sector, per year</h3>
+      <p class="desc">Click a sector to isolate it; click more to add. <b>$ linear</b> shows AI's dominance honestly, <b>$ log</b> reveals the small sectors' slopes, <b>indexed</b> rebases every line to 2022 = 100 for head-to-head growth.</p>
+    </div>
+    <div class="toolbar">
+      <div class="control-group sector-controls"></div>
+      <div class="control-group toggle" id="scaleToggle">
+        <span class="control-label">View</span>
+        <button data-scale="linear" class="on">$ linear</button>
+        <button data-scale="log">$ log</button>
+        <button data-scale="indexed">Indexed 2022=100</button>
+      </div>
+    </div>
+    <div class="chart-frame"><svg id="lines" viewBox="0 0 940 430"></svg></div>
+    <div class="split" id="macro-stats"></div>
+    <div class="note">Stat cards follow the sector selection. Deal count shows only where Crunchbase published it; <b>not published</b> marks AI, Climate and Biotech, where no comparable annual count exists. Average round size is derived (funding ÷ count) where both are real.</div>
+
+    <div class="subhead" id="macro-share">
+      <h3>Share of tracked capital</h3>
+      <div class="control-group year-buttons" id="yearButtons"></div>
+    </div>
+    <div class="share-copy" id="shareCopy"></div>
+    <div class="chart-frame"><svg id="stack" viewBox="0 0 940 360"></svg></div>
+    <div class="note">USD billions. Hollow dots = estimated; Climate and Biotech use dashed lines because source definitions shift across years. "Share" is of these six tracked sectors — <b>not</b> share of total global VC (see the methodology strip up top).</div>
+  </section>
+
+  <section class="panel" id="web3-section">
+    <div class="panel-head">
+      <div class="panel-title">
+        <span class="num">06</span>
+        <div>
+          <h2>The Web3 cycle, quarter by quarter</h2>
+          <p class="desc">Galaxy's quarterly data reveals the peak → winter → 2025 rebuild that annual totals flatten. Q4 2025 ($8.5B) is the strongest quarter since Q2 2022 — capital is back, but in infrastructure and trading rails, not consumer/NFT froth.</p>
+        </div>
+      </div>
+    </div>
+    <div class="chart-frame"><svg id="web3" viewBox="0 0 940 390"></svg></div>
+    <div class="note">Galaxy's Web3 scope is broader than Crunchbase's annual Web3 line — intentionally shown as a separate deep dive, not added or stacked into the macro charts.</div>
+  </section>
+
+  <h2 class="section-label" id="energy-section"><span class="num">07</span>The downstream play: AI-energy</h2>
+  <p class="section-sub">The concentration into a few AI labs has a second-order consequence: someone has to power them. Below — selected named rounds and the demand curve pulling the capital.</p>
+
+  <section class="panel">
+    <div class="subhead" id="energy-rounds">
+      <h3>Selected AI-energy rounds</h3>
+      <p class="desc">Illustrative named rounds by subsector and capital class. Under-counts the true market — read as direction, not census.</p>
+    </div>
+    <div class="chart-frame"><svg id="energyChart" viewBox="0 0 940 430"></svg></div>
+    <div class="legend" id="energyLegend"></div>
+
+    <div class="subhead" id="energy-demand">
+      <h3>Data-center electricity demand</h3>
+      <p class="desc">The driver behind the funding question: US data-center demand is projected to roughly double or triple by 2028.</p>
+    </div>
+    <div class="chart-frame"><svg id="demandChart" viewBox="0 0 940 240"></svg></div>
+    <div class="legend" id="demandLegend"></div>
+
+    <details class="more">
+      <summary>Methodology + caveat — read before quoting</summary>
+      <p>"Energy for AI" is not a clean tracked category. The bars show selected named rounds and under-count the true market. The stronger claim is directional: AI power demand is pulling capital toward nuclear, fusion, geothermal, grid hardware, and storage, alongside large undisclosed hyperscaler PPAs. Correlation is not proof of causation.</p>
+    </details>
+  </section>
+
+  <footer>Built as a static GitHub Pages dashboard with D3 and flat CSV data. · v2 navigation prototype — the published page is <a href="index.html">index.html</a>.</footer>
+  </main>
+</div>
+<div id="tip"></div>
+
+<script>
+const DATA_VERSION = "ui-20260526";
+const SECTORS = ["AI","Fintech","Biotech","Climate","Web3","Defense"];
+const COLOR = {"AI":"#ff7a18","Fintech":"#b88cff","Biotech":"#e879d4","Climate":"#72b8ff","Web3":"#77e26d","Defense":"#9ca0a8","Defense & Space":"#9ca0a8"};
+// Phase-4 insight cards — every number traces to sources.md or to landmark_deals.csv (computed).
+const INSIGHTS = [
+  {big:"~$93B", sector:"AI", tag:"AI · Concentration", source:"landmark_deals.csv",
+    claim:"OpenAI, Anthropic, and xAI absorbed nearly half of all $197B in tracked landmark capital, 2022–2025."},
+  {big:"$211B", sector:"AI", tag:"AI · 2025", source:"Crunchbase",
+    claim:"AI funding in 2025 — up from $45.8B in 2022, a 4.6× run in three years."},
+  {big:"~50%", sector:"AI", tag:"AI · 2025", source:"Crunchbase",
+    claim:"AI took roughly half of all global venture dollars in 2025 — a category that was one of several three years earlier."},
+  {big:"$40B", sector:"AI", tag:"AI · Q1 2025", source:"Crunchbase",
+    claim:"OpenAI's single Q1 2025 round was ~19% of all AI funding for the year by itself."},
+  {big:"~6×", sector:"AI", tag:"Cross-sector · Megarounds", source:"landmark_deals.csv",
+    claim:"The average landmark round ballooned from ~$440M (2022) to ~$2.6B (2025)."},
+  {big:"−86%", sector:"Web3", tag:"Web3 · 2022→2023", source:"Galaxy Digital",
+    claim:"Web3 quarterly funding collapsed from $14.2B (Q1 2022) to $1.93B (Q4 2023)."},
+  {big:"$8.5B", sector:"Web3", tag:"Web3 · Q4 2025", source:"Galaxy Digital",
+    claim:"Strongest Web3 quarter since Q2 2022 — capital returned to infrastructure and trading rails, not the consumer/NFT froth of 2022."},
+  {big:"~41%", sector:"Web3", tag:"Web3 · Q1 2025", source:"Galaxy Digital",
+    claim:"A single $2B Binance/MGX deal made up ~41% of Web3 funding that quarter — concentration is not just an AI story."},
+  {big:"−52%", sector:"Fintech", tag:"Fintech · 2022→2023", source:"Crunchbase",
+    claim:"Fintech halved from $90.2B (2022) to $43B (2023), then disciplined-rebuilt to $51.8B (2025): fewer, larger rounds."},
+  {big:"~15%", sector:"Fintech", tag:"Fintech · 2023", source:"Crunchbase",
+    claim:"Stripe's $6.5B 2023 round was ~15% of all fintech funding that year — every sector has capital magnets."},
+  {big:"~3×", sector:"Defense", tag:"Defense · 2022→2025", source:"Crunchbase",
+    claim:"Defense tech tripled from $2.6B (2022) to $7.7B (2025) — record year, ~100 deals, Anduril's $2.5B leading."},
+  {big:"99% / 70%", sector:"Climate", tag:"Cross-sector · Geography", source:"landmark_deals.csv",
+    claim:"AI's landmark capital is ~99% US; Climate is the outlier at ~70% non-US, driven by European battery gigafactories."}
+];
+const CAVEAT = {"Climate":true,"Biotech":true};
+const state = {scale:"linear", selected:new Set(SECTORS), shareYear:null,
+  dealSector:"All", dealYear:"All", dealSort:"amount", dealDir:-1, dealLimit:15};
+let annual = [], years = [], web3 = [], energyRaw = [];
+let deals = [], dealYears = [], dealSectors = [];
+const DEAL_COLS = [
+  {key:"rank",   label:"#",            sort:false, cls:"num-col"},
+  {key:"company",label:"Company",      sort:true},
+  {key:"sector", label:"Sector",       sort:true},
+  {key:"amount", label:"Amount",       sort:true, cls:"num-col"},
+  {key:"round",  label:"Round",        sort:true},
+  {key:"lead",   label:"Lead investor",sort:true},
+  {key:"when",   label:"When",         sort:true},
+  {key:"source", label:"Source",       sort:false}
+];
+const tip = d3.select("#tip");
+
+function normalizeSector(sector){ return sector==="Defense & Space" ? "Defense" : sector; }
+function moneyB(v){ return "$" + (v >= 100 ? Math.round(v) : v.toFixed(v < 10 ? 1 : 0)) + "B"; }
+function moneyM(v){ return "$" + d3.format(",")(Math.round(v)) + "M"; }
+function dealAmount(v){ return v>=1000 ? "$"+(v/1000).toFixed(v>=10000?0:1)+"B" : "$"+d3.format(",")(Math.round(v))+"M"; }
+function escAttr(s){ return (s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
+function pct(v){ return (v*100).toFixed(0) + "%"; }
+function showTip(html,e){ tip.html(html).style("opacity",1).style("left",(e.clientX+14)+"px").style("top",(e.clientY+14)+"px"); }
+function hideTip(){ tip.style("opacity",0); }
+function isActive(sector){ return state.selected.has(sector); }
+
+Promise.all([
+  d3.csv(`data/sector_annual.csv?v=${DATA_VERSION}`),
+  d3.csv(`data/web3_quarterly.csv?v=${DATA_VERSION}`),
+  d3.csv(`data/energy_ai_funding.csv?v=${DATA_VERSION}`),
+  d3.csv(`data/landmark_deals.csv?v=${DATA_VERSION}`)
+]).then(([annualRaw, web3Raw, energyRows, dealsRaw]) => {
+  annual = annualRaw.map(d => ({
+    sector:normalizeSector(d.sector), year:+d.year,
+    value:d.deal_value_usd_b===""?null:+d.deal_value_usd_b,
+    count:d.deal_count===""?null:+d.deal_count,
+    est:d.source==="estimated", note:d.note
+  }));
+  years = [...new Set(annual.map(d=>d.year))].sort((a,b)=>a-b);
+  state.shareYear = years[years.length-1];
+  web3 = web3Raw.map(d=>({
+    year:+d.year, q:+d.quarter, label:d.year+" Q"+d.quarter,
+    value:d.deal_value_usd_b===""?null:+d.deal_value_usd_b,
+    est:d.source==="estimated", note:d.note
+  })).filter(d=>d.value!=null).sort((a,b)=> a.year-b.year || a.q-b.q);
+  energyRaw = energyRows;
+
+  deals = dealsRaw.map(d=>{
+    const qm = /^Q([1-4])$/.exec((d.quarter||"").trim());
+    return {
+      company:d.company, sector:normalizeSector(d.sector), subsector:d.subsector,
+      year:+d.year, quarter:qm?qm[0]:"", qnum:qm?+qm[1]:0,
+      amount:+d.amount_usd_m, round:d.round_type, lead:d.lead_investor,
+      country:d.country, sourceName:d.source_name, sourceUrl:d.source_url, note:d.note,
+      caveat:/⚠/.test(d.note||"")
+    };
+  }).filter(d=>!isNaN(d.amount));
+  dealYears = [...new Set(deals.map(d=>d.year))].sort((a,b)=>a-b);
+  const present = new Set(deals.map(d=>d.sector));
+  dealSectors = SECTORS.filter(s=>present.has(s)).concat([...present].filter(s=>!SECTORS.includes(s)));
+
+  bindControls();
+  renderAll();
+}).catch(err=>{
+  d3.select(".wrap").append("div").attr("class","err").text("Could not load data: "+err+". Open through the GitHub Pages URL or a local HTTP server.");
+});
+
+function bindControls(){
+  d3.selectAll("[data-scroll]").on("click", function(){
+    const target = document.querySelector(this.dataset.scroll);
+    if(target) target.scrollIntoView({behavior:"smooth", block:"start"});
+  });
+  const controls = d3.select(".sector-controls");
+  controls.append("span").attr("class","control-label").text("Sectors");
+  ["All",...SECTORS].forEach(s=>{
+    const b = controls.append("button")
+      .attr("class","chip")
+      .attr("data-sector",s)
+      .on("click",()=>{
+        if(s==="All") state.selected = new Set(SECTORS);
+        else if(state.selected.size===SECTORS.length) state.selected = new Set([s]); // everything on → solo this sector
+        else if(state.selected.has(s)){ if(state.selected.size>1) state.selected.delete(s); }
+        else state.selected.add(s);
+        updateSectorChips(); drawLines(); drawStack(); drawMacroStats();
+      });
+    if(s==="All") b.text("All");
+    else b.html(`<span class="swatch" style="background:${COLOR[s]}"></span>${s}${CAVEAT[s]?" *":""}`);
+  });
+  d3.selectAll("#scaleToggle button").on("click",function(){
+    state.scale=this.dataset.scale;
+    d3.selectAll("#scaleToggle button").classed("on",false);
+    d3.select(this).classed("on",true);
+    drawLines();
+  });
+  const yearButtons = d3.select("#yearButtons");
+  yearButtons.append("span").attr("class","control-label").text("Year");
+  years.forEach(y=>{
+    yearButtons.append("button")
+      .attr("data-year",y)
+      .text(y)
+      .on("click",()=>{ state.shareYear=y; updateYearButtons(); drawStack(); updateShareCopy(); });
+  });
+  updateYearButtons();
+
+  const dsc = d3.select(".deal-sector-controls");
+  dsc.append("span").attr("class","control-label").text("Sector");
+  ["All",...dealSectors].forEach(s=>{
+    dsc.append("button")
+      .attr("class","chip"+(s==="All"?" on":""))
+      .attr("data-dsector",s).text(s)
+      .on("click",()=>{ state.dealSector=s; state.dealLimit=15; renderDeals(); });
+  });
+  const dyb = d3.select(".deal-year-buttons");
+  dyb.append("span").attr("class","control-label").text("Year");
+  ["All",...dealYears].forEach(y=>{
+    dyb.append("button")
+      .attr("class","chip"+(y==="All"?" on":""))
+      .attr("data-dyear",String(y)).text(y)
+      .on("click",()=>{ state.dealYear=y; state.dealLimit=15; renderDeals(); });
+  });
+  d3.select("#dealsToggle").on("click",()=>{
+    state.dealLimit = state.dealLimit===Infinity ? 15 : Infinity;
+    renderDeals();
+  });
+}
+
+function renderInsights(){
+  const grid = d3.select("#insightsGrid");
+  if(grid.empty()) return;
+  grid.selectAll(".insight").remove();
+  grid.selectAll(".insight").data(INSIGHTS).enter().append("div")
+    .attr("class","insight").attr("data-sector",d=>d.sector)
+    .html(d=>`
+      <div class="big">${d.big}</div>
+      <div class="claim">${d.claim}</div>
+      <div class="meta">
+        <span class="tag"><span class="swatch" style="background:${COLOR[d.sector]||"#888"}"></span>${d.tag}</span>
+        <span class="src">${d.source}</span>
+      </div>
+    `);
+}
+
+function renderAll(){
+  renderInsights();
+  updateSectorChips();
+  updateYearButtons();
+  updateShareCopy();
+  drawLines();
+  drawStack();
+  drawMacroStats();
+  drawWeb3();
+  drawEnergyAI();
+  drawDemand();
+  renderDeals();
+  drawEscalation();
+  drawMagnets();
+  drawConcentration();
+  drawGeography();
+}
+
+function dealCompare(a,b){
+  const k=state.dealSort, dir=state.dealDir;
+  let av,bv;
+  if(k==="amount"){ av=a.amount; bv=b.amount; }
+  else if(k==="when"){ av=a.year*10+a.qnum; bv=b.year*10+b.qnum; }
+  else if(k==="company"){ av=a.company.toLowerCase(); bv=b.company.toLowerCase(); }
+  else { av=(a[k]||"").toLowerCase(); bv=(b[k]||"").toLowerCase(); }
+  if(av<bv) return -dir;
+  if(av>bv) return dir;
+  return a.amount<b.amount ? 1 : -1; // stable-ish tiebreak: larger round first
+}
+
+function renderDeals(){
+  const rows = deals
+    .filter(d=> (state.dealSector==="All" || d.sector===state.dealSector)
+             && (state.dealYear==="All"   || d.year===+state.dealYear))
+    .sort(dealCompare);
+  const total = rows.length;
+  const shown = state.dealLimit===Infinity ? rows : rows.slice(0, state.dealLimit);
+
+  const head = d3.select("#dealsHead"); head.selectAll("*").remove();
+  const htr = head.append("tr");
+  DEAL_COLS.forEach(c=>{
+    const sorted = c.sort && state.dealSort===c.key;
+    const th = htr.append("th")
+      .attr("class",[c.cls||"", c.sort?"sortable":"", sorted?"sorted":"", sorted&&state.dealDir===1?"asc":""].filter(Boolean).join(" "))
+      .text(c.label);
+    if(c.sort) th.on("click",()=>{
+      if(state.dealSort===c.key) state.dealDir*=-1;
+      else { state.dealSort=c.key; state.dealDir=(c.key==="amount"||c.key==="when")?-1:1; }
+      renderDeals();
+    });
+  });
+
+  const body = d3.select("#dealsBody"); body.selectAll("*").remove();
+  if(!shown.length){
+    body.append("tr").append("td").attr("colspan",DEAL_COLS.length).attr("class","deals-empty").text("No deals match this filter.");
+  }
+  shown.forEach((d,i)=>{
+    const tr = body.append("tr");
+    tr.append("td").attr("class","num-col deal-rank").text(i+1);
+    const co = tr.append("td");
+    const coLine = co.append("div").attr("class","deal-co");
+    coLine.append("span").text(d.company);
+    if(d.caveat){
+      coLine.append("span").attr("class","deal-flag").html(" ⚠️")
+        .on("mousemove",(e)=>showTip(`<b>${escAttr(d.company)}</b><br>${escAttr(d.note)}`,e))
+        .on("mouseleave",hideTip);
+    }
+    if(d.subsector) co.append("div").attr("class","deal-sub").text(d.subsector);
+    tr.append("td").append("span").attr("class","deal-badge")
+      .html(`<span class="swatch" style="background:${COLOR[d.sector]||'#888'}"></span>${escAttr(d.sector)}`);
+    tr.append("td").attr("class","num-col").append("span").attr("class","deal-amt").text(dealAmount(d.amount));
+    tr.append("td").text(d.round||"—");
+    tr.append("td").text(d.lead||"—");
+    tr.append("td").text(d.year + (d.quarter?" "+d.quarter:""));
+    const src = tr.append("td");
+    if(d.sourceUrl) src.append("a").attr("class","deal-src").attr("href",d.sourceUrl)
+      .attr("target","_blank").attr("rel","noopener").attr("title",d.sourceName||d.sourceUrl).text("Source ↗");
+    else src.text("—");
+  });
+
+  // chip state lives here so defaults and clicks render identically, scoped to this panel's controls
+  d3.selectAll(".deal-sector-controls .chip").classed("on", function(){ return this.dataset.dsector===String(state.dealSector); });
+  d3.selectAll(".deal-year-buttons .chip").classed("on", function(){ return this.dataset.dyear===String(state.dealYear); });
+
+  d3.select("#dealsMeta").html(
+    `Showing <b>${shown.length}</b> of ${total} deals`
+    + (state.dealSector!=="All" ? ` · ${state.dealSector}` : "")
+    + (state.dealYear!=="All"   ? ` · ${state.dealYear}`   : "")
+  );
+  const tg = d3.select("#dealsToggle");
+  if(total>15){ tg.style("display","").text(state.dealLimit===Infinity ? "Show top 15" : `Show all ${total}`); }
+  else tg.style("display","none");
+}
+
+function signedPct(v){ const p=v*100; return (p>=0?"+":"")+p.toFixed(0)+"%"; }
+
+function drawMacroStats(){
+  const wrap=d3.select("#macro-stats"); wrap.selectAll("*").remove();
+  SECTORS.filter(s=>state.selected.has(s)).forEach(s=>{
+    const rows=annual.filter(d=>d.sector===s && d.value!=null).sort((a,b)=>a.year-b.year);
+    const total=d3.sum(rows,d=>d.value);
+    const first=rows[0], last=rows[rows.length-1];
+    const change=first.value>0 ? (last.value-first.value)/first.value : null;
+    const withCount=rows.filter(d=>d.count!=null);
+    const ny=withCount.length, ty=rows.length;
+    const countTotal=ny ? d3.sum(withCount,d=>d.count) : null;
+    const avg=ny ? d3.sum(withCount,d=>d.value*1000)/d3.sum(withCount,d=>d.count) : null;
+    const chColor = change==null ? "#cdd0d8" : (change>=0 ? "#77e26d" : "#ff7575");
+    let countStr;
+    if(ny===0) countStr=`<span style="color:#7e818c">not published</span>`;
+    else if(ny<ty) countStr=`${d3.format(",")(countTotal)} <span style="color:#7e818c">(partial · ${ny} of ${ty} yrs)</span>`;
+    else countStr=`${d3.format(",")(countTotal)}`;
+    const avgStr = ny ? `${moneyM(avg)} <span style="color:#7e818c">(derived${ny<ty?", "+ny+" yrs":""})</span>` : "—";
+    const card=wrap.append("div").attr("class","answer");
+    card.append("div").attr("class","q")
+      .html(`<span class="swatch" style="background:${COLOR[s]};margin-right:.4rem"></span>${s}${CAVEAT[s]?" · scope caveat":""}`);
+    card.append("div").attr("class","a").html(
+      `Total 2022–2025: <b>${moneyB(total)}</b><br>`+
+      `Change ${first.year}→${last.year}: <b style="color:${chColor}">${change==null?"n/a":signedPct(change)}</b><br>`+
+      `Deals (period): ${countStr}<br>`+
+      `Avg round: ${avgStr}`
+    );
+  });
+}
+
+function drawEscalation(){
+  const svg=d3.select("#escalation"), W=940,H=440,m={t:20,r:28,b:40,l:62};
+  svg.selectAll("*").remove();
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
+  const yrs=[2022,2023,2024,2025];
+  const pts=deals.filter(d=>d.amount>0);
+  const xb=d3.scaleBand().domain(yrs).range([0,iw]).padding(0.08);
+  const maxA=d3.max(pts,d=>d.amount), minA=d3.min(pts,d=>d.amount);
+  const y=d3.scaleLog().domain([Math.max(minA*0.8,40),maxA*1.12]).range([ih,0]);
+  const ticks=[100,300,1000,3000,10000,40000].filter(t=>t<=maxA*1.12 && t>=minA*0.7);
+  g.append("g").attr("class","grid").selectAll("line").data(ticks).join("line")
+    .attr("x1",0).attr("x2",iw).attr("y1",d=>y(d)).attr("y2",d=>y(d));
+  g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(xb).tickFormat(d3.format("d")));
+  g.append("g").attr("class","axis").call(d3.axisLeft(y).tickValues(ticks).tickFormat(d=> d>=1000?"$"+(d/1000)+"B":"$"+d+"M"));
+  const r=d3.scaleSqrt().domain([0,maxA]).range([2.2,15]);
+  yrs.forEach(yr=>{
+    const ds=pts.filter(p=>p.year===yr).sort((a,b)=>(a.qnum-b.qnum)||(b.amount-a.amount));
+    const n=ds.length||1, bw=xb.bandwidth();
+    ds.forEach((d,i)=>{ d._x=xb(yr)+bw*(i+0.5)/n; });
+  });
+  g.append("g").selectAll("circle").data(pts).join("circle")
+    .attr("cx",d=>d._x).attr("cy",d=>y(d.amount)).attr("r",d=>r(d.amount))
+    .attr("fill",d=>COLOR[d.sector]||"#888").attr("fill-opacity",.72)
+    .attr("stroke",d=>COLOR[d.sector]||"#888").attr("stroke-width",.8)
+    .on("mousemove",(e,d)=>showTip(`<b>${d.company}</b> · ${d.sector}<br>${dealAmount(d.amount)}${d.round?" · "+d.round:""}<br>${d.year}${d.quarter?" "+d.quarter:""}`,e))
+    .on("mouseleave",hideTip);
+  const avg=yrs.map(yr=>({yr, v:d3.mean(pts.filter(p=>p.year===yr),p=>p.amount)}));
+  g.append("path").datum(avg).attr("fill","none").attr("stroke","#fff").attr("stroke-width",2).attr("stroke-dasharray","6,4")
+    .attr("d",d3.line().x(d=>xb(d.yr)+xb.bandwidth()/2).y(d=>y(d.v)));
+  g.append("g").selectAll("text.avg").data(avg).join("text")
+    .attr("x",d=>xb(d.yr)+xb.bandwidth()/2).attr("y",d=>y(d.v)-10).attr("text-anchor","middle")
+    .attr("fill","#fff").attr("font-size",11).attr("font-weight",800).text(d=>"avg "+dealAmount(d.v));
+  const L=d3.select("#escLegend"); L.selectAll("*").remove();
+  SECTORS.forEach(s=> L.append("span").attr("class","key").html(`<span class="swatch" style="background:${COLOR[s]}"></span>${s}`));
+  L.append("span").attr("class","key").html(`<span class="swatch" style="background:#fff"></span>avg deal size`);
+}
+
+function drawMagnets(){
+  const svg=d3.select("#magnets"), W=940,H=460;
+  svg.selectAll("*").remove();
+  const mags=Array.from(d3.group(deals,d=>d.company),([company,ds])=>({company,sector:ds[0].sector,total:d3.sum(ds,x=>x.amount),n:ds.length}))
+    .filter(m=>m.n>1 && m.total>0);
+  if(!mags.length) return;
+  const root=d3.hierarchy({children:mags}).sum(d=>d.total);
+  d3.pack().size([W,H]).padding(3)(root);
+  const node=svg.append("g").selectAll("g").data(root.leaves()).join("g").attr("transform",d=>`translate(${d.x},${d.y})`);
+  node.append("circle").attr("r",d=>d.r).attr("fill",d=>COLOR[d.data.sector]||"#888").attr("fill-opacity",.78)
+    .attr("stroke",d=>COLOR[d.data.sector]||"#888").attr("stroke-width",1)
+    .on("mousemove",(e,d)=>showTip(`<b>${d.data.company}</b> · ${d.data.sector}<br>${dealAmount(d.data.total)} across ${d.data.n} rounds`,e))
+    .on("mouseleave",hideTip);
+  node.filter(d=>d.r>24).append("text").attr("text-anchor","middle").attr("dy","-0.1em")
+    .attr("fill","#07101a").attr("font-size",d=>Math.min(13,d.r/2.6)).attr("font-weight",800)
+    .style("font-family","'Chakra Petch',sans-serif").text(d=>d.data.company.length>14?d.data.company.slice(0,13)+"…":d.data.company);
+  node.filter(d=>d.r>24).append("text").attr("text-anchor","middle").attr("dy","1.15em")
+    .attr("fill","#07101a").attr("font-size",d=>Math.min(12,d.r/3)).attr("font-weight",700)
+    .style("font-family","'JetBrains Mono',monospace").text(d=>dealAmount(d.data.total));
+}
+
+function drawConcentration(){
+  const svg=d3.select("#concentration"), W=940,H=300,m={t:14,r:96,b:26,l:78};
+  svg.selectAll("*").remove();
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
+  const data=SECTORS.map(s=>{
+    const ds=deals.filter(d=>d.sector===s && d.amount>0).sort((a,b)=>b.amount-a.amount);
+    const tot=d3.sum(ds,d=>d.amount);
+    const top1=ds[0]?ds[0].amount:0, next2=d3.sum(ds.slice(1,3),d=>d.amount);
+    return {s,tot,top1,next2,rest:tot-top1-next2,top3pct:tot?(top1+next2)/tot:0,topName:ds[0]?ds[0].company:""};
+  }).filter(d=>d.tot>0).sort((a,b)=>b.top3pct-a.top3pct);
+  const yb=d3.scaleBand().domain(data.map(d=>d.s)).range([0,ih]).padding(0.28);
+  const x=d3.scaleLinear().domain([0,1]).range([0,iw]);
+  data.forEach(d=>{
+    const yy=yb(d.s),h=yb.bandwidth();
+    const segs=[{k:"top deal",v:d.top1,o:1},{k:"next 2",v:d.next2,o:0.55},{k:"the rest",v:d.rest,o:0.20}];
+    let acc=0;
+    segs.forEach(seg=>{
+      g.append("rect").attr("x",x(acc/d.tot)).attr("y",yy).attr("width",Math.max(0,x(seg.v/d.tot))).attr("height",h)
+        .attr("fill",COLOR[d.s]).attr("fill-opacity",seg.o).attr("stroke","#0a0a0e").attr("stroke-width",1)
+        .on("mousemove",(e)=>showTip(`<b>${d.s}</b> — ${seg.k}<br>${pct(seg.v/d.tot)} of $${(d.tot/1000).toFixed(1)}B${seg.k==="top deal"?"<br>"+d.topName+" "+dealAmount(seg.v):""}`,e))
+        .on("mouseleave",hideTip);
+      acc+=seg.v;
+    });
+    g.append("text").attr("x",-8).attr("y",yy+h/2).attr("dy","0.32em").attr("text-anchor","end")
+      .attr("fill","#dfe1e8").attr("font-size",12).attr("font-weight",700).text(d.s);
+    g.append("text").attr("x",iw+8).attr("y",yy+h/2).attr("dy","0.32em")
+      .attr("fill",COLOR[d.s]).attr("font-size",11).attr("font-weight",800).text("top3 "+pct(d.top3pct));
+  });
+  g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x).ticks(5).tickFormat(d3.format(".0%")));
+  d3.select("#concNote").html(`<b>The Web3 ↔ AI contrast:</b> AI's single biggest round (OpenAI) is <b>33%</b> of all its landmark capital, and its top three are <b>53%</b> — a few names <em>are</em> the sector. Web3's biggest (Binance) is just <b>12%</b>, top three only <b>29%</b>: 56 deals sharing the pot. Same boom, opposite structure — a king vs a crowd.`);
+}
+
+function drawGeography(){
+  const svg=d3.select("#geography"), W=940,H=300,m={t:14,r:70,b:26,l:78};
+  svg.selectAll("*").remove();
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
+  const USSET=new Set(["USA","US","UNITED STATES"]);
+  const data=SECTORS.map(s=>{
+    const ds=deals.filter(d=>d.sector===s && d.amount>0);
+    let us=0,row=0;
+    ds.forEach(d=> USSET.has((d.country||"").trim().toUpperCase()) ? us+=d.amount : row+=d.amount);
+    const tot=us+row;
+    return {s,us,row,tot,uspct:tot?us/tot:0};
+  }).filter(d=>d.tot>0).sort((a,b)=>b.uspct-a.uspct);
+  const yb=d3.scaleBand().domain(data.map(d=>d.s)).range([0,ih]).padding(0.28);
+  const x=d3.scaleLinear().domain([0,1]).range([0,iw]);
+  const US="#ff7a18", ROW="#2dd4bf";
+  data.forEach(d=>{
+    const yy=yb(d.s),h=yb.bandwidth();
+    g.append("rect").attr("x",0).attr("y",yy).attr("width",x(d.uspct)).attr("height",h).attr("fill",US).attr("fill-opacity",.9)
+      .on("mousemove",(e)=>showTip(`<b>${d.s}</b> — US<br>${pct(d.uspct)} · ${dealAmount(d.us)}`,e)).on("mouseleave",hideTip);
+    g.append("rect").attr("x",x(d.uspct)).attr("y",yy).attr("width",x(1-d.uspct)).attr("height",h).attr("fill",ROW).attr("fill-opacity",.85)
+      .on("mousemove",(e)=>showTip(`<b>${d.s}</b> — rest of world<br>${pct(1-d.uspct)} · ${dealAmount(d.row)}`,e)).on("mouseleave",hideTip);
+    g.append("text").attr("x",-8).attr("y",yy+h/2).attr("dy","0.32em").attr("text-anchor","end")
+      .attr("fill","#dfe1e8").attr("font-size",12).attr("font-weight",700).text(d.s);
+    g.append("text").attr("x",d.uspct>0.14?x(d.uspct)-6:x(d.uspct)+6).attr("y",yy+h/2).attr("dy","0.32em")
+      .attr("text-anchor",d.uspct>0.14?"end":"start").attr("fill",d.uspct>0.14?"#07101a":"#dfe1e8")
+      .attr("font-size",11).attr("font-weight",800).text(pct(d.uspct)+" US");
+  });
+  g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x).ticks(5).tickFormat(d3.format(".0%")));
+  const L=d3.select("#geoLegend"); L.selectAll("*").remove();
+  L.append("span").attr("class","key").html(`<span class="swatch" style="background:${US}"></span>United States`);
+  L.append("span").attr("class","key").html(`<span class="swatch" style="background:${ROW}"></span>Rest of world`);
+}
+
+function updateSectorChips(){
+  // scoped to the macro toolbar — deal chips and the deals toggle keep their own state
+  d3.selectAll(".sector-controls .chip").classed("on", function(){
+    const s = this.dataset.sector;
+    return s==="All" ? state.selected.size===SECTORS.length : state.selected.has(s);
+  });
+}
+
+function updateYearButtons(){
+  d3.selectAll("#yearButtons button").classed("on", function(){ return +this.dataset.year===state.shareYear; });
+}
+
+function updateShareCopy(){
+  const rows = annual.filter(d=>d.year===state.shareYear && d.value!=null);
+  const total = d3.sum(rows,d=>d.value);
+  const ai = rows.find(d=>d.sector==="AI");
+  const defense = rows.find(d=>d.sector==="Defense");
+  d3.select("#shareCopy").html(`${state.shareYear}: tracked sectors total <b>${moneyB(total)}</b>. AI accounts for <b>${pct(ai.value/total)}</b>; Defense is <b>${pct(defense.value/total)}</b> from a much smaller base.`);
+}
+
+function drawLines(){
+  const svg=d3.select("#lines"), W=940,H=430,m={t:24,r:126,b:36,l:58};
+  svg.selectAll("*").remove();
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
+  const x=d3.scalePoint().domain(years).range([0,iw]).padding(0.5);
+
+  if(state.scale==="indexed"){
+    // rebased view — only the selected sectors, each to its own 2022 = 100
+    const series=SECTORS.filter(s=>state.selected.has(s)).map(s=>{
+      const rows=annual.filter(d=>d.sector===s && d.value!=null).sort((a,b)=>a.year-b.year);
+      const base=rows[0].value;
+      return {s, rows:rows.map(d=>({year:d.year, idx:d.value/base*100, value:d.value, est:d.est}))};
+    });
+    const maxIdx=d3.max(series,se=>d3.max(se.rows,r=>r.idx));
+    const y=d3.scaleLinear().domain([0,maxIdx]).nice().range([ih,0]);
+    g.append("g").attr("class","grid").selectAll("line").data(y.ticks(6)).join("line")
+      .attr("x1",0).attr("x2",iw).attr("y1",d=>y(d)).attr("y2",d=>y(d));
+    g.append("line").attr("x1",0).attr("x2",iw).attr("y1",y(100)).attr("y2",y(100))
+      .attr("stroke","#3a3a44").attr("stroke-dasharray","2,3");
+    g.append("text").attr("x",2).attr("y",y(100)-4).attr("fill","#6f6f7a").attr("font-size",10)
+      .attr("font-family","'JetBrains Mono',monospace").text("2022 = 100");
+    g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x).tickFormat(d3.format("d")));
+    g.append("g").attr("class","axis").call(d3.axisLeft(y).ticks(6));
+    const line=d3.line().x(d=>x(d.year)).y(d=>y(d.idx));
+    const labs=[];
+    series.forEach(se=>{
+      g.append("path").datum(se.rows).attr("fill","none").attr("stroke",COLOR[se.s]).attr("stroke-width",2.6)
+        .attr("stroke-dasharray",CAVEAT[se.s]?"5,4":null).attr("d",line);
+      g.append("g").selectAll("circle").data(se.rows).join("circle")
+        .attr("cx",d=>x(d.year)).attr("cy",d=>y(d.idx)).attr("r",3.8)
+        .attr("fill",d=>d.est?"#0b0b0f":COLOR[se.s]).attr("stroke",COLOR[se.s]).attr("stroke-width",1.8)
+        .on("mousemove",(e,d)=>showTip(`<b>${se.s}</b> ${d.year}<br>Index ${d.idx.toFixed(0)} (2022=100)<br>${moneyB(d.value)}${d.est?"<br><span style='color:#ffd76b'>Estimated</span>":""}`,e))
+        .on("mouseleave",hideTip);
+      labs.push({s:se.s, y:y(se.rows[se.rows.length-1].idx)});
+    });
+    labs.sort((a,b)=>a.y-b.y);
+    for(let i=1;i<labs.length;i++){ if(labs[i].y-labs[i-1].y<14) labs[i].y=labs[i-1].y+14; }
+    g.append("g").selectAll("text").data(labs).join("text")
+      .attr("x",iw+10).attr("y",d=>d.y).attr("dy","0.32em").attr("fill",d=>COLOR[d.s])
+      .attr("font-size",11).attr("font-weight",850).text(d=>d.s+(CAVEAT[d.s]?" *":""));
+    return;
+  }
+
+  const maxV=d3.max(annual,d=>d.value);
+  const yLin=d3.scaleLinear().domain([0,maxV]).nice().range([ih,0]);
+  const yLog=d3.scaleLog().domain([2,Math.max(maxV,10)]).range([ih,0]);
+  const y = state.scale==="linear" ? yLin : yLog;
+  const ticks = state.scale==="log" ? [2,5,10,20,50,100,200].filter(d=>d<=maxV) : y.ticks(6);
+  g.append("g").attr("class","grid").selectAll("line").data(ticks).join("line")
+    .attr("x1",0).attr("x2",iw).attr("y1",d=>y(d)).attr("y2",d=>y(d));
+  g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x).tickFormat(d3.format("d")));
+  g.append("g").attr("class","axis").call(d3.axisLeft(y).tickValues(ticks).tickFormat(d=>"$"+d+"B"));
+  const bySector=d3.groups(annual,d=>d.sector);
+  const line=d3.line().defined(d=>d.value!=null && (state.scale==="linear" || d.value>0)).x(d=>x(d.year)).y(d=>y(d.value));
+  g.append("g").selectAll("path").data(bySector).join("path")
+    .attr("fill","none")
+    .attr("stroke",d=>COLOR[d[0]])
+    .attr("stroke-width",d=>isActive(d[0])?(d[0]==="Defense"?3.2:2.4):1.2)
+    .attr("stroke-opacity",d=>isActive(d[0])?1:.18)
+    .attr("stroke-dasharray",d=>CAVEAT[d[0]]?"5,4":null)
+    .attr("d",d=>line(d[1].sort((a,b)=>a.year-b.year)));
+  g.append("g").selectAll("circle").data(annual.filter(d=>d.value!=null&&(state.scale==="linear"||d.value>0))).join("circle")
+    .attr("cx",d=>x(d.year)).attr("cy",d=>y(d.value))
+    .attr("r",d=>d.sector==="Defense"?4.4:3.4)
+    .attr("fill",d=>d.est?"#0b0b0f":COLOR[d.sector])
+    .attr("stroke",d=>COLOR[d.sector])
+    .attr("stroke-width",1.8)
+    .attr("opacity",d=>isActive(d.sector)?1:.22)
+    .on("mousemove",(e,d)=>showTip(`<b>${d.sector}</b> ${d.year}<br>${moneyB(d.value)}${d.est?"<br><span style='color:#ffd76b'>Estimated or derived</span>":""}`,e))
+    .on("mouseleave",hideTip);
+  const labs=bySector.map(d=>{
+    const pts=d[1].filter(p=>p.value!=null&&(state.scale==="linear"||p.value>0)).sort((a,b)=>a.year-b.year);
+    const last=pts[pts.length-1];
+    return last?{s:d[0], y:y(last.value), v:last.value}:null;
+  }).filter(Boolean).sort((a,b)=>a.y-b.y);
+  const gap=14;
+  for(let i=1;i<labs.length;i++){ if(labs[i].y-labs[i-1].y<gap) labs[i].y=labs[i-1].y+gap; }
+  g.append("g").selectAll("text").data(labs).join("text")
+    .attr("x",iw+10).attr("y",d=>d.y).attr("dy","0.32em")
+    .attr("fill",d=>COLOR[d.s]).attr("opacity",d=>isActive(d.s)?1:.35)
+    .attr("font-size",11).attr("font-weight",850)
+    .text(d=>d.s+(CAVEAT[d.s]?" *":""));
+}
+
+function drawStack(){
+  const svg=d3.select("#stack"), W=940,H=360,m={t:18,r:122,b:36,l:48};
+  svg.selectAll("*").remove();
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
+  const x=d3.scaleBand().domain(years).range([0,iw]).padding(0.32);
+  const y=d3.scaleLinear().domain([0,1]).range([ih,0]);
+  g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x).tickFormat(d3.format("d")));
+  g.append("g").attr("class","axis").call(d3.axisLeft(y).ticks(5).tickFormat(d3.format(".0%")));
+  years.forEach(yr=>{
+    const rows=annual.filter(d=>d.year===yr && d.value!=null);
+    const total=d3.sum(rows,d=>d.value);
+    const ordered=SECTORS.map(s=>rows.find(d=>d.sector===s)).filter(Boolean);
+    let acc=0;
+    const segs=ordered.map(d=>{ const share=d.value/total; const seg={...d,total,share,y0:acc,y1:acc+share}; acc+=share; return seg; });
+    const barOpacity = yr===state.shareYear ? 1 : .42;
+    g.selectAll(`rect.y${yr}`).data(segs).enter().append("rect")
+      .attr("class",`y${yr}`)
+      .attr("x",x(yr)).attr("width",x.bandwidth())
+      .attr("y",d=>y(d.y1)).attr("height",d=>y(d.y0)-y(d.y1))
+      .attr("fill",d=>COLOR[d.sector])
+      .attr("opacity",d=>barOpacity*(isActive(d.sector)?1:.24))
+      .attr("stroke","#080a0f").attr("stroke-width",1)
+      .on("mousemove",(e,d)=>showTip(`<b>${d.sector}</b> ${yr}<br>${pct(d.share)} of tracked sectors<br>${moneyB(d.value)}`,e))
+      .on("mouseleave",hideTip);
+    segs.filter(d=>d.share>.045).forEach(d=>{
+      g.append("text").attr("x",x(yr)+x.bandwidth()/2).attr("y",(y(d.y0)+y(d.y1))/2)
+        .attr("dy","0.32em").attr("text-anchor","middle").attr("fill","#071018")
+        .attr("font-size",10).attr("font-weight",900).attr("opacity",barOpacity)
+        .text(d.sector==="AI" ? "AI "+pct(d.share) : d.sector);
+    });
+    g.append("text").attr("x",x(yr)+x.bandwidth()/2).attr("y",-5).attr("text-anchor","middle")
+      .attr("fill",yr===state.shareYear?"#fff":"#748092").attr("font-size",10).attr("font-weight",800)
+      .text(moneyB(total));
+  });
+}
+
+function drawWeb3(){
+  const svg=d3.select("#web3"), W=940,H=390,m={t:24,r:34,b:56,l:54};
+  svg.selectAll("*").remove();
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
+  const x=d3.scalePoint().domain(web3.map(d=>d.label)).range([0,iw]).padding(0.4);
+  const y=d3.scaleLinear().domain([0,d3.max(web3,d=>d.value)]).nice().range([ih,0]);
+  g.append("g").attr("class","grid").selectAll("line").data(y.ticks(5)).join("line")
+    .attr("x1",0).attr("x2",iw).attr("y1",d=>y(d)).attr("y2",d=>y(d));
+  g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x))
+    .selectAll("text").attr("transform","rotate(-40)").style("text-anchor","end");
+  g.append("g").attr("class","axis").call(d3.axisLeft(y).ticks(5).tickFormat(d=>"$"+d+"B"));
+  const area=d3.area().x(d=>x(d.label)).y0(ih).y1(d=>y(d.value));
+  const line=d3.line().x(d=>x(d.label)).y(d=>y(d.value));
+  g.append("path").datum(web3).attr("fill","#77e26d20").attr("d",area);
+  g.append("path").datum(web3).attr("fill","none").attr("stroke",COLOR.Web3).attr("stroke-width",2.6).attr("d",line);
+  g.selectAll("circle").data(web3).join("circle").attr("cx",d=>x(d.label)).attr("cy",d=>y(d.value))
+    .attr("r",d=>d.est?4.6:3.8).attr("fill",d=>d.est?"#0b0b0f":COLOR.Web3).attr("stroke",COLOR.Web3).attr("stroke-width",1.8)
+    .on("mousemove",(e,d)=>showTip(`<b>Web3 ${d.label}</b><br>${moneyB(d.value)}${d.est?"<br><span style='color:#ffd76b'>Derived estimate</span>":""}<br>${d.note||""}`,e))
+    .on("mouseleave",hideTip);
+  [
+    {label:"Peak", d:web3[0], dy:-18},
+    {label:"Market bottom", d:web3.find(d=>d.label==="2023 Q4"), dy:22},
+    {label:"Rebuild", d:web3[web3.length-1], dy:-18}
+  ].forEach(a=>{
+    if(!a.d) return;
+    g.append("text").attr("x",x(a.d.label)).attr("y",y(a.d.value)+a.dy)
+      .attr("text-anchor","middle").attr("fill","#dfe8f2").attr("font-size",11).attr("font-weight",850).text(a.label);
+  });
+}
+
+function drawEnergyAI(){
+  const GROUPS=["Fission","Fusion","Geothermal","Grid & Storage"];
+  const ECOL={"Fission":"#ffd76b","Fusion":"#ff7575","Geothermal":"#ffb35f","Grid & Storage":"#72b8ff"};
+  const eYears=["2024","2025"];
+  const agg={}; eYears.forEach(y=>{agg[y]={}; GROUPS.forEach(g=>agg[y][g]={"VC":0,"gov-grant":0});});
+  energyRaw.forEach(d=>{
+    if(d.capital_class!=="VC" && d.capital_class!=="gov-grant") return;
+    if(agg[d.year] && agg[d.year][d.subsector_group]) agg[d.year][d.subsector_group][d.capital_class]+=+d.amount_usd_m;
+  });
+  const vcT={}, grT={};
+  eYears.forEach(y=>{ vcT[y]=d3.sum(GROUPS,g=>agg[y][g]["VC"]); grT[y]=d3.sum(GROUPS,g=>agg[y][g]["gov-grant"]); });
+  const svg=d3.select("#energyChart"), W=940,H=430,m={t:44,r:168,b:38,l:64};
+  svg.selectAll("*").remove();
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
+  const x=d3.scaleBand().domain(eYears).range([0,iw]).padding(0.52);
+  const y=d3.scaleLinear().domain([0,d3.max(eYears,yr=>vcT[yr]+grT[yr])]).nice().range([ih,0]);
+  g.append("g").attr("class","grid").selectAll("line").data(y.ticks(5)).join("line")
+    .attr("x1",0).attr("x2",iw).attr("y1",d=>y(d)).attr("y2",d=>y(d));
+  g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x));
+  g.append("g").attr("class","axis").call(d3.axisLeft(y).ticks(5).tickFormat(d=>"$"+(d/1000).toFixed(1)+"B"));
+  eYears.forEach(yr=>{
+    const segs=[];
+    GROUPS.forEach(grp=>{ if(agg[yr][grp]["VC"]>0) segs.push({grp,cls:"VC",v:agg[yr][grp]["VC"]}); });
+    GROUPS.forEach(grp=>{ if(agg[yr][grp]["gov-grant"]>0) segs.push({grp,cls:"gov-grant",v:agg[yr][grp]["gov-grant"]}); });
+    let acc=0;
+    segs.forEach(s=>{
+      const yTop=y(acc+s.v), h=ih-y(s.v);
+      g.append("rect").attr("x",x(yr)).attr("width",x.bandwidth()).attr("y",yTop).attr("height",h)
+        .attr("fill",ECOL[s.grp]).attr("fill-opacity",s.cls==="VC"?1:0.28)
+        .attr("stroke",ECOL[s.grp]).attr("stroke-width",1).attr("stroke-dasharray",s.cls==="gov-grant"?"4,3":null)
+        .on("mousemove",(e)=>showTip(`<b>${s.grp}</b> ${yr}<br>${moneyM(s.v)}<br>${s.cls==="VC"?"Venture capital":"Government grant"}`,e)).on("mouseleave",hideTip);
+      if(h>22) g.append("text").attr("x",x(yr)+x.bandwidth()/2).attr("y",yTop+h/2).attr("dy","0.32em")
+        .attr("text-anchor","middle").attr("fill","#071018").attr("font-size",10).attr("font-weight",900).text(s.grp);
+      acc+=s.v;
+    });
+    const top=vcT[yr]+grT[yr];
+    g.append("text").attr("x",x(yr)+x.bandwidth()/2).attr("y",y(top)-22).attr("text-anchor","middle")
+      .attr("fill","#fff").attr("font-size",13).attr("font-weight",900).text("$"+(vcT[yr]/1000).toFixed(2)+"B selected VC");
+    if(grT[yr]>0) g.append("text").attr("x",x(yr)+x.bandwidth()/2).attr("y",y(top)-6).attr("text-anchor","middle")
+      .attr("fill","#aeb8c7").attr("font-size",11).text("+ "+moneyM(grT[yr])+" grant");
+  });
+  const L=d3.select("#energyLegend"); L.selectAll("*").remove();
+  GROUPS.forEach(grp=>{ L.append("span").attr("class","key").html(`<span class="swatch" style="background:${ECOL[grp]}"></span>${grp}`); });
+  L.append("span").attr("class","key").text("Solid = VC");
+  L.append("span").attr("class","key").text("Faded = grant");
+}
+
+function drawDemand(){
+  const svg=d3.select("#demandChart"), W=940,H=240,m={t:28,r:28,b:34,l:64};
+  svg.selectAll("*").remove();
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const g=svg.append("g").attr("transform",`translate(${m.l},${m.t})`);
+  const data=[
+    {k:"2023 actual", lo:176, hi:176, pct:"4.4% of US grid"},
+    {k:"2028 projected", lo:325, hi:580, pct:"7-12% of US grid"}
+  ];
+  const x=d3.scaleBand().domain(data.map(d=>d.k)).range([0,iw]).padding(0.58);
+  const y=d3.scaleLinear().domain([0,600]).nice().range([ih,0]);
+  g.append("g").attr("class","grid").selectAll("line").data(y.ticks(5)).join("line")
+    .attr("x1",0).attr("x2",iw).attr("y1",d=>y(d)).attr("y2",d=>y(d));
+  g.append("g").attr("class","axis").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x));
+  g.append("g").attr("class","axis").call(d3.axisLeft(y).ticks(5).tickFormat(d=>d+" TWh"));
+  data.forEach(d=>{
+    g.append("rect").attr("x",x(d.k)).attr("width",x.bandwidth()).attr("y",y(d.lo)).attr("height",ih-y(d.lo))
+      .attr("fill",COLOR.AI).attr("fill-opacity",0.86)
+      .on("mousemove",(e)=>showTip(`<b>US data centers</b><br>${d.k}<br>${d.lo===d.hi?d.lo:d.lo+"-"+d.hi} TWh<br>${d.pct}`,e)).on("mouseleave",hideTip);
+    if(d.hi>d.lo) g.append("rect").attr("x",x(d.k)).attr("width",x.bandwidth()).attr("y",y(d.hi)).attr("height",y(d.lo)-y(d.hi))
+      .attr("fill",COLOR.AI).attr("fill-opacity",0.23).attr("stroke",COLOR.AI).attr("stroke-dasharray","4,3")
+      .on("mousemove",(e)=>showTip(`<b>Projection range</b><br>${d.lo}-${d.hi} TWh<br>${d.pct}`,e)).on("mouseleave",hideTip);
+    g.append("text").attr("x",x(d.k)+x.bandwidth()/2).attr("y",y(d.hi)-18).attr("text-anchor","middle")
+      .attr("fill","#fff").attr("font-size",13).attr("font-weight",900).text((d.lo===d.hi?d.lo:d.lo+"-"+d.hi)+" TWh");
+    g.append("text").attr("x",x(d.k)+x.bandwidth()/2).attr("y",y(d.hi)-3).attr("text-anchor","middle")
+      .attr("fill",COLOR.AI).attr("font-size",11).attr("font-weight",800).text(d.pct);
+  });
+  const L=d3.select("#demandLegend"); L.selectAll("*").remove();
+  L.append("span").attr("class","key").text("Source: LBNL for US demand; IEA for global context in sources.md");
+}
+
+/* ===== Presentation only: sidebar scroll-spy + reveal-on-scroll. Fails safe — never hides content. ===== */
+(function(){
+  const nav=document.querySelector(".sidenav");
+  const links=nav ? [...nav.querySelectorAll("a[href^='#']")].filter(a=>!a.classList.contains("sidenav-top") && !a.classList.contains("sidenav-brand")) : [];
+  const spyItems=links.map(a=>{
+    const el=document.querySelector(a.getAttribute("href"));
+    const sub=a.closest(".sub");
+    return el ? {a, el, parent: sub ? sub.parentElement.querySelector("a") : null} : null;
+  }).filter(Boolean);
+  const bar=nav ? nav.querySelector(".sidenav-progress i") : null;
+  const scroller=nav ? nav.querySelector(".sidenav-inner") : null;
+  let ticking=false;
+  function update(){
+    ticking=false;
+    const line=Math.min(window.innerHeight*0.35, 280);
+    let active=null;
+    spyItems.forEach(it=>{ if(it.el.getBoundingClientRect().top<=line) active=it; });
+    links.forEach(l=>l.classList.remove("active","parent"));
+    if(active){
+      active.a.classList.add("active");
+      if(active.parent) active.parent.classList.add("parent");
+      // keep the active item visible inside the nav itself (vertical sidebar or horizontal mobile bar)
+      const ar=active.a.getBoundingClientRect(), sr=scroller.getBoundingClientRect();
+      if(ar.left<sr.left || ar.right>sr.right) scroller.scrollLeft += ar.left-sr.left-48;
+      if(ar.top<sr.top || ar.bottom>sr.bottom) scroller.scrollTop += ar.top-sr.top-72;
+    }
+    if(bar){
+      const doc=document.documentElement;
+      const span=doc.scrollHeight-doc.clientHeight;
+      bar.style.width=(span>0 ? doc.scrollTop/span*100 : 0).toFixed(1)+"%";
+    }
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }
+  if(spyItems.length){
+    addEventListener("scroll",onScroll,{passive:true});
+    addEventListener("resize",onScroll);
+    update();
+  }
+  if(!("IntersectionObserver" in window)) return;
+  const reduce=window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  if(!reduce){
+    const items=[...document.querySelectorAll(".panel,.section-label,.intro")];
+    document.body.classList.add("anim");
+    const rev=new IntersectionObserver(es=>{
+      es.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add("in"); rev.unobserve(en.target); } });
+    },{rootMargin:"0px 0px -8% 0px",threshold:0.06});
+    items.forEach(el=>rev.observe(el));
+    setTimeout(()=>items.forEach(el=>el.classList.add("in")),2500); // safety net
+  }
+})();
+</script>
+</body>
+</html>
