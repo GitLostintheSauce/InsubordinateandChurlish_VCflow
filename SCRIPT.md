@@ -21,7 +21,7 @@ The dashboard reads top-to-bottom as a build: set up the macro, then land on the
 > "Start with what everyone already feels: AI ate venture capital. Of AI's **$211B** in 2025 funding, **~$93B — nearly half of all $197B in tracked landmark capital — went to just three labs**: OpenAI, Anthropic, xAI. AI took **~50% of all global venture dollars** in 2025, up from one category among several three years ago. Hold one idea: *capital concentrates.*"
 
 ### §02 — Headline insights *(rapid evidence — let them scan, don't read aloud)*
-> "These ten cards are the whole story in numbers — AI, Web3, fintech — and every one is sourced."
+> "These seven cards are the whole story in numbers — AI, Web3, fintech — and every one is sourced."
 
 ### §05 — Macro context *(the bridge — set up the contrast)*
 > "Here's the full field off one consistent Crunchbase backbone. AI's curve dwarfs everything in absolute dollars. But absolute size isn't the opportunity — the opportunity is where capital is *moving*. So look at what's recovering underneath the AI story."
