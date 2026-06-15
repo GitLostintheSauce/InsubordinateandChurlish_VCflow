@@ -50,12 +50,6 @@
     letter-spacing:-.02em;font-weight:700;color:#fbfbfd;text-wrap:balance}
   h1 em{font-style:normal;color:var(--accent);position:relative}
   .sub{max-width:760px;color:#b6b9c4;font-size:1.06rem;margin-top:1.15rem}
-  .hero-actions{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.5rem}
-  .action{font-family:'JetBrains Mono',monospace;border:1px solid var(--line);background:rgba(22,22,29,.7);
-    color:var(--text);border-radius:var(--r-sm);padding:.6rem .9rem;font-size:.78rem;font-weight:500;letter-spacing:.02em;cursor:pointer;transition:all .16s}
-  .action:hover{border-color:#454552;background:rgba(30,30,40,.8);transform:translateY(-1px)}
-  .action.primary{background:var(--accent);border-color:var(--accent);color:#160a00;font-weight:700;box-shadow:0 8px 24px -10px rgba(var(--accent-rgb),.7)}
-  .action.primary:hover{background:var(--accent-bright);transform:translateY(-1px)}
   .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:1.9rem;
     border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:rgba(17,17,23,.55);
     box-shadow:0 24px 60px -38px rgba(0,0,0,.95)}
@@ -143,6 +137,7 @@
   .panel-title{display:flex;gap:.8rem;align-items:flex-start}
   .num{font-family:'JetBrains Mono',monospace;width:1.7rem;height:1.7rem;border-radius:var(--r-sm);background:rgba(var(--accent-rgb),.1);
     color:var(--accent-bright);display:inline-grid;place-items:center;font-size:.8rem;font-weight:700;flex:0 0 auto;border:1px solid rgba(var(--accent-rgb),.25)}
+  .section-label .num{vertical-align:middle;margin-right:.7rem;position:relative;top:-.18em}
   h2{font-family:'Chakra Petch',sans-serif;font-size:1.32rem;letter-spacing:-.01em;color:#fff;font-weight:600}
   .desc{color:var(--muted);font-size:.9rem;margin-top:.25rem;max-width:760px}
   .toolbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.8rem;margin:1rem 0 .8rem}
@@ -236,7 +231,6 @@
   }
   @media (max-width:560px){
     .kpis,.split{grid-template-columns:1fr}
-    .hero-actions{display:none}
     .chart-frame{padding:.5rem}
   }
   @media (prefers-reduced-motion:reduce){
@@ -251,11 +245,6 @@
     <div class="eyebrow">Venture capital · 2022–2025 · FY2025 final</div>
     <h1>It wasn't a rotation. It was a <em>concentration event.</em></h1>
     <p class="sub">Of AI's $211B in FY2025 funding, ~$93B — nearly half — landed in three private labs: OpenAI, Anthropic, xAI. Almost every other story below (Web3's rebuild, the AI-energy buildout, the megaround era) is downstream of that one fact. The dashboards are evidence. The 145-deal leaderboard is the product.</p>
-    <div class="hero-actions">
-      <button class="action primary" data-scroll="#thesis">See the concentration evidence</button>
-      <button class="action" data-scroll="#deals-section">Browse the 145 deals</button>
-      <button class="action" data-scroll="#methodology">Read the methodology</button>
-    </div>
     <div class="kpis">
       <div class="kpi"><div class="label">AI funding</div><div class="value">$211B</div><div class="note">FY2025 final · Crunchbase</div></div>
       <div class="kpi"><div class="label">Concentration</div><div class="value">~$93B</div><div class="note">OpenAI + Anthropic + xAI · ≈ half of $197B landmark capital</div></div>
@@ -265,15 +254,21 @@
   </header>
 
   <nav class="section-nav" aria-label="Dashboard sections">
-    <button class="active" data-idx="01" data-scroll="#thesis">Concentration</button>
-    <button data-idx="02" data-scroll="#deals-section">Deals</button>
-    <button data-idx="03" data-scroll="#macro-section">Macro</button>
-    <button data-idx="04" data-scroll="#web3-section">Web3 Cycle</button>
-    <button data-idx="05" data-scroll="#energy-section">AI-Energy</button>
-    <button data-idx="06" data-scroll="#compare-section">Compare</button>
+    <button class="active" data-idx="01" data-scroll="#methodology">Methodology</button>
+    <button data-idx="02" data-scroll="#headline-insights">Insights</button>
+    <button data-idx="03" data-scroll="#thesis">Concentration</button>
+    <button data-idx="04" data-scroll="#deals-section">Deals</button>
+    <button data-idx="05" data-scroll="#macro-section">Macro</button>
+    <button data-idx="06" data-scroll="#web3-section">Web3 Cycle</button>
+    <button data-idx="07" data-scroll="#energy-section">AI-Energy</button>
+    <button data-idx="08" data-scroll="#compare-section">Compare</button>
   </nav>
 
   <div class="methodology" id="methodology">
+    <div class="panel-title" style="margin-bottom:.85rem">
+      <span class="num">01</span>
+      <div><h2>Methodology</h2></div>
+    </div>
     <div class="meth-grid">
       <div><b class="meth-label">Backbone</b> Crunchbase annual, six sectors. The six are a deliberate slice — this is not "all of global VC."</div>
       <div><b class="meth-label">Web3 deep dive</b> Galaxy Digital quarterly. Different scope than Crunchbase's Web3 line — shown separately, not added or stacked.</div>
@@ -285,16 +280,19 @@
 
   <section class="insights" id="headline-insights">
     <div class="insights-head">
-      <div>
-        <h2>Headline insights</h2>
-        <p class="desc">Twelve sourced claims behind the charts. Every number traces to a citation in <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/sources.md" style="color:var(--accent-2)">sources.md</a>.</p>
+      <div class="panel-title">
+        <span class="num">02</span>
+        <div>
+          <h2>Headline insights</h2>
+          <p class="desc">Twelve sourced claims behind the charts. Every number traces to a citation in <a href="https://github.com/GitLostintheSauce/InsubordinateandChurlish_VCflow/blob/main/sources.md" style="color:var(--accent-2)">sources.md</a>.</p>
+        </div>
       </div>
       <div class="insights-meta">2022 — 2025 · 12 cards</div>
     </div>
     <div class="insights-grid" id="insightsGrid"></div>
   </section>
 
-  <h2 class="section-label" id="thesis">The concentration event</h2>
+  <h2 class="section-label" id="thesis"><span class="num">03</span>The concentration event</h2>
   <p class="section-sub">Capital didn't rotate into AI — it concentrated. Four cuts of the 145 landmark deals show that the megaround era was a handful of giant, repeat rounds in a few AI labs, while Web3 stayed a crowd. This is the spine of the dashboard; the sections below are evidence and context.</p>
 
   <section class="panel">
@@ -336,7 +334,7 @@
   <section class="panel" id="deals-section">
     <div class="panel-head">
       <div class="panel-title">
-        <span class="num">2</span>
+        <span class="num">04</span>
         <div>
           <h2>The 145-deal leaderboard</h2>
           <p class="desc">This is the product. The macro charts above and below exist on fifty other sites; a clean, sourced, filterable deal table with primary links is the actual artifact worth bookmarking. Filter by sector and year, sort any column, follow every row to its source.</p>
@@ -363,7 +361,7 @@
   <section class="panel" id="macro-section">
     <div class="panel-head">
       <div class="panel-title">
-        <span class="num">3</span>
+        <span class="num">05</span>
         <div>
           <h2>Macro context</h2>
           <p class="desc">The shape of the period in two views off the same Crunchbase backbone. AI's curve dwarfs everything in absolute dollars, and capital share confirms it. Demoted from the lead because it's context, not thesis.</p>
@@ -400,7 +398,7 @@
   <section class="panel" id="web3-section">
     <div class="panel-head">
       <div class="panel-title">
-        <span class="num">4</span>
+        <span class="num">06</span>
         <div>
           <h2>The Web3 cycle, quarter by quarter</h2>
           <p class="desc">Galaxy's quarterly data reveals the peak → winter → 2025 rebuild that annual totals flatten. Q4 2025 ($8.5B) is the strongest quarter since Q2 2022 — capital is back, but in infrastructure and trading rails, not consumer/NFT froth.</p>
@@ -411,7 +409,7 @@
     <div class="note">Galaxy's Web3 scope is broader than Crunchbase's annual Web3 line — intentionally shown as a separate deep dive, not added or stacked into the macro charts.</div>
   </section>
 
-  <h2 class="section-label" id="energy-section">The downstream play: AI-energy</h2>
+  <h2 class="section-label" id="energy-section"><span class="num">07</span>The downstream play: AI-energy</h2>
   <p class="section-sub">The concentration into a few AI labs has a second-order consequence: someone has to power them. Below — selected named rounds and the demand curve pulling the capital.</p>
 
   <section class="panel">
@@ -438,7 +436,7 @@
   <section class="panel" id="compare-section">
     <div class="panel-head">
       <div class="panel-title">
-        <span class="num">6</span>
+        <span class="num">08</span>
         <div>
           <h2>Sector comparison</h2>
           <p class="desc">Pick two or three sectors to compare head-to-head. The chart rebases each to its own 2022 level (=100), so relative growth is visible regardless of absolute size; the cards below carry the absolute totals.</p>
@@ -1182,13 +1180,20 @@ function drawDemand(){
   const navBtns=[...document.querySelectorAll(".section-nav button")];
   const targets=navBtns.map(b=>document.querySelector(b.dataset.scroll)).filter(Boolean);
   if(targets.length){
-    const spy=new IntersectionObserver(es=>{
-      es.forEach(en=>{ if(en.isIntersecting){
-        const id="#"+en.target.id;
-        navBtns.forEach(b=>b.classList.toggle("active", b.dataset.scroll===id));
-      }});
-    },{rootMargin:"-45% 0px -50% 0px"});
-    targets.forEach(t=>spy.observe(t));
+    const setActive=id=>navBtns.forEach(b=>b.classList.toggle("active", b.dataset.scroll===id));
+    let ticking=false;
+    const onScroll=()=>{
+      const mark=window.innerHeight*0.35;
+      let current=targets[0];
+      for(const t of targets){ if(t.getBoundingClientRect().top<=mark) current=t; }
+      // at the very bottom of the page, force the last section active
+      if(window.innerHeight+window.scrollY>=document.body.scrollHeight-2) current=targets[targets.length-1];
+      setActive("#"+current.id);
+      ticking=false;
+    };
+    window.addEventListener("scroll",()=>{ if(!ticking){ ticking=true; requestAnimationFrame(onScroll); } },{passive:true});
+    window.addEventListener("resize",onScroll);
+    onScroll();
   }
   const reduce=window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
   if(!reduce){
